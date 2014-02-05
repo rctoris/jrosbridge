@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.wpi.rail</groupId>
+    <artifactId>jrosbridge</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>jrosbridge</name>
+    <url>https://github.com/wpi-rail/jrosbridge</url>
+    
+    <properties>
+        <jdk.version>1.7</jdk.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish</groupId> 
+            <artifactId>javax.json</artifactId> 
+            <version>1.0.4</version> 
+        </dependency>
+		    <dependency>
+			      <groupId>org.glassfish.tyrus</groupId>
+			      <artifactId>tyrus-client</artifactId>
+			      <version>1.2.1</version>
+		    </dependency>
+		    <dependency>
+			      <groupId>org.glassfish.tyrus</groupId>
+			      <artifactId>tyrus-container-grizzly</artifactId>
+			      <version>1.2.1</version>
+		    </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+		        <plugins>
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-compiler-plugin</artifactId>
+		                <version>3.1</version>
+		                <configuration>
+		                    <source>${jdk.version}</source>
+		                    <target>${jdk.version}</target>
+		                </configuration>
+		            </plugin>
+		        </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
