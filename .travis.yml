@@ -8,3 +8,6 @@ branches:
   only:
     - master
     - develop
+
+script:
+  - mvn package
