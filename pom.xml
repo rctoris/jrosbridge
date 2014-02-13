@@ -4,7 +4,7 @@
 
 	<groupId>edu.wpi.rail</groupId>
 	<artifactId>jrosbridge</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>jrosbridge</name>
@@ -23,7 +23,7 @@
 		<connection>scm:git:git://github.com/WPI-RAIL/jrosbridge.git</connection>
 		<developerConnection>scm:git:git@github.com:WPI-RAIL/jrosbridge.git</developerConnection>
 		<url>https://github.com/WPI-RAIL/jrosbridge</url>
-	  <tag>0.0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<dependencies>
