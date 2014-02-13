@@ -1,51 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.wpi.rail</groupId>
-    <artifactId>jrosbridge</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+	<groupId>edu.wpi.rail</groupId>
+	<artifactId>jrosbridge</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-    <name>jrosbridge</name>
-    <url>https://github.com/wpi-rail/jrosbridge</url>
-    
-    <properties>
-        <jdk.version>1.7</jdk.version>
-    </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.glassfish</groupId> 
-            <artifactId>javax.json</artifactId> 
-            <version>1.0.4</version> 
-        </dependency>
-		    <dependency>
-			      <groupId>org.glassfish.tyrus</groupId>
-			      <artifactId>tyrus-client</artifactId>
-			      <version>1.2.1</version>
-		    </dependency>
-		    <dependency>
-			      <groupId>org.glassfish.tyrus</groupId>
-			      <artifactId>tyrus-container-grizzly</artifactId>
-			      <version>1.2.1</version>
-		    </dependency>
-    </dependencies>
+	<name>jrosbridge</name>
+	<url>https://github.com/WPI-RAIL/jrosbridge</url>
+	<licenses>
+		<license>
+			<name>BSD License</name>
+			<url>https://raw.github.com/WPI-RAIL/jrosbridge/develop/LICENSE</url>
+			<distribution>repo</distribution>
+			<comments>The BSD 3-Clause License</comments>
+		</license>
+	</licenses>
+	<description>A Native Java EE rosbridge Client</description>
 
-    <build>
-        <pluginManagement>
-		        <plugins>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-compiler-plugin</artifactId>
-		                <version>3.1</version>
-		                <configuration>
-		                    <source>${jdk.version}</source>
-		                    <target>${jdk.version}</target>
-		                </configuration>
-		            </plugin>
-		        </plugins>
-        </pluginManagement>
-    </build>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/WPI-RAIL/jrosbridge/issues</url>
+	</issueManagement>
+
+	<properties>
+		<jdk.version>1.7</jdk.version>
+	</properties>
+
+	<scm>
+		<connection>scm:git:git://github.com/WPI-RAIL/jrosbridge.git</connection>
+		<developerConnection>scm:git:git@github.com:WPI-RAIL/jrosbridge.git</developerConnection>
+		<url>https://github.com/WPI-RAIL/jrosbridge</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.tyrus</groupId>
+			<artifactId>tyrus-client</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.tyrus</groupId>
+			<artifactId>tyrus-container-grizzly</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.4.2</version>
+					<configuration>
+						<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Sonatype Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.4</version>
+						<configuration>
+							<passphrase>${gpg.passphrase}</passphrase>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<developers>
+		<developer>
+			<id>rctoris</id>
+			<name>Russell Toris</name>
+			<email>rctoris@wpi.edu</email>
+			<url>http://users.wpi.edu/~rctoris</url>
+			<organization>WPI RAIL</organization>
+			<organizationUrl>http://web.cs.wpi.edu/~rail/</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
 
 </project>
