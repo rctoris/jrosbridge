@@ -90,7 +90,7 @@ public class Topic {
 	}
 
 	/**
-	 * Subscribe to this callback. A callback function is required and will be
+	 * Subscribe to this topic. A callback function is required and will be
 	 * called with any incoming message for this topic.
 	 * 
 	 * @param cb

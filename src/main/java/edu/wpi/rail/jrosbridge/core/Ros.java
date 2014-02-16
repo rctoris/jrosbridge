@@ -18,6 +18,8 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
+import edu.wpi.rail.jrosbridge.JRosbridge;
+
 /**
  * The Ros object is the main connection point to the rosbridge server. This
  * object manages all communication to-and-from ROS. Typically, this object is
@@ -25,7 +27,7 @@ import javax.websocket.Session;
  * edu.wpi.rail.jrosbridge.JRosbridge.Topic, are used.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 4, 2014
+ * @version Feb. 16, 2014
  */
 @ClientEndpoint
 public class Ros {
@@ -51,6 +53,9 @@ public class Ros {
 
 	// keeps track of callback functions for a given topic
 	private HashMap<String, ArrayList<TopicCallback>> topicCallbacks;
+
+	// keeps track of callback functions for a given service request
+	private HashMap<String, ServiceCallback> serviceCallbacks;
 
 	// keeps track of handlers for this connection
 	private ArrayList<RosHandler> handlers;
@@ -89,6 +94,7 @@ public class Ros {
 		this.session = null;
 		this.idCounter = 0;
 		this.topicCallbacks = new HashMap<String, ArrayList<TopicCallback>>();
+		this.serviceCallbacks = new HashMap<String, ServiceCallback>();
 		this.handlers = new ArrayList<RosHandler>();
 	}
 
@@ -248,18 +254,35 @@ public class Ros {
 					.createReader(new StringReader(message)).readObject();
 
 			// check for the correct fields
-			String op = jsonObject.getString("op");
-			if (op.equals("publish")) {
+			String op = jsonObject.getString(JRosbridge.FIELD_OP);
+			if (op.equals(JRosbridge.OP_CODE_PUBLISH)) {
 				// check for the topic name
-				String topic = jsonObject.getString("topic");
+				String topic = jsonObject.getString(JRosbridge.FIELD_TOPIC);
 
 				// call each callback with the message
 				ArrayList<TopicCallback> callbacks = topicCallbacks.get(topic);
 				if (callbacks != null) {
-					Message msg = new Message(jsonObject.getJsonObject("msg"));
+					Message msg = new Message(
+							jsonObject.getJsonObject(JRosbridge.FIELD_MESSAGE));
 					for (TopicCallback cb : callbacks) {
 						cb.handleMessage(msg);
 					}
+				}
+			} else if (op.equals(JRosbridge.OP_CODE_SERVICE_RESPONSE)) {
+				// check for the request ID
+				String id = jsonObject.getString(JRosbridge.FIELD_ID);
+
+				// call the callback for the request
+				ServiceCallback cb = serviceCallbacks.get(id);
+				if (cb != null) {
+					// check if a success code was given
+					boolean success = jsonObject
+							.getBoolean(JRosbridge.FIELD_RESULT);
+					// get the response
+					JsonObject values = jsonObject
+							.getJsonObject(JRosbridge.FIELD_VALUES);
+					ServiceResponse response = new ServiceResponse(values);
+					cb.handleServiceResponse(response, success);
 				}
 			} else {
 				System.err.println("[WARN]: Unrecognized op code: " + message);
@@ -335,5 +358,19 @@ public class Ros {
 				this.topicCallbacks.remove(topic);
 			}
 		}
+	}
+
+	/**
+	 * Register a callback for a given service request.
+	 * 
+	 * @param serviceCallId
+	 *            The unique ID of the service call.
+	 * @param cb
+	 *            The callback that will be called when a service request comes
+	 *            back for the associated request.
+	 */
+	public void registerServiceCallback(String serviceCallId, ServiceCallback cb) {
+		// add the callback
+		this.serviceCallbacks.put(serviceCallId, cb);
 	}
 }
