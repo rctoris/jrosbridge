@@ -373,29 +373,4 @@ public class Ros {
 		// add the callback
 		this.serviceCallbacks.put(serviceCallId, cb);
 	}
-
-	public static void main(String[] args) throws InterruptedException {
-		Ros ros = new Ros("rct-desktop.cs.wpi.edu");
-		ros.connect();
-
-		Service addTwoInts = new Service(ros, "/add_two_ints",
-				"rospy_tutorials/AddTwoInts");
-
-		ServiceRequest request = new ServiceRequest("{\"a\": 10, \"b\": 20}");
-
-		addTwoInts.callService(request, new ServiceCallback() {
-			@Override
-			public void handleServiceResponse(ServiceResponse response,
-					boolean success) {
-				if (success) {
-					System.out.println(response.toString());
-				} else {
-					System.err.println("ROS service returned with a failure.");
-				}
-			}
-		});
-
-		Thread.sleep(1000);
-		ros.disconnect();
-	}
 }
