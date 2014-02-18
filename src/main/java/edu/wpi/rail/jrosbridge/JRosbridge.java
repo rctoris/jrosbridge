@@ -15,6 +15,11 @@ public class JRosbridge {
 	public static final String FIELD_ARGS = "args";
 
 	/**
+	 * The client field for the rosbridge protocol.
+	 */
+	public static final String FIELD_CLIENT = "client";
+
+	/**
 	 * The compression field for the rosbridge protocol.
 	 */
 	public static final String FIELD_COMPRESSION = "compression";
@@ -25,9 +30,29 @@ public class JRosbridge {
 	public static final String FIELD_DATA = "data";
 
 	/**
+	 * The destination field for the rosbridge protocol.
+	 */
+	public static final String FIELD_DESTINATION = "dest";
+
+	/**
+	 * The end time field for the rosbridge protocol.
+	 */
+	public static final String FIELD_END_TIME = "end";
+
+	/**
 	 * The ID field for the rosbridge protocol.
 	 */
 	public static final String FIELD_ID = "id";
+
+	/**
+	 * The user level field for the rosbridge protocol.
+	 */
+	public static final String FIELD_LEVEL = "level";
+
+	/**
+	 * The MAC field for the rosbridge protocol.
+	 */
+	public static final String FIELD_MAC = "mac";
 
 	/**
 	 * The message data field for the rosbridge protocol.
@@ -38,6 +63,11 @@ public class JRosbridge {
 	 * The op code field for the rosbridge protocol.
 	 */
 	public static final String FIELD_OP = "op";
+
+	/**
+	 * The random field for the rosbridge protocol.
+	 */
+	public static final String FIELD_RAND = "rand";
 
 	/**
 	 * The result field for the rosbridge protocol.
@@ -53,6 +83,11 @@ public class JRosbridge {
 	 * The throttle rate field for the rosbridge protocol.
 	 */
 	public static final String FIELD_THROTTLE_RATE = "throttle_rate";
+
+	/**
+	 * The time field for the rosbridge protocol.
+	 */
+	public static final String FIELD_TIME = "t";
 
 	/**
 	 * The topic field for the rosbridge protocol.
@@ -73,6 +108,11 @@ public class JRosbridge {
 	 * The advertise op code for the rosbridge protocol.
 	 */
 	public static final String OP_CODE_ADVERTISE = "advertise";
+
+	/**
+	 * The authenticate op code for the rosbridge protocol.
+	 */
+	public static final String OP_CODE_AUTHENTICATE = "auth";
 
 	/**
 	 * The call service op code for the rosbridge protocol.
@@ -108,6 +148,16 @@ public class JRosbridge {
 	 * The unsubscribe op code for the rosbridge protocol.
 	 */
 	public static final String OP_CODE_UNSUBSCRIBE = "unsubscribe";
+
+	/**
+	 * The types of websocket protocols supported by jrosbridge and rosbridge.
+	 * 
+	 * @author Russell Toris - rctoris@wpi.edu
+	 * @version Feb. 16, 2014
+	 */
+	public enum WebSocketType {
+		ws, wss
+	}
 
 	/**
 	 * The types of compression supported by jrosbridge and rosbridge.
