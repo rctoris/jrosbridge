@@ -3,6 +3,9 @@ package edu.wpi.rail.jrosbridge.core;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+import edu.wpi.rail.jrosbridge.core.callback.ParamCallback;
+import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
+
 /**
  * The Param object can be used to make calls to rosapi which can get, set, and
  * delete parameters from the ROS parameter server. Calls are asynchronous.
@@ -112,10 +115,10 @@ public class Param {
 					// extract the value
 					String value = response.toJsonObject().getString(
 							FIELD_VALUE);
-					cb.handleResponse(value);
+					cb.handleParameter(value);
 				} else {
 					// failed call
-					cb.handleResponse("");
+					cb.handleParameter("");
 				}
 			}
 		});

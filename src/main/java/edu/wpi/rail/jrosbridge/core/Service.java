@@ -4,6 +4,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.JRosbridge;
+import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
 
 /**
  * The Service object is responsible for calling a service in ROS.

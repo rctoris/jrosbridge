@@ -6,6 +6,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.JRosbridge;
+import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
 
 /**
  * The Topic object is responsible for publishing and/or subscribing to a topic
