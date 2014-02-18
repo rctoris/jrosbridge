@@ -373,4 +373,25 @@ public class Ros {
 		// add the callback
 		this.serviceCallbacks.put(serviceCallId, cb);
 	}
+
+	public static void main(String[] args) throws InterruptedException {
+		Ros ros = new Ros("rct-desktop.cs.wpi.edu");
+		ros.connect();
+
+		Param newP = new Param(ros, "/test");
+//		newP.set("hello!!");
+//
+//		Param p = new Param(ros, "/rosdistro");
+//		p.get(new ParamCallback() {
+//			@Override
+//			public void handleResponse(String param) {
+//				System.out.println("Got a parameter! " + param);
+//			}
+//		});
+		
+		newP.delete();
+
+		Thread.sleep(1000);
+		ros.disconnect();
+	}
 }
