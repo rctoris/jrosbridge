@@ -15,6 +15,16 @@ public class JRosbridge {
 	public static final String FIELD_ARGS = "args";
 
 	/**
+	 * The compression field for the rosbridge protocol.
+	 */
+	public static final String FIELD_COMPRESSION = "compression";
+
+	/**
+	 * The data field for the rosbridge protocol.
+	 */
+	public static final String FIELD_DATA = "data";
+
+	/**
 	 * The ID field for the rosbridge protocol.
 	 */
 	public static final String FIELD_ID = "id";
@@ -38,6 +48,11 @@ public class JRosbridge {
 	 * The service field for the rosbridge protocol.
 	 */
 	public static final String FIELD_SERVICE = "service";
+
+	/**
+	 * The throttle rate field for the rosbridge protocol.
+	 */
+	public static final String FIELD_THROTTLE_RATE = "throttle_rate";
 
 	/**
 	 * The topic field for the rosbridge protocol.
@@ -65,6 +80,11 @@ public class JRosbridge {
 	public static final String OP_CODE_CALL_SERVICE = "call_service";
 
 	/**
+	 * The png compression op code for the rosbridge protocol.
+	 */
+	public static final String OP_CODE_PNG = "png";
+
+	/**
 	 * The publish op code for the rosbridge protocol.
 	 */
 	public static final String OP_CODE_PUBLISH = "publish";
@@ -88,4 +108,14 @@ public class JRosbridge {
 	 * The unsubscribe op code for the rosbridge protocol.
 	 */
 	public static final String OP_CODE_UNSUBSCRIBE = "unsubscribe";
+
+	/**
+	 * The types of compression supported by jrosbridge and rosbridge.
+	 * 
+	 * @author Russell Toris - rctoris@wpi.edu
+	 * @version Feb. 16, 2014
+	 */
+	public enum CompressionType {
+		png, none
+	}
 }

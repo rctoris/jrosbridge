@@ -1,5 +1,7 @@
 package edu.wpi.rail.jrosbridge.core;
 
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
@@ -7,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.websocket.ClientEndpoint;
@@ -17,6 +20,8 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+
+import org.glassfish.grizzly.http.util.Base64Utils;
 
 import edu.wpi.rail.jrosbridge.JRosbridge;
 import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
@@ -255,45 +260,82 @@ public class Ros {
 			JsonObject jsonObject = Json
 					.createReader(new StringReader(message)).readObject();
 
-			// check for the correct fields
+			// check for compression
 			String op = jsonObject.getString(JRosbridge.FIELD_OP);
-			if (op.equals(JRosbridge.OP_CODE_PUBLISH)) {
-				// check for the topic name
-				String topic = jsonObject.getString(JRosbridge.FIELD_TOPIC);
+			if (op.equals(JRosbridge.OP_CODE_PNG)) {
+				String data = jsonObject.getString(JRosbridge.FIELD_DATA);
+				// decompress the PNG data
+				byte[] bytes = Base64Utils.decode(data.getBytes());
+				Raster imageData = ImageIO
+						.read(new ByteArrayInputStream(bytes)).getRaster();
 
-				// call each callback with the message
-				ArrayList<TopicCallback> callbacks = topicCallbacks.get(topic);
-				if (callbacks != null) {
-					Message msg = new Message(
-							jsonObject.getJsonObject(JRosbridge.FIELD_MESSAGE));
-					for (TopicCallback cb : callbacks) {
-						cb.handleMessage(msg);
-					}
+				// read the RGB data
+				int[] rawData = null;
+				rawData = imageData.getPixels(0, 0, imageData.getWidth(),
+						imageData.getHeight(), rawData);
+				StringBuffer buffer = new StringBuffer();
+				for (int i = 0; i < rawData.length; i++) {
+					buffer.append(Character.toString((char) rawData[i]));
 				}
-			} else if (op.equals(JRosbridge.OP_CODE_SERVICE_RESPONSE)) {
-				// check for the request ID
-				String id = jsonObject.getString(JRosbridge.FIELD_ID);
 
-				// call the callback for the request
-				ServiceCallback cb = serviceCallbacks.get(id);
-				if (cb != null) {
-					// check if a success code was given
-					boolean success = jsonObject
-							.getBoolean(JRosbridge.FIELD_RESULT);
-					// get the response
-					JsonObject values = jsonObject
-							.getJsonObject(JRosbridge.FIELD_VALUES);
-					ServiceResponse response = new ServiceResponse(values);
-					cb.handleServiceResponse(response, success);
-				}
+				// reparse the JSON
+				JsonObject newJsonObject = Json.createReader(
+						new StringReader(buffer.toString())).readObject();
+				handleMessage(newJsonObject);
 			} else {
-				System.err.println("[WARN]: Unrecognized op code: " + message);
+				handleMessage(jsonObject);
 			}
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | IOException e) {
 			// only occurs if there was an error with the JSON
 			System.err.println("[WARN]: Invalid incoming rosbridge protocol: "
 					+ message);
 		}
+	}
+
+	/**
+	 * Handle the incoming rosbridge message by calling the appropriate
+	 * callbacks.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object from the incoming rosbridge message.
+	 */
+	private void handleMessage(JsonObject jsonObject) {
+		// check for the correct fields
+		String op = jsonObject.getString(JRosbridge.FIELD_OP);
+		if (op.equals(JRosbridge.OP_CODE_PUBLISH)) {
+			// check for the topic name
+			String topic = jsonObject.getString(JRosbridge.FIELD_TOPIC);
+
+			// call each callback with the message
+			ArrayList<TopicCallback> callbacks = topicCallbacks.get(topic);
+			if (callbacks != null) {
+				Message msg = new Message(
+						jsonObject.getJsonObject(JRosbridge.FIELD_MESSAGE));
+				for (TopicCallback cb : callbacks) {
+					cb.handleMessage(msg);
+				}
+			}
+		} else if (op.equals(JRosbridge.OP_CODE_SERVICE_RESPONSE)) {
+			// check for the request ID
+			String id = jsonObject.getString(JRosbridge.FIELD_ID);
+
+			// call the callback for the request
+			ServiceCallback cb = serviceCallbacks.get(id);
+			if (cb != null) {
+				// check if a success code was given
+				boolean success = jsonObject
+						.getBoolean(JRosbridge.FIELD_RESULT);
+				// get the response
+				JsonObject values = jsonObject
+						.getJsonObject(JRosbridge.FIELD_VALUES);
+				ServiceResponse response = new ServiceResponse(values);
+				cb.handleServiceResponse(response, success);
+			}
+		} else {
+			System.err.println("[WARN]: Unrecognized op code: "
+					+ jsonObject.toString());
+		}
+
 	}
 
 	/**
@@ -380,18 +422,18 @@ public class Ros {
 		Ros ros = new Ros("rct-desktop.cs.wpi.edu");
 		ros.connect();
 
-		Param newP = new Param(ros, "/test");
-//		newP.set("hello!!");
-//
-//		Param p = new Param(ros, "/rosdistro");
-//		p.get(new ParamCallback() {
-//			@Override
-//			public void handleResponse(String param) {
-//				System.out.println("Got a parameter! " + param);
-//			}
-//		});
-		
-		newP.delete();
+		Topic echo = new Topic(ros, "/echo", "std_msgs/String");
+		Message toSend = new Message("{\"data\": \"hello, world!\"}");
+		echo.publish(toSend);
+
+		Topic echoBack = new Topic(ros, "/echo_back", "std_msgs/String",
+				JRosbridge.CompressionType.png);
+		echoBack.subscribe(new TopicCallback() {
+			@Override
+			public void handleMessage(Message message) {
+				System.out.println("From ROS: " + message.toString());
+			}
+		});
 
 		Thread.sleep(1000);
 		ros.disconnect();
