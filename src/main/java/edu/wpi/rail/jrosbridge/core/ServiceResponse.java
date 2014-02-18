@@ -17,6 +17,13 @@ public class ServiceResponse {
 	private JsonObject jsonObject;
 
 	/**
+	 * Create a new, empty service response.
+	 */
+	public ServiceResponse() {
+		this("");
+	}
+
+	/**
 	 * Create a ServiceResponse based on the given String representation of a
 	 * JSON object.
 	 * 

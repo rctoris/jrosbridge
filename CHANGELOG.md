@@ -5,6 +5,7 @@ DEVEL - **0.0.3**
  * png decompression support added [(rctoris)](https://github.com/rctoris/)
  * WSS client connections now supported [(rctoris)](https://github.com/rctoris/)
  * `rosauth` authentication added [(rctoris)](https://github.com/rctoris/)
+ * Handlers moved to their own package [(rctoris)](https://github.com/rctoris/)
 
 2013-02-16 - **0.0.2**
  * Support for calling services added [(rctoris)](https://github.com/rctoris/)

@@ -15,6 +15,13 @@ import javax.json.JsonObject;
 public class ServiceRequest {
 
 	private JsonObject jsonObject;
+	
+	/**
+	 * Create a new, empty service request.
+	 */
+	public ServiceRequest() {
+		this("");
+	}
 
 	/**
 	 * Create a ServiceRequest based on the given String representation of a

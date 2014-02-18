@@ -15,6 +15,13 @@ import javax.json.JsonObject;
 public class Message {
 
 	private JsonObject jsonObject;
+	
+	/**
+	 * Create a new, empty message.
+	 */
+	public Message() {
+		this("");
+	}
 
 	/**
 	 * Create a Message based on the given String representation of a JSON
