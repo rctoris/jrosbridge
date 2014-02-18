@@ -7,7 +7,7 @@ import javax.websocket.Session;
  * certain events in the Ros connection object.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 4, 2014
+ * @version Feb. 18, 2014
  */
 public interface RosHandler {
 

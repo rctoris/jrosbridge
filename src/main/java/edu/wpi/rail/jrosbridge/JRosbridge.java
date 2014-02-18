@@ -5,7 +5,7 @@ package edu.wpi.rail.jrosbridge;
  * protocol itself (e.g., op code types).
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 16, 2014
+ * @version Feb. 18, 2014
  */
 public class JRosbridge {
 
