@@ -1,4 +1,6 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge.core.callback;
+
+import edu.wpi.rail.jrosbridge.core.ServiceResponse;
 
 /**
  * The ServiceCallback interface defines a single method which will be called
@@ -6,7 +8,7 @@ package edu.wpi.rail.jrosbridge.core;
  * request.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 16, 2014
+ * @version Feb. 18, 2014
  */
 public interface ServiceCallback {
 

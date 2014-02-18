@@ -1,5 +1,7 @@
 package edu.wpi.rail.jrosbridge.core;
 
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
@@ -7,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.websocket.ClientEndpoint;
@@ -18,7 +21,11 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
+import org.glassfish.grizzly.http.util.Base64Utils;
+
 import edu.wpi.rail.jrosbridge.JRosbridge;
+import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
 
 /**
  * The Ros object is the main connection point to the rosbridge server. This
@@ -27,7 +34,7 @@ import edu.wpi.rail.jrosbridge.JRosbridge;
  * edu.wpi.rail.jrosbridge.JRosbridge.Topic, are used.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 16, 2014
+ * @version Feb. 18, 2014
  */
 @ClientEndpoint
 public class Ros {
@@ -44,6 +51,7 @@ public class Ros {
 
 	private String hostname;
 	private int port;
+	private JRosbridge.WebSocketType protocol;
 
 	// active session (stored upon connection)
 	private Session session;
@@ -70,7 +78,8 @@ public class Ros {
 
 	/**
 	 * Create a connection to ROS with the given hostname and default port. A
-	 * call to connect must be made to establish a connection.
+	 * call to connect must be made to establish a connection. By default,
+	 * WebSockets is used (as opposed to WSS).
 	 * 
 	 * @param hostname
 	 *            The hostname to connect to.
@@ -81,7 +90,8 @@ public class Ros {
 
 	/**
 	 * Create a connection to ROS with the given hostname and port. A call to
-	 * connect must be made to establish a connection.
+	 * connect must be made to establish a connection. By default, WebSockets is
+	 * used (as opposed to WSS).
 	 * 
 	 * @param hostname
 	 *            The hostname to connect to.
@@ -89,8 +99,24 @@ public class Ros {
 	 *            The port to connect to.
 	 */
 	public Ros(String hostname, int port) {
+		this(hostname, port, JRosbridge.WebSocketType.ws);
+	}
+
+	/**
+	 * Create a connection to ROS with the given hostname and port. A call to
+	 * connect must be made to establish a connection.
+	 * 
+	 * @param hostname
+	 *            The hostname to connect to.
+	 * @param port
+	 *            The port to connect to.
+	 * @param protocol
+	 *            The WebSocket protocol to use.
+	 */
+	public Ros(String hostname, int port, JRosbridge.WebSocketType protocol) {
 		this.hostname = hostname;
 		this.port = port;
+		this.protocol = protocol;
 		this.session = null;
 		this.idCounter = 0;
 		this.topicCallbacks = new HashMap<String, ArrayList<TopicCallback>>();
@@ -114,6 +140,25 @@ public class Ros {
 	 */
 	public int getPort() {
 		return this.port;
+	}
+
+	/**
+	 * Get the type of WebSocket protocol being used.
+	 * 
+	 * @return The type of WebSocket protocol being used.
+	 */
+	public JRosbridge.WebSocketType getProtocol() {
+		return this.protocol;
+	}
+
+	/**
+	 * Get the full URL this client is connecting to.
+	 * 
+	 * @return
+	 */
+	public String getURL() {
+		return this.protocol.toString() + "://" + this.hostname + ":"
+				+ this.port;
 	}
 
 	/**
@@ -146,7 +191,7 @@ public class Ros {
 	public boolean connect() {
 		try {
 			// create a WebSocket connection here
-			URI uri = new URI("ws://" + hostname + ":" + port);
+			URI uri = new URI(this.getURL());
 			ContainerProvider.getWebSocketContainer()
 					.connectToServer(this, uri);
 			return true;
@@ -185,7 +230,7 @@ public class Ros {
 	 * @return If there is a connection to rosbridge.
 	 */
 	public boolean isConnected() {
-		return session != null && session.isOpen();
+		return this.session != null && this.session.isOpen();
 	}
 
 	/**
@@ -253,45 +298,82 @@ public class Ros {
 			JsonObject jsonObject = Json
 					.createReader(new StringReader(message)).readObject();
 
-			// check for the correct fields
+			// check for compression
 			String op = jsonObject.getString(JRosbridge.FIELD_OP);
-			if (op.equals(JRosbridge.OP_CODE_PUBLISH)) {
-				// check for the topic name
-				String topic = jsonObject.getString(JRosbridge.FIELD_TOPIC);
+			if (op.equals(JRosbridge.OP_CODE_PNG)) {
+				String data = jsonObject.getString(JRosbridge.FIELD_DATA);
+				// decompress the PNG data
+				byte[] bytes = Base64Utils.decode(data.getBytes());
+				Raster imageData = ImageIO
+						.read(new ByteArrayInputStream(bytes)).getRaster();
 
-				// call each callback with the message
-				ArrayList<TopicCallback> callbacks = topicCallbacks.get(topic);
-				if (callbacks != null) {
-					Message msg = new Message(
-							jsonObject.getJsonObject(JRosbridge.FIELD_MESSAGE));
-					for (TopicCallback cb : callbacks) {
-						cb.handleMessage(msg);
-					}
+				// read the RGB data
+				int[] rawData = null;
+				rawData = imageData.getPixels(0, 0, imageData.getWidth(),
+						imageData.getHeight(), rawData);
+				StringBuffer buffer = new StringBuffer();
+				for (int i = 0; i < rawData.length; i++) {
+					buffer.append(Character.toString((char) rawData[i]));
 				}
-			} else if (op.equals(JRosbridge.OP_CODE_SERVICE_RESPONSE)) {
-				// check for the request ID
-				String id = jsonObject.getString(JRosbridge.FIELD_ID);
 
-				// call the callback for the request
-				ServiceCallback cb = serviceCallbacks.get(id);
-				if (cb != null) {
-					// check if a success code was given
-					boolean success = jsonObject
-							.getBoolean(JRosbridge.FIELD_RESULT);
-					// get the response
-					JsonObject values = jsonObject
-							.getJsonObject(JRosbridge.FIELD_VALUES);
-					ServiceResponse response = new ServiceResponse(values);
-					cb.handleServiceResponse(response, success);
-				}
+				// reparse the JSON
+				JsonObject newJsonObject = Json.createReader(
+						new StringReader(buffer.toString())).readObject();
+				handleMessage(newJsonObject);
 			} else {
-				System.err.println("[WARN]: Unrecognized op code: " + message);
+				handleMessage(jsonObject);
 			}
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | IOException e) {
 			// only occurs if there was an error with the JSON
 			System.err.println("[WARN]: Invalid incoming rosbridge protocol: "
 					+ message);
 		}
+	}
+
+	/**
+	 * Handle the incoming rosbridge message by calling the appropriate
+	 * callbacks.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object from the incoming rosbridge message.
+	 */
+	private void handleMessage(JsonObject jsonObject) {
+		// check for the correct fields
+		String op = jsonObject.getString(JRosbridge.FIELD_OP);
+		if (op.equals(JRosbridge.OP_CODE_PUBLISH)) {
+			// check for the topic name
+			String topic = jsonObject.getString(JRosbridge.FIELD_TOPIC);
+
+			// call each callback with the message
+			ArrayList<TopicCallback> callbacks = topicCallbacks.get(topic);
+			if (callbacks != null) {
+				Message msg = new Message(
+						jsonObject.getJsonObject(JRosbridge.FIELD_MESSAGE));
+				for (TopicCallback cb : callbacks) {
+					cb.handleMessage(msg);
+				}
+			}
+		} else if (op.equals(JRosbridge.OP_CODE_SERVICE_RESPONSE)) {
+			// check for the request ID
+			String id = jsonObject.getString(JRosbridge.FIELD_ID);
+
+			// call the callback for the request
+			ServiceCallback cb = serviceCallbacks.get(id);
+			if (cb != null) {
+				// check if a success code was given
+				boolean success = jsonObject
+						.getBoolean(JRosbridge.FIELD_RESULT);
+				// get the response
+				JsonObject values = jsonObject
+						.getJsonObject(JRosbridge.FIELD_VALUES);
+				ServiceResponse response = new ServiceResponse(values);
+				cb.handleServiceResponse(response, success);
+			}
+		} else {
+			System.err.println("[WARN]: Unrecognized op code: "
+					+ jsonObject.toString());
+		}
+
 	}
 
 	/**
@@ -315,6 +397,38 @@ public class Ros {
 		}
 		// message send failed
 		return false;
+	}
+
+	/**
+	 * Sends an authorization request to the server.
+	 * 
+	 * @param mac
+	 *            The MAC (hash) string given by the trusted source.
+	 * @param client
+	 *            The IP of the client.
+	 * @param dest
+	 *            The IP of the destination.
+	 * @param rand
+	 *            The random string given by the trusted source.
+	 * @param t
+	 *            The time of the authorization request.
+	 * @param level
+	 *            The user level as a string given by the client.
+	 * @param end
+	 *            The end time of the client's session.
+	 */
+	public void authenticate(String mac, String client, String dest,
+			String rand, int t, String level, int end) {
+		// build and send the rosbridge call
+		JsonObject call = Json.createObjectBuilder()
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_AUTHENTICATE)
+				.add(JRosbridge.FIELD_MAC, mac)
+				.add(JRosbridge.FIELD_CLIENT, client)
+				.add(JRosbridge.FIELD_DESTINATION, dest)
+				.add(JRosbridge.FIELD_RAND, rand).add(JRosbridge.FIELD_TIME, t)
+				.add(JRosbridge.FIELD_LEVEL, level)
+				.add(JRosbridge.FIELD_END_TIME, end).build();
+		this.send(call);
 	}
 
 	/**
@@ -372,5 +486,28 @@ public class Ros {
 	public void registerServiceCallback(String serviceCallId, ServiceCallback cb) {
 		// add the callback
 		this.serviceCallbacks.put(serviceCallId, cb);
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+
+		Ros ros = new Ros("rct-desktop.cs.wpi.edu");
+		System.out.println(ros.getURL());
+		ros.connect();
+
+		Topic echo = new Topic(ros, "/echo", "std_msgs/String");
+		Message toSend = new Message("{\"data\": \"hello, world!\"}");
+		echo.publish(toSend);
+
+		Topic echoBack = new Topic(ros, "/echo_back", "std_msgs/String",
+				JRosbridge.CompressionType.png);
+		echoBack.subscribe(new TopicCallback() {
+			@Override
+			public void handleMessage(Message message) {
+				System.out.println("From ROS: " + message.toString());
+			}
+		});
+
+		Thread.sleep(1000);
+		ros.disconnect();
 	}
 }
