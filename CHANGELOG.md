@@ -1,5 +1,6 @@
 DEVEL - **0.0.3**
  * Support for parameters added [(rctoris)](https://github.com/rctoris/)
+ * Math package added [(rctoris)](https://github.com/rctoris/)
 
 2013-02-16 - **0.0.2**
  * Support for calling services added [(rctoris)](https://github.com/rctoris/)
