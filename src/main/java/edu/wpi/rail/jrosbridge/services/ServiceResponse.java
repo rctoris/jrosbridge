@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge.services;
 
 import java.io.StringReader;
 
@@ -15,6 +15,13 @@ import javax.json.JsonObject;
 public class ServiceResponse {
 
 	private JsonObject jsonObject;
+
+	/**
+	 * Create a new, empty service response.
+	 */
+	public ServiceResponse() {
+		this("");
+	}
 
 	/**
 	 * Create a ServiceResponse based on the given String representation of a

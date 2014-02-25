@@ -5,6 +5,8 @@ import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.core.callback.ParamCallback;
 import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.services.ServiceRequest;
+import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 /**
  * The Param object can be used to make calls to rosapi which can get, set, and
