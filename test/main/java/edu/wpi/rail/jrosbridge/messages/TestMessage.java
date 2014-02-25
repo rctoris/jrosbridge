@@ -113,7 +113,7 @@ public class TestMessage {
 
 	@Test
 	public void testEqualsWrongObject() {
-		assertFalse(empty.equals(new String(Message.EMPTY_MESSAGE)));
+		assertFalse(empty.equals(new String(empty.toString())));
 	}
 
 	@Test
