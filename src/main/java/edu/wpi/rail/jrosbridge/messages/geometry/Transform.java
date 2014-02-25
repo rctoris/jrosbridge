@@ -40,7 +40,7 @@ public class Transform extends Message {
 
 	/**
 	 * Create a new Transform with the given translation value (rotation will
-	 * 0). A deep clone of the values will be taken.
+	 * 0).
 	 * 
 	 * @param translation
 	 *            The translation value of the transform.
@@ -51,7 +51,7 @@ public class Transform extends Message {
 
 	/**
 	 * Create a new Transform with the given rotation value (translation will
-	 * 0). A deep clone of the values will be taken.
+	 * 0).
 	 * 
 	 * @param rotation
 	 *            The rotation value of the transform.
@@ -61,8 +61,7 @@ public class Transform extends Message {
 	}
 
 	/**
-	 * Create a new Transform with the given translation and rotation values. A
-	 * deep clone of the values will be taken.
+	 * Create a new Transform with the given translation and rotation values.
 	 * 
 	 * @param translation
 	 *            The translation value of the transform.
@@ -77,8 +76,8 @@ public class Transform extends Message {
 								translation.toJsonObject())
 						.add(Transform.FIELD_ROTATION, rotation.toJsonObject())
 						.build(), Transform.TYPE);
-		this.translation = translation.clone();
-		this.rotation = rotation.clone();
+		this.translation = translation;
+		this.rotation = rotation;
 	}
 
 	/**

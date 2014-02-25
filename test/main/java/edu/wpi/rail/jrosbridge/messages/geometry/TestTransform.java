@@ -236,7 +236,5 @@ public class TestTransform {
 		assertNotSame(p3, clone);
 		assertNotSame(p3.toString(), clone.toString());
 		assertNotSame(p3.toJsonObject(), clone.toJsonObject());
-		assertNotSame(p3.getTranslation(), clone.getTranslation());
-		assertNotSame(p3.getRotation(), clone.getRotation());
 	}
 }

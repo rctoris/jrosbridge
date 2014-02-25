@@ -222,7 +222,5 @@ public class TestPose {
 		assertNotSame(p3, clone);
 		assertNotSame(p3.toString(), clone.toString());
 		assertNotSame(p3.toJsonObject(), clone.toJsonObject());
-		assertNotSame(p3.getPosition(), clone.getPosition());
-		assertNotSame(p3.getOrientation(), clone.getOrientation());
 	}
 }

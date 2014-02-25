@@ -32,8 +32,8 @@ public class GoalMessage extends Message {
 				.add(GoalMessage.FIELD_GOAL_ID_ID, id).build();
 
 		// construct the entire message
-		this.jsonObject = Json.createObjectBuilder()
-				.add(GoalMessage.FIELD_GOAL_ID, goalID)
-				.add(GoalMessage.FIELD_GOAL, goal.toJsonObject()).build();
+//		this.jsonObject = Json.createObjectBuilder()
+//				.add(GoalMessage.FIELD_GOAL_ID, goalID)
+//				.add(GoalMessage.FIELD_GOAL, goal.toJsonObject()).build();
 	}
 }

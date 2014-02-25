@@ -39,8 +39,7 @@ public class Pose extends Message {
 	}
 
 	/**
-	 * Create a new Pose with the given position value (orientation will 0). A
-	 * deep clone of the values will be taken.
+	 * Create a new Pose with the given position value (orientation will 0).
 	 * 
 	 * @param position
 	 *            The position value of the pose.
@@ -50,8 +49,7 @@ public class Pose extends Message {
 	}
 
 	/**
-	 * Create a new Pose with the given orientation value (position will 0). A
-	 * deep clone of the values will be taken.
+	 * Create a new Pose with the given orientation value (position will 0).
 	 * 
 	 * @param orientation
 	 *            The orientation value of the pose.
@@ -61,8 +59,7 @@ public class Pose extends Message {
 	}
 
 	/**
-	 * Create a new Pose with the given position and orientation values. A deep
-	 * clone of the values will be taken.
+	 * Create a new Pose with the given position and orientation values.
 	 * 
 	 * @param position
 	 *            The position value of the pose.
@@ -75,8 +72,8 @@ public class Pose extends Message {
 				.add(Pose.FIELD_POSITION, position.toJsonObject())
 				.add(Pose.FIELD_ORIENTATION, orientation.toJsonObject())
 				.build(), Pose.TYPE);
-		this.position = position.clone();
-		this.orientation = orientation.clone();
+		this.position = position;
+		this.orientation = orientation;
 	}
 
 	/**
