@@ -2,7 +2,7 @@ package edu.wpi.rail.jrosbridge.actionlib;
 
 import java.util.Date;
 
-import edu.wpi.rail.jrosbridge.core.Message;
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class Goal {
 
@@ -10,8 +10,10 @@ public class Goal {
 	private Message goalMessage;
 	private boolean isFinished;
 	private String goalID;
+	
+	private ArrayList<GoalHandler>
 
-	public Goal(ActionClient actionClient, Message goalMessage) {
+	public Goal(ActionClient actionClient, Message goal) {
 		// assign the fields
 		this.actionClient = actionClient;
 		this.goalMessage = goalMessage;
@@ -22,7 +24,21 @@ public class Goal {
 		this.goalID = "goal_" + (int) (Math.random() * Integer.MAX_VALUE) + "_"
 				+ date.getTime();
 
-		// TODO
+		// create the goal message
+		this.goalMessage = new GoalMessage(this.goalID, goal);
+
+		  this.on('status', function(status) {
+		    that.status = status;
+		  });
+
+		  this.on('result', function(result) {
+		    that.isFinished = true;
+		    that.result = result;
+		  });
+
+		  this.on('feedback', function(feedback) {
+		    that.feedback = feedback;
+		  });
 
 		// add the goal to the client
 		this.actionClient.addGoal(this);

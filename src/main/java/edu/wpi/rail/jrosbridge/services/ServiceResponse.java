@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge.services;
 
 import java.io.StringReader;
 

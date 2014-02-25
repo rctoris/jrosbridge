@@ -8,10 +8,10 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.actionlib.handler.TimeoutHandler;
-import edu.wpi.rail.jrosbridge.core.Message;
 import edu.wpi.rail.jrosbridge.core.Ros;
 import edu.wpi.rail.jrosbridge.core.Topic;
 import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class ActionClient {
 

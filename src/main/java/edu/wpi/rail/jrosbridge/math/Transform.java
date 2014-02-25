@@ -1,5 +1,8 @@
 package edu.wpi.rail.jrosbridge.math;
 
+import edu.wpi.rail.jrosbridge.messages.geometry.Quaternion;
+import edu.wpi.rail.jrosbridge.messages.geometry.Vector3;
+
 /**
  * A Transform in 3-space.
  * 

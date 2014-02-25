@@ -27,6 +27,8 @@ import edu.wpi.rail.jrosbridge.JRosbridge;
 import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
 import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.core.handler.RosHandler;
+import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 /**
  * The Ros object is the main connection point to the rosbridge server. This

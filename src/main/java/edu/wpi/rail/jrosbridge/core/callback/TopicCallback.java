@@ -1,6 +1,6 @@
 package edu.wpi.rail.jrosbridge.core.callback;
 
-import edu.wpi.rail.jrosbridge.core.Message;
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 /**
  * The TopicCallback interface defines a single method which will be called when

@@ -1,17 +1,41 @@
-package edu.wpi.rail.jrosbridge.math;
+package edu.wpi.rail.jrosbridge.messages.geometry;
+
+import java.io.StringReader;
+
+import javax.json.Json;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
+
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 /**
- * A Vector3 represents a 4-dimensional vector with x, y, z, and w components.
+ * The geometry_msgs/Quaternion message. A Quaternion represents a 4-dimensional
+ * vector with x, y, z, and w components.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version February 18, 2014
+ * @version February 20, 2014
  */
-public class Quaternion {
+public class Quaternion extends Message {
 
-	private double x;
-	private double y;
-	private double z;
-	private double w;
+	/**
+	 * The name of the x field for the message.
+	 */
+	public static final String FIELD_X = "x";
+
+	/**
+	 * The name of the y field for the message.
+	 */
+	public static final String FIELD_Y = "y";
+
+	/**
+	 * The name of the z field for the message.
+	 */
+	public static final String FIELD_Z = "z";
+
+	/**
+	 * The name of the z field for the message.
+	 */
+	public static final String FIELD_W = "w";
 
 	/**
 	 * Create a new quaternion with all 0s.
@@ -72,10 +96,71 @@ public class Quaternion {
 	 *            The w value of the quaternion.
 	 */
 	public Quaternion(double x, double y, double z, double w) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.w = w;
+		this.setValues(x, y, z, w);
+	}
+
+	/**
+	 * Create a new quaternion based on the given JSON string. Any missing
+	 * values are initialized to 0
+	 * 
+	 * @param json
+	 *            The JSON String to parse.
+	 */
+	public Quaternion(String json) {
+		// parse and pass it to the JSON constructor
+		this(Json.createReader(new StringReader(json)).readObject());
+	}
+
+	/**
+	 * Create a new quaternion based on the given JSON object. Any missing
+	 * values are initialized to 0
+	 * 
+	 * @param jsonObject
+	 *            The JSON object containing the message data.
+	 */
+	public Quaternion(JsonObject jsonObject) {
+		double x = 0;
+		double y = 0;
+		double z = 0;
+		double w = 0;
+
+		// try to get the information
+		JsonNumber xJson = jsonObject.getJsonNumber(Quaternion.FIELD_X);
+		if (xJson != null) {
+			x = xJson.doubleValue();
+		}
+		JsonNumber yJson = jsonObject.getJsonNumber(Quaternion.FIELD_Y);
+		if (yJson != null) {
+			y = yJson.doubleValue();
+		}
+		JsonNumber zJson = jsonObject.getJsonNumber(Quaternion.FIELD_Z);
+		if (zJson != null) {
+			z = zJson.doubleValue();
+		}
+		JsonNumber wJson = jsonObject.getJsonNumber(Quaternion.FIELD_W);
+		if (wJson != null) {
+			w = wJson.doubleValue();
+		}
+
+		this.setValues(x, y, z, w);
+	}
+
+	/**
+	 * Set the values of the internal JSON object to the given values.
+	 * 
+	 * @param x
+	 *            The x value of the message.
+	 * @param y
+	 *            The y value of the message.
+	 * @param z
+	 *            The z value of the message.
+	 * @param w
+	 *            The w value of the message.
+	 */
+	private void setValues(double x, double y, double z, double w) {
+		this.jsonObject = Json.createObjectBuilder().add(Quaternion.FIELD_X, x)
+				.add(Quaternion.FIELD_Y, y).add(Quaternion.FIELD_Z, z)
+				.add(Quaternion.FIELD_W, w).build();
 	}
 
 	/**
@@ -84,7 +169,7 @@ public class Quaternion {
 	 * @return The x value of this quaternion.
 	 */
 	public double getX() {
-		return this.x;
+		return jsonObject.getJsonNumber(Quaternion.FIELD_X).doubleValue();
 	}
 
 	/**
@@ -94,7 +179,7 @@ public class Quaternion {
 	 *            The x value of this quaternion.
 	 */
 	public void setX(double x) {
-		this.x = x;
+		this.setValues(x, this.getY(), this.getZ(), this.getW());
 	}
 
 	/**
@@ -103,7 +188,7 @@ public class Quaternion {
 	 * @return The y value of this quaternion.
 	 */
 	public double getY() {
-		return this.y;
+		return jsonObject.getJsonNumber(Quaternion.FIELD_Y).doubleValue();
 	}
 
 	/**
@@ -113,7 +198,7 @@ public class Quaternion {
 	 *            The y value of this quaternion.
 	 */
 	public void setY(double y) {
-		this.y = y;
+		this.setValues(this.getX(), y, this.getZ(), this.getW());
 	}
 
 	/**
@@ -122,7 +207,7 @@ public class Quaternion {
 	 * @return The z value of this quaternion.
 	 */
 	public double getZ() {
-		return this.z;
+		return jsonObject.getJsonNumber(Quaternion.FIELD_Z).doubleValue();
 	}
 
 	/**
@@ -132,7 +217,7 @@ public class Quaternion {
 	 *            The z value of this quaternion.
 	 */
 	public void setZ(double z) {
-		this.z = z;
+		this.setValues(this.getX(), this.getY(), z, this.getW());
 	}
 
 	/**
@@ -141,7 +226,7 @@ public class Quaternion {
 	 * @return The w value of this quaternion.
 	 */
 	public double getW() {
-		return this.w;
+		return jsonObject.getJsonNumber(Quaternion.FIELD_Z).doubleValue();
 	}
 
 	/**
@@ -151,35 +236,32 @@ public class Quaternion {
 	 *            The w value of this quaternion.
 	 */
 	public void setW(double w) {
-		this.w = w;
+		this.setValues(this.getX(), this.getY(), this.getZ(), w);
 	}
 
 	/**
 	 * Perform a conjugation on this quaternion.
 	 */
 	public void conjugate() {
-		this.x *= -1;
-		this.y *= -1;
-		this.z *= -1;
+		this.setValues(-this.getX(), -this.getY(), -this.getZ(), this.getW());
 	}
 
 	/**
 	 * Perform a normalization on this quaternion.
 	 */
 	public void normalize() {
-		double l = Math.sqrt(this.x * this.x + this.y * this.y + this.z
-				* this.z + this.w * this.w);
+		double curX = this.getX();
+		double curY = this.getY();
+		double curZ = this.getZ();
+		double curW = this.getW();
+
+		double l = Math.sqrt(curX * curX + curY * curY + curZ * curZ + curW
+				* curW);
 		if (l == 0) {
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-			this.w = 1;
+			this.setValues(0, 0, 0, 1);
 		} else {
 			l = 1 / l;
-			this.x = this.x * l;
-			this.y = this.y * l;
-			this.z = this.z * l;
-			this.w = this.w * l;
+			this.setValues(curX * l, curY * l, curZ * l, curW * l);
 		}
 	}
 
@@ -207,10 +289,8 @@ public class Quaternion {
 				+ this.w * q.getZ();
 		double newW = -this.x * q.getX() - this.y * q.getY() - this.z
 				* q.getZ() + this.w * q.getW();
-		this.x = newX;
-		this.y = newY;
-		this.z = newZ;
-		this.w = newW;
+
+		this.setValues(newX, newY, newZ, newX);
 	}
 
 	/**
@@ -240,6 +320,6 @@ public class Quaternion {
 	 * @return A clone of this Quaternion.
 	 */
 	public Quaternion clone() {
-		return new Quaternion(this.x, this.y, this.z, this.w);
+		return new Quaternion(this.jsonObject);
 	}
 }
