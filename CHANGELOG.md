@@ -8,6 +8,7 @@ SNAPSHOT - **0.1.0**
  * Messages added to their own `edu.wpi.rail.jrosbridge.messages` package [(rctoris)](https://github.com/rctoris/)
  * `geometry_msgs` added to the `edu.wpi.rail.jrosbridge.messages.geometry` package [(rctoris)](https://github.com/rctoris/)
  * Services added to their own `edu.wpi.rail.jrosbridge.services` package [(rctoris)](https://github.com/rctoris/)
+ * `std_srvs` added to the `edu.wpi.rail.jrosbridge.services.std` package [(rctoris)](https://github.com/rctoris/)
  * JUnit test cases added [(rctoris)](https://github.com/rctoris/)
 
 2013-02-16 - **0.0.2**

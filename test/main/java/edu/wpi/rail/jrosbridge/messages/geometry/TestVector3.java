@@ -94,7 +94,7 @@ public class TestVector3 {
 	}
 
 	@Test
-	public void testSetType() {
+	public void testSetMessageType() {
 		empty.setMessageType("test");
 		assertEquals("test", empty.getMessageType());
 	}

@@ -66,7 +66,7 @@ public class TestPolygon {
 	}
 
 	@Test
-	public void testSetType() {
+	public void testSetMessageType() {
 		empty.setMessageType("test");
 		assertEquals("test", empty.getMessageType());
 	}
