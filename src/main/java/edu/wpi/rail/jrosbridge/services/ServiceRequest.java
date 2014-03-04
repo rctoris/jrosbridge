@@ -5,62 +5,111 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+
 /**
  * ServiceRequest objects are used for making a request to a service. These
- * service requests act as wrappers around JSON objects.
+ * service requests act as wrappers around JSON objects. Service request data is
+ * immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 16, 2014
+ * @version Feb. 26, 2014
  */
-public class ServiceRequest {
+public class ServiceRequest extends JsonWrapper {
 
-	private JsonObject jsonObject;
-	
 	/**
-	 * Create a new, empty service request.
+	 * The String representation of an empty service request in JSON.
+	 */
+	public static final String EMPTY_MESSAGE = JsonWrapper.EMPTY_JSON;
+
+	private String serviceRequestType;
+
+	/**
+	 * Create a new, empty service request. The type will be set to the empty
+	 * string.
 	 */
 	public ServiceRequest() {
-		this("");
+		this(ServiceRequest.EMPTY_MESSAGE, "");
+	}
+
+	/**
+	 * Create a ServiceRequest based on the given String representation of a
+	 * JSON object. The type will be set to the empty string.
+	 * 
+	 * @param jsonString
+	 *            The JSON String to parse.
+	 */
+	public ServiceRequest(String jsonString) {
+		this(jsonString, "");
 	}
 
 	/**
 	 * Create a ServiceRequest based on the given String representation of a
 	 * JSON object.
 	 * 
-	 * @param json
+	 * @param jsonString
 	 *            The JSON String to parse.
+	 * @param serviceRequestType
+	 *            The type of the service request (e.g., "std_srvs/Empty").
 	 */
-	public ServiceRequest(String json) {
+	public ServiceRequest(String jsonString, String serviceRequestType) {
 		// parse and pass it to the JSON constructor
-		this(Json.createReader(new StringReader(json)).readObject());
+		this(Json.createReader(new StringReader(jsonString)).readObject(),
+				serviceRequestType);
+	}
+
+	/**
+	 * Create a ServiceRequest based on the given JSON object. The type will be
+	 * set to the empty string.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object containing the service request data.
+	 */
+	public ServiceRequest(JsonObject jsonObject) {
+		// setup the JSON information
+		this(jsonObject, "");
 	}
 
 	/**
 	 * Create a ServiceRequest based on the given JSON object.
 	 * 
 	 * @param jsonObject
-	 *            The JSON object containing the message data.
+	 *            The JSON object containing the service request data.
+	 * @param serviceRequestType
+	 *            The type of the service request (e.g., "std_srvs/Empty").
 	 */
-	public ServiceRequest(JsonObject jsonObject) {
-		this.jsonObject = jsonObject;
+	public ServiceRequest(JsonObject jsonObject, String serviceRequestType) {
+		// setup the JSON information
+		super(jsonObject);
+		// set the type
+		this.serviceRequestType = serviceRequestType;
 	}
 
 	/**
-	 * Get this service request as a JSON object.
+	 * Get the type of the service request if one was set.
 	 * 
-	 * @return The service request as a JSON object.
+	 * @return The type of the service request.
 	 */
-	public JsonObject toJsonObject() {
-		return this.jsonObject;
+	public String getServiceRequestType() {
+		return this.serviceRequestType;
 	}
 
 	/**
-	 * Get the String representation of this service request in JSON format.
+	 * Set the type of the service request.
 	 * 
-	 * @return The String representation of this service request in JSON format.
+	 * @param serviceRequestType
+	 *            The type of the service request (e.g., "std_srvs/Empty").
+	 */
+	public void setServiceRequestType(String serviceRequestType) {
+		this.serviceRequestType = serviceRequestType;
+	}
+
+	/**
+	 * Create a deep clone of this ServiceRequest.
 	 */
 	@Override
-	public String toString() {
-		return this.jsonObject.toString();
+	public ServiceRequest clone() {
+		// use the string to make sure we get an entirely new JSON object
+		return new ServiceRequest(this.toString(), this.serviceRequestType);
 	}
 }

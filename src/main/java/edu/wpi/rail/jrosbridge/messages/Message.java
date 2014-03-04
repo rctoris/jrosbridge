@@ -35,7 +35,7 @@ public class Message extends JsonWrapper {
 	 * Create a Message based on the given String representation of a JSON
 	 * object. The type will be set to the empty string.
 	 * 
-	 * @param json
+	 * @param jsonString
 	 *            The JSON String to parse.
 	 */
 	public Message(String jsonString) {
@@ -46,7 +46,7 @@ public class Message extends JsonWrapper {
 	 * Create a Message based on the given String representation of a JSON
 	 * object.
 	 * 
-	 * @param json
+	 * @param jsonString
 	 *            The JSON String to parse.
 	 * @param messageType
 	 *            The type of the message (e.g., "geometry_msgs/Twist").
@@ -70,8 +70,7 @@ public class Message extends JsonWrapper {
 	}
 
 	/**
-	 * Create a Message based on the given JSON object. The type will be set to
-	 * the empty string.
+	 * Create a Message based on the given JSON object.
 	 * 
 	 * @param jsonObject
 	 *            The JSON object containing the message data.
@@ -109,7 +108,7 @@ public class Message extends JsonWrapper {
 	 */
 	@Override
 	public Message clone() {
-		// use the JSON string to ensure we get an entirely new object
+		// use the string to make sure we get an entirely new JSON object
 		return new Message(this.toString(), this.messageType);
 	}
 }
