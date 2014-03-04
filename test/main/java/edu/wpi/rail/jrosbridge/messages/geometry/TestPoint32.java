@@ -37,7 +37,7 @@ public class TestPoint32 {
 	}
 
 	@Test
-	public void testDoubleConstructor() {
+	public void testFloatConstructor() {
 		assertEquals(0.5f, p1.getX());
 		assertEquals(0.0f, p1.getY());
 		assertEquals(0.0f, p1.getZ());
@@ -56,7 +56,7 @@ public class TestPoint32 {
 	}
 
 	@Test
-	public void testDoubleAndDoubleConstructor() {
+	public void testFloatAndFloatConstructor() {
 		assertEquals(0.5f, p2.getX());
 		assertEquals(1.5f, p2.getY());
 		assertEquals(0.0f, p2.getZ());
@@ -75,7 +75,7 @@ public class TestPoint32 {
 	}
 
 	@Test
-	public void testDoubleDoubleAndDoubleConstructor() {
+	public void testFloatFloatAndFloatConstructor() {
 		assertEquals(0.5f, p3.getX());
 		assertEquals(1.5f, p3.getY());
 		assertEquals(3.0f, p3.getZ());
