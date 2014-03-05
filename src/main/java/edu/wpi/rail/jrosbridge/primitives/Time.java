@@ -1,34 +1,29 @@
-package edu.wpi.rail.jrosbridge.messages.std;
+package edu.wpi.rail.jrosbridge.primitives;
 
 import java.util.Date;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
-/**
- * The std_msgs/Time message.
- * 
- * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
- */
-public class Time extends Message {
-FIX THIS
+public class Time extends Primitive {
+
 	/**
 	 * The name of the seconds field for the message.
 	 */
-	public static final java.lang.String FIELD_SECS = "secs";
+	public static final String FIELD_SECS = "secs";
 	/**
 	 * The name of the nanoseconds field for the message.
 	 */
-	public static final java.lang.String FIELD_NSECS = "nsecs";
+	public static final String FIELD_NSECS = "nsecs";
 
 	/**
-	 * The message type.
+	 * The primitive type.
 	 */
-	public static final java.lang.String TYPE = "std_msgs/Time";
+	public static final String TYPE = "time";
 
-	private int secs, nsecs;
+	private final int secs, nsecs;
 
 	/**
 	 * Create a new Time with a default of 0.
@@ -124,4 +119,48 @@ FIX THIS
 		int nsecs = (int) ((conversion - secs) * 1000000000.0);
 		return new Time(secs, nsecs);
 	}
+
+	/**
+	 * Create a new Time based on the given JSON string. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Time message based on the given JSON string.
+	 */
+	public static Time fromJsonString(String jsonString) {
+		// convert to a message
+		return Time.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Time based on the given Message. Any missing values will be
+	 * set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Time message based on the given Message.
+	 */
+	public static Time fromMessage(Message m) {
+		// get it from the JSON object
+		return Time.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Time based on the given JSON object. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Time message based on the given JSON object.
+	 */
+	public static Time fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		int secs = jsonObject.containsKey(Time.FIELD_SECS) ? jsonObject
+				.getInt(Time.FIELD_SECS) : 0;
+		int nsecs = jsonObject.containsKey(Time.FIELD_NSECS) ? jsonObject
+				.getInt(Time.FIELD_NSECS) : 0;
+		return new Time(secs, nsecs);
+	}
+
 }

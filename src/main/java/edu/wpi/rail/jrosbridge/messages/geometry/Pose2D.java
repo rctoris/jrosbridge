@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -9,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * on a 2D manifold.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version February 25, 2014
+ * @version March 5, 2014
  */
 public class Pose2D extends Message {
 
@@ -33,36 +34,13 @@ public class Pose2D extends Message {
 	 */
 	public static final String TYPE = "geometry_msgs/Pose2D";
 
-	private double x, y, theta;
+	private final double x, y, theta;
 
 	/**
 	 * Create a new Pose2D with all 0s.
 	 */
 	public Pose2D() {
 		this(0, 0, 0);
-	}
-
-	/**
-	 * Create a new Pose2D with the given x value (y and theta values will 0).
-	 * 
-	 * @param x
-	 *            The x value of the pose.
-	 */
-	public Pose2D(double x) {
-		this(x, 0, 0);
-	}
-
-	/**
-	 * Create a new Pose2D with the given x and y values (the theta value will
-	 * be set to 0).
-	 * 
-	 * @param x
-	 *            The x value of the pose.
-	 * @param y
-	 *            The y value of the pose.
-	 */
-	public Pose2D(double x, double y) {
-		this(x, y, 0);
 	}
 
 	/**
@@ -118,5 +96,50 @@ public class Pose2D extends Message {
 	@Override
 	public Pose2D clone() {
 		return new Pose2D(this.x, this.y, this.theta);
+	}
+
+	/**
+	 * Create a new Pose2D based on the given JSON string. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Pose2D message based on the given JSON string.
+	 */
+	public static Pose2D fromJsonString(String jsonString) {
+		// convert to a message
+		return Pose2D.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Pose2D based on the given Message. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Pose2D message based on the given Message.
+	 */
+	public static Pose2D fromMessage(Message m) {
+		// get it from the JSON object
+		return Pose2D.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Pose2D based on the given JSON object. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Pose2D message based on the given JSON object.
+	 */
+	public static Pose2D fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		double x = jsonObject.containsKey(Pose2D.FIELD_X) ? jsonObject
+				.getJsonNumber(Pose2D.FIELD_X).doubleValue() : 0.0;
+		double y = jsonObject.containsKey(Pose2D.FIELD_Y) ? jsonObject
+				.getJsonNumber(Pose2D.FIELD_Y).doubleValue() : 0.0;
+		double theta = jsonObject.containsKey(Pose2D.FIELD_THETA) ? jsonObject
+				.getJsonNumber(Pose2D.FIELD_THETA).doubleValue() : 0.0;
+		return new Pose2D(x, y, theta);
 	}
 }

@@ -49,30 +49,6 @@ public class ColorRGBA extends Message {
 	}
 
 	/**
-	 * Create a new ColorRGBA with the given red value (green and blue values
-	 * will be 0 and alpha will be 1).
-	 * 
-	 * @param r
-	 *            The r value of the color.
-	 */
-	public ColorRGBA(float r) {
-		this(r, 0f, 0f, 1f);
-	}
-
-	/**
-	 * Create a new ColorRGBA with the given red and green values (the blue
-	 * value will be set to 0 alpha will be 1).
-	 * 
-	 * @param r
-	 *            The r value of the color.
-	 * @param g
-	 *            The g value of the color.
-	 */
-	public ColorRGBA(float r, float g) {
-		this(r, g, 0f, 1f);
-	}
-
-	/**
 	 * Create a new ColorRGBA with the given color values (alpha will be 1).
 	 * 
 	 * @param r
@@ -160,5 +136,21 @@ public class ColorRGBA extends Message {
 	@Override
 	public ColorRGBA clone() {
 		return new ColorRGBA(this.r, this.g, this.b, this.a);
+	}
+
+	/**
+	 * Create a new ColorRGBA based on the color information in the Java Color
+	 * object.
+	 * 
+	 * @param c
+	 *            The Java Color object containing the color information.
+	 * @return A new ColorRGBA message based on the given color information.
+	 */
+	public static ColorRGBA fromColor(Color c) {
+		float r = (float) c.getRed() / 255.0f;
+		float g = (float) c.getGreen() / 255.0f;
+		float b = (float) c.getBlue() / 255.0f;
+		float a = (float) c.getAlpha() / 255.0f;
+		return new ColorRGBA(r, g, b, a);
 	}
 }

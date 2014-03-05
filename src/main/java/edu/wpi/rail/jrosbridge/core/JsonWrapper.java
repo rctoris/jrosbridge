@@ -20,8 +20,8 @@ public abstract class JsonWrapper {
 	 */
 	public static final String EMPTY_JSON = "{}";
 
-	private JsonObject jsonObject;
-	private String jsonString;
+	private final JsonObject jsonObject;
+	private final String jsonString;
 
 	/**
 	 * Create a new, empty JSON object.
