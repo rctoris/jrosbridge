@@ -6,10 +6,12 @@ SNAPSHOT - **0.1.0**
  * `rosauth` authentication added [(rctoris)](https://github.com/rctoris/)
  * Handlers moved to their own package [(rctoris)](https://github.com/rctoris/)
  * Messages added to their own `edu.wpi.rail.jrosbridge.messages` package [(rctoris)](https://github.com/rctoris/)
- * `geometry_msgs` added to the `edu.wpi.rail.jrosbridge.messages.geometry` package [(rctoris)](https://github.com/rctoris/)
- * `std_msgs` added to the `edu.wpi.rail.jrosbridge.messages.std` package [(rctoris)](https://github.com/rctoris/)
+ * `geometry_msgs` messages added to the `edu.wpi.rail.jrosbridge.messages.geometry` package [(rctoris)](https://github.com/rctoris/)
+ * `std_msgs` messages added to the `edu.wpi.rail.jrosbridge.messages.std` package [(rctoris)](https://github.com/rctoris/)
+ * `rosapi` messages added to the `edu.wpi.rail.jrosbridge.messages.rosapi` package [(rctoris)](https://github.com/rctoris/)
  * Services added to their own `edu.wpi.rail.jrosbridge.services` package [(rctoris)](https://github.com/rctoris/)
- * `std_srvs` added to the `edu.wpi.rail.jrosbridge.services.std` package [(rctoris)](https://github.com/rctoris/)
+ * `std_srvs` services added to the `edu.wpi.rail.jrosbridge.services.std` package [(rctoris)](https://github.com/rctoris/)
+ * `rosapi` services added to the `edu.wpi.rail.jrosbridge.services.rosapi` package [(rctoris)](https://github.com/rctoris/)
  * JUnit test cases added [(rctoris)](https://github.com/rctoris/)
 
 2013-02-16 - **0.0.2**

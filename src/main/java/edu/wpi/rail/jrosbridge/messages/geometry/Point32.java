@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -15,7 +16,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * once, as in the case of a PointCloud.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version February 25, 2014
+ * @version March 5, 2014
  */
 public class Point32 extends Message {
 
@@ -39,36 +40,13 @@ public class Point32 extends Message {
 	 */
 	public static final String TYPE = "geometry_msgs/Point32";
 
-	private float x, y, z;
+	private final float x, y, z;
 
 	/**
 	 * Create a new Point32 with all 0s.
 	 */
 	public Point32() {
 		this(0, 0, 0);
-	}
-
-	/**
-	 * Create a new Point32 with the given x value (y and z values will 0).
-	 * 
-	 * @param x
-	 *            The x value of the point.
-	 */
-	public Point32(float x) {
-		this(x, 0, 0);
-	}
-
-	/**
-	 * Create a new Point32 with the given x and y values (the z value will be
-	 * set to 0).
-	 * 
-	 * @param x
-	 *            The x value of the point.
-	 * @param y
-	 *            The y value of the point.
-	 */
-	public Point32(float x, float y) {
-		this(x, y, 0);
 	}
 
 	/**
@@ -124,5 +102,50 @@ public class Point32 extends Message {
 	@Override
 	public Point32 clone() {
 		return new Point32(this.x, this.y, this.z);
+	}
+
+	/**
+	 * Create a new Point32 based on the given JSON string. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Point32 message based on the given JSON string.
+	 */
+	public static Point32 fromJsonString(String jsonString) {
+		// convert to a message
+		return Point32.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Point32 based on the given Message. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Point32 message based on the given Message.
+	 */
+	public static Point32 fromMessage(Message m) {
+		// get it from the JSON object
+		return Point32.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Point32 based on the given JSON object. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Point32 message based on the given JSON object.
+	 */
+	public static Point32 fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		float x = jsonObject.containsKey(Point32.FIELD_X) ? (float) jsonObject
+				.getJsonNumber(Point32.FIELD_X).doubleValue() : 0.0f;
+		float y = jsonObject.containsKey(Point32.FIELD_Y) ? (float) jsonObject
+				.getJsonNumber(Point32.FIELD_Y).doubleValue() : 0.0f;
+		float z = jsonObject.containsKey(Point32.FIELD_Z) ? (float) jsonObject
+				.getJsonNumber(Point32.FIELD_Z).doubleValue() : 0.0f;
+		return new Point32(x, y, z);
 	}
 }

@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Float64 message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class Float64 extends Message {
 
@@ -22,7 +22,7 @@ public class Float64 extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Float64";
 
-	private double data;
+	private final double data;
 
 	/**
 	 * Create a new Float64 with a default of 0.

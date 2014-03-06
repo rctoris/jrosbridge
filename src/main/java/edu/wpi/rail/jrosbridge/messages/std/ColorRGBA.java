@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/ColorRGBA message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class ColorRGBA extends Message {
 
@@ -39,37 +39,13 @@ public class ColorRGBA extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/ColorRGBA";
 
-	private float r, g, b, a;
+	private final float r, g, b, a;
 
 	/**
 	 * Create a new ColorRGBA with all 0s for colors and an alpha value of 1.
 	 */
 	public ColorRGBA() {
 		this(0f, 0f, 0f, 1f);
-	}
-
-	/**
-	 * Create a new ColorRGBA with the given red value (green and blue values
-	 * will be 0 and alpha will be 1).
-	 * 
-	 * @param r
-	 *            The r value of the color.
-	 */
-	public ColorRGBA(float r) {
-		this(r, 0f, 0f, 1f);
-	}
-
-	/**
-	 * Create a new ColorRGBA with the given red and green values (the blue
-	 * value will be set to 0 alpha will be 1).
-	 * 
-	 * @param r
-	 *            The r value of the color.
-	 * @param g
-	 *            The g value of the color.
-	 */
-	public ColorRGBA(float r, float g) {
-		this(r, g, 0f, 1f);
 	}
 
 	/**
@@ -160,5 +136,21 @@ public class ColorRGBA extends Message {
 	@Override
 	public ColorRGBA clone() {
 		return new ColorRGBA(this.r, this.g, this.b, this.a);
+	}
+
+	/**
+	 * Create a new ColorRGBA based on the color information in the Java Color
+	 * object.
+	 * 
+	 * @param c
+	 *            The Java Color object containing the color information.
+	 * @return A new ColorRGBA message based on the given color information.
+	 */
+	public static ColorRGBA fromColor(Color c) {
+		float r = (float) c.getRed() / 255.0f;
+		float g = (float) c.getGreen() / 255.0f;
+		float b = (float) c.getBlue() / 255.0f;
+		float a = (float) c.getAlpha() / 255.0f;
+		return new ColorRGBA(r, g, b, a);
 	}
 }

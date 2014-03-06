@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -9,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * two coordinate frames in free space.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version February 25, 2014
+ * @version March 5, 2014
  */
 public class Transform extends Message {
 
@@ -28,36 +29,14 @@ public class Transform extends Message {
 	 */
 	public static final String TYPE = "geometry_msgs/Transform";
 
-	private Vector3 translation;
-	private Quaternion rotation;
+	private final Vector3 translation;
+	private final Quaternion rotation;
 
 	/**
 	 * Create a new Transform with all 0s.
 	 */
 	public Transform() {
 		this(new Vector3(), new Quaternion());
-	}
-
-	/**
-	 * Create a new Transform with the given translation value (rotation will
-	 * 0).
-	 * 
-	 * @param translation
-	 *            The translation value of the transform.
-	 */
-	public Transform(Vector3 translation) {
-		this(translation, new Quaternion());
-	}
-
-	/**
-	 * Create a new Transform with the given rotation value (translation will
-	 * 0).
-	 * 
-	 * @param rotation
-	 *            The rotation value of the transform.
-	 */
-	public Transform(Quaternion rotation) {
-		this(new Vector3(), rotation);
 	}
 
 	/**
@@ -103,6 +82,52 @@ public class Transform extends Message {
 	 */
 	@Override
 	public Transform clone() {
-		return new Transform(this.translation, this.rotation);
+		return new Transform(this.translation.clone(), this.rotation.clone());
+	}
+
+	/**
+	 * Create a new Transform based on the given JSON string. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Transform message based on the given JSON string.
+	 */
+	public static Transform fromJsonString(String jsonString) {
+		// convert to a message
+		return Transform.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Transform based on the given Message. Any missing values will be
+	 * set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Transform message based on the given Message.
+	 */
+	public static Transform fromMessage(Message m) {
+		// get it from the JSON object
+		return Transform.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Transform based on the given JSON object. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Transform message based on the given JSON object.
+	 */
+	public static Transform fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		Vector3 translation = jsonObject.containsKey(Transform.FIELD_TRANSLATION) ? Vector3
+				.fromJsonObject(jsonObject.getJsonObject(Transform.FIELD_TRANSLATION))
+				: new Vector3();
+		Quaternion rotation = jsonObject.containsKey(Transform.FIELD_ROTATION) ? Quaternion
+				.fromJsonObject(jsonObject
+						.getJsonObject(Transform.FIELD_ROTATION))
+				: new Quaternion();
+		return new Transform(translation, rotation);
 	}
 }

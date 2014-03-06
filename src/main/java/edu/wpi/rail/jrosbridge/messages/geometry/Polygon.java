@@ -4,6 +4,8 @@ import java.io.StringReader;
 import java.util.Arrays;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -12,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * first and last polygons are assumed to be connected.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version February 25, 2014
+ * @version March 5, 2014
  */
 public class Polygon extends Message {
 
@@ -26,13 +28,13 @@ public class Polygon extends Message {
 	 */
 	public static final String TYPE = "geometry_msgs/Polygon";
 
-	private Point32[] points;
+	private final Point32[] points;
 
 	/**
 	 * Create a new Polygon with no points.
 	 */
 	public Polygon() {
-		this(new Point32[0]);
+		this(new Point32[] {});
 	}
 
 	/**
@@ -80,7 +82,7 @@ public class Polygon extends Message {
 	 * Get the points of this polygon. Note that this array should never be
 	 * modified directly.
 	 * 
-	 * @return The x value of this polygon.
+	 * @return The points of this polygon.
 	 */
 	public Point32[] getPoints() {
 		return this.points;
@@ -91,6 +93,61 @@ public class Polygon extends Message {
 	 */
 	@Override
 	public Polygon clone() {
-		return new Polygon(this.points);
+		// clone the points
+		Point32[] newPoints = new Point32[this.points.length];
+		for (int i = 0; i < this.points.length; i++) {
+			newPoints[i] = this.points[i].clone();
+		}
+
+		return new Polygon(newPoints);
+	}
+
+	/**
+	 * Create a new Polygon based on the given JSON string. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Polygon message based on the given JSON string.
+	 */
+	public static Polygon fromJsonString(String jsonString) {
+		// convert to a message
+		return Polygon.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Polygon based on the given Message. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Polygon message based on the given Message.
+	 */
+	public static Polygon fromMessage(Message m) {
+		// get it from the JSON object
+		return Polygon.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Polygon based on the given JSON object. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Polygon message based on the given JSON object.
+	 */
+	public static Polygon fromJsonObject(JsonObject jsonObject) {
+		// check the array
+		JsonArray jsonPoints = jsonObject.getJsonArray(Polygon.FIELD_POINTS);
+		if (jsonPoints != null) {
+			// convert each point
+			Point32[] points = new Point32[jsonPoints.size()];
+			for (int i = 0; i < points.length; i++) {
+				points[i] = Point32.fromJsonObject(jsonPoints.getJsonObject(i));
+			}
+			return new Polygon(points);
+		} else {
+			return new Polygon();
+		}
 	}
 }

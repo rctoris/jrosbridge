@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Int8 message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class Int8 extends Message {
 
@@ -22,7 +22,7 @@ public class Int8 extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Int8";
 
-	private byte data;
+	private final byte data;
 
 	/**
 	 * Create a new Int8 with a default of 0.

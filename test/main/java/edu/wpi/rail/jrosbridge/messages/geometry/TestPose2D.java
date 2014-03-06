@@ -2,19 +2,22 @@ package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import static org.junit.Assert.*;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.wpi.rail.jrosbridge.messages.Message;
+
 public class TestPose2D {
 
-	private Pose2D empty, p1, p2, p3;
+	private Pose2D empty, p1;
 
 	@Before
 	public void setUp() {
 		empty = new Pose2D();
-		p1 = new Pose2D(0.5);
-		p2 = new Pose2D(0.5, 1.5);
-		p3 = new Pose2D(0.5, 1.5, 3.0);
+		p1 = new Pose2D(0.5, 1.5, 3.0);
 	}
 
 	@Test
@@ -37,57 +40,19 @@ public class TestPose2D {
 	}
 
 	@Test
-	public void testDoubleConstructor() {
+	public void testDoubleDoubleAndDoubleConstructor() {
 		assertEquals(0.5, p1.getX());
-		assertEquals(0.0, p1.getY());
-		assertEquals(0.0, p1.getTheta());
+		assertEquals(1.5, p1.getY());
+		assertEquals(3.0, p1.getTheta());
 
-		assertEquals("{\"x\":0.5,\"y\":0.0,\"theta\":0.0}", p1.toString());
+		assertEquals("{\"x\":0.5,\"y\":1.5,\"theta\":3.0}", p1.toString());
 
 		assertEquals(3, p1.toJsonObject().size());
 		assertEquals(0.5, p1.toJsonObject().getJsonNumber(Pose2D.FIELD_X)
 				.doubleValue());
-		assertEquals(0.0, p1.toJsonObject().getJsonNumber(Pose2D.FIELD_Y)
+		assertEquals(1.5, p1.toJsonObject().getJsonNumber(Pose2D.FIELD_Y)
 				.doubleValue());
-		assertEquals(0.0, p1.toJsonObject().getJsonNumber(Pose2D.FIELD_THETA)
-				.doubleValue());
-
-		assertEquals(Pose2D.TYPE, empty.getMessageType());
-	}
-
-	@Test
-	public void testDoubleAndDoubleConstructor() {
-		assertEquals(0.5, p2.getX());
-		assertEquals(1.5, p2.getY());
-		assertEquals(0.0, p2.getTheta());
-
-		assertEquals("{\"x\":0.5,\"y\":1.5,\"theta\":0.0}", p2.toString());
-
-		assertEquals(3, p2.toJsonObject().size());
-		assertEquals(0.5, p2.toJsonObject().getJsonNumber(Pose2D.FIELD_X)
-				.doubleValue());
-		assertEquals(1.5, p2.toJsonObject().getJsonNumber(Pose2D.FIELD_Y)
-				.doubleValue());
-		assertEquals(0.0, p2.toJsonObject().getJsonNumber(Pose2D.FIELD_THETA)
-				.doubleValue());
-
-		assertEquals(Pose2D.TYPE, empty.getMessageType());
-	}
-
-	@Test
-	public void testDoubleDoubleAndDoubleConstructor() {
-		assertEquals(0.5, p3.getX());
-		assertEquals(1.5, p3.getY());
-		assertEquals(3.0, p3.getTheta());
-
-		assertEquals("{\"x\":0.5,\"y\":1.5,\"theta\":3.0}", p3.toString());
-
-		assertEquals(3, p3.toJsonObject().size());
-		assertEquals(0.5, p3.toJsonObject().getJsonNumber(Pose2D.FIELD_X)
-				.doubleValue());
-		assertEquals(1.5, p3.toJsonObject().getJsonNumber(Pose2D.FIELD_Y)
-				.doubleValue());
-		assertEquals(3.0, p3.toJsonObject().getJsonNumber(Pose2D.FIELD_THETA)
+		assertEquals(3.0, p1.toJsonObject().getJsonNumber(Pose2D.FIELD_THETA)
 				.doubleValue());
 
 		assertEquals(Pose2D.TYPE, empty.getMessageType());
@@ -103,30 +68,15 @@ public class TestPose2D {
 	public void testHashCode() {
 		assertEquals(empty.toString().hashCode(), empty.hashCode());
 		assertEquals(p1.toString().hashCode(), p1.hashCode());
-		assertEquals(p2.toString().hashCode(), p2.hashCode());
-		assertEquals(p3.toString().hashCode(), p3.hashCode());
 	}
 
 	@Test
 	public void testEquals() {
 		assertFalse(empty.equals(p1));
 		assertFalse(p1.equals(empty));
-		assertFalse(empty.equals(p2));
-		assertFalse(p2.equals(empty));
-		assertFalse(empty.equals(p3));
-		assertFalse(p3.equals(empty));
-
-		assertFalse(p1.equals(p2));
-		assertFalse(p1.equals(p3));
-		assertFalse(p2.equals(p1));
-		assertFalse(p2.equals(p3));
-		assertFalse(p3.equals(p1));
-		assertFalse(p3.equals(p2));
 
 		assertTrue(empty.equals(empty));
 		assertTrue(p1.equals(p1));
-		assertTrue(p2.equals(p2));
-		assertTrue(p3.equals(p3));
 	}
 
 	@Test
@@ -136,15 +86,94 @@ public class TestPose2D {
 
 	@Test
 	public void testClone() {
-		Pose2D clone = p3.clone();
-		assertEquals(p3.toString(), clone.toString());
-		assertEquals(p3.toJsonObject(), clone.toJsonObject());
-		assertEquals(p3.getMessageType(), clone.getMessageType());
-		assertEquals(p3.getX(), clone.getX());
-		assertEquals(p3.getY(), clone.getY());
-		assertEquals(p3.getTheta(), clone.getTheta());
-		assertNotSame(p3, clone);
-		assertNotSame(p3.toString(), clone.toString());
-		assertNotSame(p3.toJsonObject(), clone.toJsonObject());
+		Pose2D clone = p1.clone();
+		assertEquals(p1.toString(), clone.toString());
+		assertEquals(p1.toJsonObject(), clone.toJsonObject());
+		assertEquals(p1.getMessageType(), clone.getMessageType());
+		assertEquals(p1.getX(), clone.getX());
+		assertEquals(p1.getY(), clone.getY());
+		assertEquals(p1.getTheta(), clone.getTheta());
+		assertNotSame(p1, clone);
+		assertNotSame(p1.toString(), clone.toString());
+		assertNotSame(p1.toJsonObject(), clone.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonString() {
+		Pose2D p = Pose2D.fromJsonString(p1.toString());
+		assertEquals(p1.toString(), p.toString());
+		assertEquals(p1.toJsonObject(), p.toJsonObject());
+		assertEquals(p1.getMessageType(), p.getMessageType());
+		assertEquals(p1.getX(), p.getX());
+		assertEquals(p1.getY(), p.getY());
+		assertEquals(p1.getTheta(), p.getTheta());
+		assertNotSame(p1, p);
+		assertNotSame(p1.toString(), p.toString());
+		assertNotSame(p1.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromMessage() {
+		Message m = new Message(p1.toString());
+		Pose2D p = Pose2D.fromMessage(m);
+		assertEquals(p1.toString(), p.toString());
+		assertEquals(p1.toJsonObject(), p.toJsonObject());
+		assertEquals(p1.getMessageType(), p.getMessageType());
+		assertEquals(p1.getX(), p.getX());
+		assertEquals(p1.getY(), p.getY());
+		assertEquals(p1.getTheta(), p.getTheta());
+		assertNotSame(p1, p);
+		assertNotSame(p1.toString(), p.toString());
+		assertNotSame(p1.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Pose2D.FIELD_X, p1.getX()).add(Pose2D.FIELD_Y, p1.getY())
+				.add(Pose2D.FIELD_THETA, p1.getTheta()).build();
+		Pose2D p = Pose2D.fromJsonObject(jsonObject);
+		assertEquals(p1.toString(), p.toString());
+		assertEquals(p1.toJsonObject(), p.toJsonObject());
+		assertEquals(p1.getMessageType(), p.getMessageType());
+		assertEquals(p1.getX(), p.getX());
+		assertEquals(p1.getY(), p.getY());
+		assertEquals(p1.getTheta(), p.getTheta());
+		assertNotSame(p1, p);
+		assertNotSame(p1.toString(), p.toString());
+		assertNotSame(p1.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObjectNoX() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Pose2D.FIELD_Y, p1.getY())
+				.add(Pose2D.FIELD_THETA, p1.getTheta()).build();
+		Pose2D p = Pose2D.fromJsonObject(jsonObject);
+		assertEquals(0.0, p.getX());
+		assertEquals(p1.getY(), p.getY());
+		assertEquals(p1.getTheta(), p.getTheta());
+	}
+
+	@Test
+	public void testFromJsonObjectNoY() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Pose2D.FIELD_X, p1.getX())
+				.add(Pose2D.FIELD_THETA, p1.getTheta()).build();
+		Pose2D p = Pose2D.fromJsonObject(jsonObject);
+		assertEquals(p1.getX(), p.getX());
+		assertEquals(0.0, p.getY());
+		assertEquals(p1.getTheta(), p.getTheta());
+	}
+
+	@Test
+	public void testFromJsonObjectNoZ() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Pose2D.FIELD_X, p1.getX()).add(Pose2D.FIELD_Y, p1.getY())
+				.build();
+		Pose2D p = Pose2D.fromJsonObject(jsonObject);
+		assertEquals(p1.getX(), p.getX());
+		assertEquals(p1.getY(), p.getY());
+		assertEquals(0.0, p.getTheta());
 	}
 }
