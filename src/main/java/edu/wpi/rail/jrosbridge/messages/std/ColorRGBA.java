@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/ColorRGBA message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class ColorRGBA extends Message {
 
@@ -39,7 +39,7 @@ public class ColorRGBA extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/ColorRGBA";
 
-	private float r, g, b, a;
+	private final float r, g, b, a;
 
 	/**
 	 * Create a new ColorRGBA with all 0s for colors and an alpha value of 1.

@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Byte message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class Byte extends Message {
 
@@ -22,7 +22,7 @@ public class Byte extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Byte";
 
-	private byte data;
+	private final byte data;
 
 	/**
 	 * Create a new Byte with a default of 0.

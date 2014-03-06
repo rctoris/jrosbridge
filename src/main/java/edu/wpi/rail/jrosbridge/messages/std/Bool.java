@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Bool message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class Bool extends Message {
 
@@ -22,7 +22,7 @@ public class Bool extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Bool";
 
-	private boolean data;
+	private final boolean data;
 
 	/**
 	 * Create a new Bool with a default of false.

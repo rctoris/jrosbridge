@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/String message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 6, 2014
  */
 public class String extends Message {
 
@@ -22,7 +22,7 @@ public class String extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/String";
 
-	private java.lang.String data;
+	private final java.lang.String data;
 
 	/**
 	 * Create a new String with an empty String.
@@ -58,6 +58,6 @@ public class String extends Message {
 	 */
 	@Override
 	public String clone() {
-		return new String(this.data);
+		return new String(new java.lang.String(this.data));
 	}
 }

@@ -2,8 +2,14 @@ package edu.wpi.rail.jrosbridge.services.std;
 
 import static org.junit.Assert.*;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.wpi.rail.jrosbridge.services.ServiceRequest;
+import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 public class TestEmpty {
 
@@ -17,7 +23,7 @@ public class TestEmpty {
 		emptyReq = new Empty.Request();
 		emptyResp = new Empty.Response();
 	}
-	
+
 	@Test
 	public void testEmpty() {
 		assertNotNull(empty);
@@ -66,6 +72,44 @@ public class TestEmpty {
 	}
 
 	@Test
+	public void testRequestFromJsonString() {
+		Empty.Request req = Empty.Request.fromJsonString(emptyReq.toString());
+		assertEquals(emptyReq.toString(), req.toString());
+		assertEquals(emptyReq.toJsonObject(), req.toJsonObject());
+		assertEquals(emptyReq.getServiceRequestType(),
+				req.getServiceRequestType());
+		assertNotSame(emptyReq, req);
+		assertNotSame(emptyReq.toString(), req.toString());
+		assertNotSame(emptyReq.toJsonObject(), req.toJsonObject());
+	}
+
+	@Test
+	public void testRequestFromServiceRequest() {
+		ServiceRequest sr = new ServiceRequest(emptyReq.toString());
+		Empty.Request req = Empty.Request.fromServiceRequest(sr);
+		assertEquals(emptyReq.toString(), req.toString());
+		assertEquals(emptyReq.toJsonObject(), req.toJsonObject());
+		assertEquals(emptyReq.getServiceRequestType(),
+				req.getServiceRequestType());
+		assertNotSame(emptyReq, req);
+		assertNotSame(emptyReq.toString(), req.toString());
+		assertNotSame(emptyReq.toJsonObject(), req.toJsonObject());
+	}
+
+	@Test
+	public void testRequestFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder().build();
+		Empty.Request req = Empty.Request.fromJsonObject(jsonObject);
+		assertEquals(emptyReq.toString(), req.toString());
+		assertEquals(emptyReq.toJsonObject(), req.toJsonObject());
+		assertEquals(emptyReq.getServiceRequestType(),
+				req.getServiceRequestType());
+		assertNotSame(emptyReq, req);
+		assertNotSame(emptyReq.toString(), req.toString());
+		assertNotSame(emptyReq.toJsonObject(), req.toJsonObject());
+	}
+
+	@Test
 	public void testResponseConstructor() {
 		assertEquals("{}", emptyResp.toString());
 
@@ -107,4 +151,42 @@ public class TestEmpty {
 		assertNotSame(emptyResp.toJsonObject(), clone.toJsonObject());
 	}
 
+	@Test
+	public void testResponseFromJsonString() {
+		Empty.Response resp = Empty.Response.fromJsonString(emptyResp
+				.toString());
+		assertEquals(emptyResp.toString(), resp.toString());
+		assertEquals(emptyResp.toJsonObject(), resp.toJsonObject());
+		assertEquals(emptyResp.getServiceResponseType(),
+				resp.getServiceResponseType());
+		assertNotSame(emptyResp, resp);
+		assertNotSame(emptyResp.toString(), resp.toString());
+		assertNotSame(emptyResp.toJsonObject(), resp.toJsonObject());
+	}
+
+	@Test
+	public void testResponseFromServiceResponse() {
+		ServiceResponse sr = new ServiceResponse(emptyResp.toString());
+		Empty.Response resp = Empty.Response.fromServiceResponse(sr);
+		assertEquals(emptyResp.toString(), resp.toString());
+		assertEquals(emptyResp.toJsonObject(), resp.toJsonObject());
+		assertEquals(emptyResp.getServiceResponseType(),
+				resp.getServiceResponseType());
+		assertNotSame(emptyResp, resp);
+		assertNotSame(emptyResp.toString(), resp.toString());
+		assertNotSame(emptyResp.toJsonObject(), resp.toJsonObject());
+	}
+
+	@Test
+	public void testResponseFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder().build();
+		Empty.Response resp = Empty.Response.fromJsonObject(jsonObject);
+		assertEquals(emptyResp.toString(), resp.toString());
+		assertEquals(emptyResp.toJsonObject(), resp.toJsonObject());
+		assertEquals(emptyResp.getServiceResponseType(),
+				resp.getServiceResponseType());
+		assertNotSame(emptyResp, resp);
+		assertNotSame(emptyResp.toString(), resp.toString());
+		assertNotSame(emptyResp.toJsonObject(), resp.toJsonObject());
+	}
 }
