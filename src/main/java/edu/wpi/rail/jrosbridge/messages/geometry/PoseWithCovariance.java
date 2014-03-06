@@ -13,12 +13,12 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The geometry_msgs/PoseWithCovariance message. This represents a pose in free
  * space with uncertainty.
  * 
- * The orientation parameters use a fixed-axis representation. # In order, the
+ * The orientation parameters use a fixed-axis representation. In order, the
  * parameters are: (x, y, z, rotation about X axis, rotation about Y axis,
  * rotation about Z axis).
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 6, 2014
  */
 public class PoseWithCovariance extends Message {
 

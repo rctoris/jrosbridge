@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * information.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 6, 2014
  */
 public class TransformStamped extends Message {
 
@@ -108,8 +108,8 @@ public class TransformStamped extends Message {
 	 */
 	@Override
 	public TransformStamped clone() {
-		return new TransformStamped(this.header.clone(), this.childFrameID,
-				this.transform.clone());
+		return new TransformStamped(this.header.clone(), new String(
+				this.childFrameID), this.transform.clone());
 	}
 
 	/**
