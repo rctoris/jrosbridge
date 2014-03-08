@@ -101,10 +101,6 @@ public class TestPolygon {
 		assertNotSame(p1.toString(), clone.toString());
 		assertNotSame(p1.toJsonObject(), clone.toJsonObject());
 		assertNotSame(p1.getPoints(), clone.getPoints());
-		for (int i = 0; i < p1.size(); i++) {
-			assertNotSame(p1.get(i), clone.get(i));
-			assertNotSame(p1.getPoints()[i], clone.getPoints()[i]);
-		}
 	}
 
 	@Test

@@ -105,11 +105,11 @@ public class ServiceResponse extends JsonWrapper {
 	}
 
 	/**
-	 * Create a deep clone of this ServiceResponse.
+	 * Create a clone of this ServiceResponse.
 	 */
 	@Override
 	public ServiceResponse clone() {
-		// use the string to make sure we get an entirely new JSON object
-		return new ServiceResponse(this.toString(), this.serviceResponseType);
+		return new ServiceResponse(this.toJsonObject(),
+				this.serviceResponseType);
 	}
 }

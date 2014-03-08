@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * free space.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class Header extends Message {
 
@@ -34,7 +34,7 @@ public class Header extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Header";
 
-	private final long seq;
+	private final int seq;
 	private final edu.wpi.rail.jrosbridge.primitives.Time stamp;
 	private final java.lang.String frameID;
 
@@ -55,7 +55,7 @@ public class Header extends Message {
 	 * @param frameID
 	 *            The frame ID.
 	 */
-	public Header(long seq, edu.wpi.rail.jrosbridge.primitives.Time stamp,
+	public Header(int seq, edu.wpi.rail.jrosbridge.primitives.Time stamp,
 			java.lang.String frameID) {
 		// build the JSON object
 		super(Json.createObjectBuilder().add(Header.FIELD_SEQ, seq)
@@ -67,11 +67,12 @@ public class Header extends Message {
 	}
 
 	/**
-	 * Get the sequence value of this header.
+	 * Get the sequence value of this header which should be treated as an
+	 * unsingned 32-bit integer.
 	 * 
 	 * @return The sequence value of this header.
 	 */
-	public long getSeq() {
+	public int getSeq() {
 		return this.seq;
 	}
 
@@ -94,7 +95,7 @@ public class Header extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Header.
+	 * Create a clone of this Header.
 	 */
 	@Override
 	public Header clone() {
@@ -137,7 +138,7 @@ public class Header extends Message {
 	 */
 	public static Header fromJsonObject(JsonObject jsonObject) {
 		// check the fields
-		long seq = jsonObject.containsKey(Header.FIELD_SEQ) ? jsonObject
+		long seq64 = jsonObject.containsKey(Header.FIELD_SEQ) ? jsonObject
 				.getJsonNumber(Header.FIELD_SEQ).longValue() : 0;
 		edu.wpi.rail.jrosbridge.primitives.Time stamp = jsonObject
 				.containsKey(Header.FIELD_STAMP) ? edu.wpi.rail.jrosbridge.primitives.Time
@@ -146,6 +147,10 @@ public class Header extends Message {
 		java.lang.String frameID = jsonObject
 				.containsKey(Header.FIELD_FRAME_ID) ? jsonObject
 				.getString(Header.FIELD_FRAME_ID) : "";
+
+		// convert to a 32-bit number
+		long zeroOutHighEnd = ((seq64 >> 32) << 32);
+		int seq = (int) (seq64 - zeroOutHighEnd);
 		return new Header(seq, stamp, frameID);
 	}
 }

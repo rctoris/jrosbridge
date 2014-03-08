@@ -125,9 +125,6 @@ public class TestTransformStamped {
 		assertNotSame(t1, clone);
 		assertNotSame(t1.toString(), clone.toString());
 		assertNotSame(t1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(t1.getHeader(), clone.getHeader());
-		assertNotSame(t1.getChildFrameID(), clone.getChildFrameID());
-		assertNotSame(t1.getTransform(), clone.getTransform());
 	}
 
 	@Test

@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * two coordinate frames in free space.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class Transform extends Message {
 
@@ -78,11 +78,11 @@ public class Transform extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Transform.
+	 * Create a clone of this Transform.
 	 */
 	@Override
 	public Transform clone() {
-		return new Transform(this.translation.clone(), this.rotation.clone());
+		return new Transform(this.translation, this.rotation);
 	}
 
 	/**

@@ -9,11 +9,10 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
 
 /**
  * Primitive objects are used as a wrapper for non-native ROS primitives. These
- * primitives act as wrappers around JSON objects. As such, primitive data is
- * immutable.
+ * primitives act as wrappers around JSON objects.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public abstract class Primitive extends JsonWrapper {
 
@@ -71,5 +70,11 @@ public abstract class Primitive extends JsonWrapper {
 	 */
 	public void setPrimitiveType(String primitiveType) {
 		this.primitiveType = primitiveType;
+	}
+	
+	public static byte toUInt8(short value) {
+		// zero out the right 8-bits
+		short tmp = (short) ((value >> 8) << 8);
+		return (byte) (value - tmp);
 	}
 }

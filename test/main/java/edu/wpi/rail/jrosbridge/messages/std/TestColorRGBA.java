@@ -2,8 +2,15 @@ package edu.wpi.rail.jrosbridge.messages.std;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class TestColorRGBA {
 
@@ -146,5 +153,117 @@ public class TestColorRGBA {
 		assertNotSame(c2, clone);
 		assertNotSame(c2.toString(), clone.toString());
 		assertNotSame(c2.toJsonObject(), clone.toJsonObject());
+	}
+
+	@Test
+	public void testFromColor() {
+		Color color = new Color(10, 20, 30, 40);
+		ColorRGBA c = ColorRGBA.fromColor(color);
+		assertEquals((float) 10 / 255.0f, c.getR());
+		assertEquals((float) 20 / 255.0f, c.getG());
+		assertEquals((float) 30 / 255.0f, c.getB());
+		assertEquals((float) 40 / 255.0f, c.getA());
+	}
+
+	@Test
+	public void testFromJsonString() {
+		ColorRGBA p = ColorRGBA.fromJsonString(c2.toString());
+		assertEquals(c2.toString(), p.toString());
+		assertEquals(c2.toJsonObject(), p.toJsonObject());
+		assertEquals(c2.getMessageType(), p.getMessageType());
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertNotSame(c2, p);
+		assertNotSame(c2.toString(), p.toString());
+		assertNotSame(c2.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromMessage() {
+		Message m = new Message(c2.toString());
+		ColorRGBA p = ColorRGBA.fromMessage(m);
+		assertEquals(c2.toString(), p.toString());
+		assertEquals(c2.toJsonObject(), p.toJsonObject());
+		assertEquals(c2.getMessageType(), p.getMessageType());
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertEquals(c2.getA(), p.getA());
+		assertNotSame(c2, p);
+		assertNotSame(c2.toString(), p.toString());
+		assertNotSame(c2.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(ColorRGBA.FIELD_R, c2.getR())
+				.add(ColorRGBA.FIELD_G, c2.getG())
+				.add(ColorRGBA.FIELD_B, c2.getB())
+				.add(ColorRGBA.FIELD_A, c2.getA()).build();
+		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
+		assertEquals(c2.toString(), p.toString());
+		assertEquals(c2.toJsonObject(), p.toJsonObject());
+		assertEquals(c2.getMessageType(), p.getMessageType());
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertEquals(c2.getA(), p.getA());
+		assertNotSame(c2, p);
+		assertNotSame(c2.toString(), p.toString());
+		assertNotSame(c2.toJsonObject(), p.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObjectNoR() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(ColorRGBA.FIELD_G, c2.getG())
+				.add(ColorRGBA.FIELD_B, c2.getB())
+				.add(ColorRGBA.FIELD_A, c2.getA()).build();
+		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
+		assertEquals(0.0f, p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertEquals(c2.getA(), p.getA());
+	}
+
+	@Test
+	public void testFromJsonObjectNoG() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(ColorRGBA.FIELD_R, c2.getR())
+				.add(ColorRGBA.FIELD_B, c2.getB())
+				.add(ColorRGBA.FIELD_A, c2.getA()).build();
+		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(0.0f, p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertEquals(c2.getA(), p.getA());
+	}
+
+	@Test
+	public void testFromJsonObjectNoB() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(ColorRGBA.FIELD_R, c2.getR())
+				.add(ColorRGBA.FIELD_G, c2.getG())
+				.add(ColorRGBA.FIELD_A, c2.getA()).build();
+		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(0.0f, p.getB());
+		assertEquals(c2.getA(), p.getA());
+	}
+
+	@Test
+	public void testFromJsonObjectNoA() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(ColorRGBA.FIELD_R, c2.getR())
+				.add(ColorRGBA.FIELD_G, c2.getG())
+				.add(ColorRGBA.FIELD_B, c2.getB()).build();
+		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
+		assertEquals(c2.getR(), p.getR());
+		assertEquals(c2.getG(), p.getG());
+		assertEquals(c2.getB(), p.getB());
+		assertEquals(0.0f, p.getA());
 	}
 }

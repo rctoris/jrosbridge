@@ -102,8 +102,6 @@ public class TestTwist {
 		assertNotSame(t1, clone);
 		assertNotSame(t1.toString(), clone.toString());
 		assertNotSame(t1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(t1.getLinear(), clone.getLinear());
-		assertNotSame(t1.getAngular(), clone.getAngular());
 	}
 
 	@Test

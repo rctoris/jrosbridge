@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * global reference.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class PoseArray extends Message {
 
@@ -109,17 +109,11 @@ public class PoseArray extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this PoseArray.
+	 * Create a clone of this PoseArray.
 	 */
 	@Override
 	public PoseArray clone() {
-		// clone the poses
-		Pose[] newPoses = new Pose[this.poses.length];
-		for (int i = 0; i < this.poses.length; i++) {
-			newPoses[i] = this.poses[i].clone();
-		}
-
-		return new PoseArray(this.header.clone(), newPoses);
+		return new PoseArray(this.header, this.poses);
 	}
 
 	/**

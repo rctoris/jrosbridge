@@ -105,11 +105,10 @@ public class ServiceRequest extends JsonWrapper {
 	}
 
 	/**
-	 * Create a deep clone of this ServiceRequest.
+	 * Create a clone of this ServiceRequest.
 	 */
 	@Override
 	public ServiceRequest clone() {
-		// use the string to make sure we get an entirely new JSON object
-		return new ServiceRequest(this.toString(), this.serviceRequestType);
+		return new ServiceRequest(this.toJsonObject(), this.serviceRequestType);
 	}
 }

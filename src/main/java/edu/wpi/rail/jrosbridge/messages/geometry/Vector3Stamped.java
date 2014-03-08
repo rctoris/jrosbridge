@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * reference coordinate frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class Vector3Stamped extends Message {
 
@@ -77,11 +77,11 @@ public class Vector3Stamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Vector3Stamped.
+	 * Create a clone of this Vector3Stamped.
 	 */
 	@Override
 	public Vector3Stamped clone() {
-		return new Vector3Stamped(this.header.clone(), this.vector.clone());
+		return new Vector3Stamped(this.header, this.vector);
 	}
 
 	/**

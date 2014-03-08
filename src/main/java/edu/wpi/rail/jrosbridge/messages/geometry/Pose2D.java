@@ -91,7 +91,7 @@ public class Pose2D extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Pose2D.
+	 * Create a clone of this Pose2D.
 	 */
 	@Override
 	public Pose2D clone() {

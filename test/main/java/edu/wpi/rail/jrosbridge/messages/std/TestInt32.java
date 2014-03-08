@@ -2,8 +2,13 @@ package edu.wpi.rail.jrosbridge.messages.std;
 
 import static org.junit.Assert.*;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class TestInt32 {
 
@@ -69,5 +74,51 @@ public class TestInt32 {
 		assertNotSame(i1, clone);
 		assertNotSame(i1.toString(), clone.toString());
 		assertNotSame(i1.toJsonObject(), clone.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonString() {
+		Int32 data = Int32.fromJsonString(i1.toString());
+		assertEquals(i1.toString(), data.toString());
+		assertEquals(i1.toJsonObject(), data.toJsonObject());
+		assertEquals(i1.getMessageType(), data.getMessageType());
+		assertEquals(i1.getData(), data.getData());
+		assertNotSame(i1, data);
+		assertNotSame(i1.toString(), data.toString());
+		assertNotSame(i1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromMessage() {
+		Message m = new Message(i1.toString());
+		Int32 data = Int32.fromMessage(m);
+		assertEquals(i1.toString(), data.toString());
+		assertEquals(i1.toJsonObject(), data.toJsonObject());
+		assertEquals(i1.getMessageType(), data.getMessageType());
+		assertEquals(i1.getData(), data.getData());
+		assertNotSame(i1, data);
+		assertNotSame(i1.toString(), data.toString());
+		assertNotSame(i1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Int32.FIELD_DATA, i1.getData()).build();
+		Int32 data = Int32.fromJsonObject(jsonObject);
+		assertEquals(i1.toString(), data.toString());
+		assertEquals(i1.toJsonObject(), data.toJsonObject());
+		assertEquals(i1.getMessageType(), data.getMessageType());
+		assertEquals(i1.getData(), data.getData());
+		assertNotSame(i1, data);
+		assertNotSame(i1.toString(), data.toString());
+		assertNotSame(i1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObjectNoData() {
+		JsonObject jsonObject = Json.createObjectBuilder().build();
+		Int32 data = Int32.fromJsonObject(jsonObject);
+		assertEquals(0, data.getData());
 	}
 }

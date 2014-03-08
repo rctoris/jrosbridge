@@ -74,7 +74,7 @@ public abstract class JsonWrapper {
 	}
 
 	/**
-	 * Create a deep clone of this JSON object.
+	 * Create a clone of this JSON object.
 	 */
 	public abstract JsonWrapper clone();
 

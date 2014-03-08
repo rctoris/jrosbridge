@@ -108,7 +108,7 @@ public class Quaternion extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Quaternion.
+	 * Create a clone of this Quaternion.
 	 */
 	@Override
 	public Quaternion clone() {

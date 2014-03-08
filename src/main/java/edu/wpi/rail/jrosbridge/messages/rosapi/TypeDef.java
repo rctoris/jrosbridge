@@ -158,7 +158,7 @@ public class TypeDef extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this TypeDef.
+	 * Create a clone of this TypeDef.
 	 */
 	@Override
 	public TypeDef clone() {

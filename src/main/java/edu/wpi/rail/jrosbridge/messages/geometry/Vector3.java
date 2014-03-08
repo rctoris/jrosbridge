@@ -90,7 +90,7 @@ public class Vector3 extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Vector3.
+	 * Create a clone of this Vector3.
 	 */
 	@Override
 	public Vector3 clone() {

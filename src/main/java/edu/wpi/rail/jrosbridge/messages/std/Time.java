@@ -54,7 +54,7 @@ public class Time extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Time.
+	 * Create a clone of this Time.
 	 */
 	@Override
 	public Time clone() {

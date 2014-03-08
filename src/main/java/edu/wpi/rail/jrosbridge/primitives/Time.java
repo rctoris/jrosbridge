@@ -23,7 +23,7 @@ public class Time extends Primitive {
 	 */
 	public static final String TYPE = "time";
 
-	private final int secs, nsecs;
+	private int secs, nsecs;
 
 	/**
 	 * Create a new Time with a default of 0.
@@ -77,7 +77,7 @@ public class Time extends Primitive {
 	}
 
 	/**
-	 * Create a deep clone of this Time.
+	 * Create a clone of this Time.
 	 */
 	@Override
 	public Time clone() {
