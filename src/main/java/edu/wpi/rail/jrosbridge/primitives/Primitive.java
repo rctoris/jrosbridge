@@ -71,10 +71,16 @@ public abstract class Primitive extends JsonWrapper {
 	public void setPrimitiveType(String primitiveType) {
 		this.primitiveType = primitiveType;
 	}
-	
+
 	public static byte toUInt8(short value) {
-		// zero out the right 8-bits
+		// zero out the high 8-bits
 		short tmp = (short) ((value >> 8) << 8);
 		return (byte) (value - tmp);
+	}
+
+	public static int toUInt32(long value) {
+		// zero out the high 32-bits
+		long tmp = (long) ((value >> 32) << 32);
+		return (int) (value - tmp);
 	}
 }

@@ -4,6 +4,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.primitives.Primitive;
 
 /**
  * The geometry_msgs/Header message. This contains the position of a header in
@@ -149,8 +150,7 @@ public class Header extends Message {
 				.getString(Header.FIELD_FRAME_ID) : "";
 
 		// convert to a 32-bit number
-		long zeroOutHighEnd = ((seq64 >> 32) << 32);
-		int seq = (int) (seq64 - zeroOutHighEnd);
-		return new Header(seq, stamp, frameID);
+		int seq32 = Primitive.toUInt32(seq64);
+		return new Header(seq32, stamp, frameID);
 	}
 }

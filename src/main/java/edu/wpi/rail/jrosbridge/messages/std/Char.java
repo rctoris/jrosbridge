@@ -100,9 +100,11 @@ public class Char extends Message {
 	 */
 	public static Char fromJsonObject(JsonObject jsonObject) {
 		// check the fields
-		byte data = jsonObject.containsKey(Char.FIELD_DATA) ? Primitive
-				.toUInt8((short) jsonObject.getInt(Char.FIELD_DATA)) : 0;
+		short data16 = jsonObject.containsKey(Char.FIELD_DATA) ? (short) jsonObject
+				.getInt(Char.FIELD_DATA) : 0;
 
-		return new Char(data);
+		// convert to a 8-bit number
+		byte data8 = Primitive.toUInt8(data16);
+		return new Char(data8);
 	}
 }
