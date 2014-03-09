@@ -76,7 +76,7 @@ public class Wrench extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Wrench.
+	 * Create a clone of this Wrench.
 	 */
 	@Override
 	public Wrench clone() {

@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * into its linear and angular parts.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class Twist extends Message {
 
@@ -76,11 +76,11 @@ public class Twist extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Twist.
+	 * Create a clone of this Twist.
 	 */
 	@Override
 	public Twist clone() {
-		return new Twist(this.linear.clone(), this.angular.clone());
+		return new Twist(this.linear, this.angular);
 	}
 
 	/**

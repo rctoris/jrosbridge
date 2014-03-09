@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.std;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -8,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Float32 message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class Float32 extends Message {
 
@@ -54,10 +55,51 @@ public class Float32 extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Float32.
+	 * Create a clone of this Float32.
 	 */
 	@Override
 	public Float32 clone() {
 		return new Float32(this.data);
+	}
+
+	/**
+	 * Create a new Float32 based on the given JSON string. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Float32 message based on the given JSON string.
+	 */
+	public static Float32 fromJsonString(java.lang.String jsonString) {
+		// convert to a message
+		return Float32.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Float32 based on the given Message. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Float32 message based on the given Message.
+	 */
+	public static Float32 fromMessage(Message m) {
+		// get it from the JSON object
+		return Float32.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Float32 based on the given JSON object. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Float32 message based on the given JSON object.
+	 */
+	public static Float32 fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		float data = jsonObject.containsKey(Float32.FIELD_DATA) ? (float) jsonObject
+				.getJsonNumber(Float32.FIELD_DATA).doubleValue() : 0f;
+		return new Float32(data);
 	}
 }

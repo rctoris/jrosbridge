@@ -2,8 +2,13 @@ package edu.wpi.rail.jrosbridge.messages.std;
 
 import static org.junit.Assert.*;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class TestByte {
 
@@ -69,5 +74,51 @@ public class TestByte {
 		assertNotSame(b1, clone);
 		assertNotSame(b1.toString(), clone.toString());
 		assertNotSame(b1.toJsonObject(), clone.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonString() {
+		Byte data = Byte.fromJsonString(b1.toString());
+		assertEquals(b1.toString(), data.toString());
+		assertEquals(b1.toJsonObject(), data.toJsonObject());
+		assertEquals(b1.getMessageType(), data.getMessageType());
+		assertEquals(b1.getData(), data.getData());
+		assertNotSame(b1, data);
+		assertNotSame(b1.toString(), data.toString());
+		assertNotSame(b1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromMessage() {
+		Message m = new Message(b1.toString());
+		Byte data = Byte.fromMessage(m);
+		assertEquals(b1.toString(), data.toString());
+		assertEquals(b1.toJsonObject(), data.toJsonObject());
+		assertEquals(b1.getMessageType(), data.getMessageType());
+		assertEquals(b1.getData(), data.getData());
+		assertNotSame(b1, data);
+		assertNotSame(b1.toString(), data.toString());
+		assertNotSame(b1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObject() {
+		JsonObject jsonObject = Json.createObjectBuilder()
+				.add(Byte.FIELD_DATA, b1.getData()).build();
+		Byte data = Byte.fromJsonObject(jsonObject);
+		assertEquals(b1.toString(), data.toString());
+		assertEquals(b1.toJsonObject(), data.toJsonObject());
+		assertEquals(b1.getMessageType(), data.getMessageType());
+		assertEquals(b1.getData(), data.getData());
+		assertNotSame(b1, data);
+		assertNotSame(b1.toString(), data.toString());
+		assertNotSame(b1.toJsonObject(), data.toJsonObject());
+	}
+
+	@Test
+	public void testFromJsonObjectNoData() {
+		JsonObject jsonObject = Json.createObjectBuilder().build();
+		Byte data = Byte.fromJsonObject(jsonObject);
+		assertEquals((byte) 0, data.getData());
 	}
 }

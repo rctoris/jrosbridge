@@ -34,7 +34,7 @@ public class Empty {
 		}
 
 		/**
-		 * Create a deep clone of this Empty ServiceRequest.
+		 * Create a clone of this Empty ServiceRequest.
 		 */
 		@Override
 		public Request clone() {
@@ -97,7 +97,7 @@ public class Empty {
 		}
 
 		/**
-		 * Create a deep clone of this Empty ServiceResponse.
+		 * Create a clone of this Empty ServiceResponse.
 		 */
 		@Override
 		public Response clone() {

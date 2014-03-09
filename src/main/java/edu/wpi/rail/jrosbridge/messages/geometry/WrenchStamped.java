@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class WrenchStamped extends Message {
 
@@ -78,11 +78,11 @@ public class WrenchStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this WrenchStamped.
+	 * Create a clone of this WrenchStamped.
 	 */
 	@Override
 	public WrenchStamped clone() {
-		return new WrenchStamped(this.header.clone(), this.wrench.clone());
+		return new WrenchStamped(this.header, this.wrench);
 	}
 
 	/**

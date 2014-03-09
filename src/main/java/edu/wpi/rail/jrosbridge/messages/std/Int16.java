@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.std;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -54,10 +55,51 @@ public class Int16 extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Int16.
+	 * Create a clone of this Int16.
 	 */
 	@Override
 	public Int16 clone() {
 		return new Int16(this.data);
+	}
+
+	/**
+	 * Create a new Int16 based on the given JSON string. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Int16 message based on the given JSON string.
+	 */
+	public static Int16 fromJsonString(java.lang.String jsonString) {
+		// convert to a message
+		return Int16.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Int16 based on the given Message. Any missing values will be
+	 * set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Int16 message based on the given Message.
+	 */
+	public static Int16 fromMessage(Message m) {
+		// get it from the JSON object
+		return Int16.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Int16 based on the given JSON object. Any missing values
+	 * will be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Int16 message based on the given JSON object.
+	 */
+	public static Int16 fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		short data = jsonObject.containsKey(Int16.FIELD_DATA) ? (short) jsonObject
+				.getInt(Int16.FIELD_DATA) : 0;
+		return new Int16(data);
 	}
 }

@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * with reference coordinate frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class QuaternionStamped extends Message {
 
@@ -79,12 +79,11 @@ public class QuaternionStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this QuaternionStamped.
+	 * Create a clone of this QuaternionStamped.
 	 */
 	@Override
 	public QuaternionStamped clone() {
-		return new QuaternionStamped(this.header.clone(),
-				this.quaternion.clone());
+		return new QuaternionStamped(this.header, this.quaternion);
 	}
 
 	/**

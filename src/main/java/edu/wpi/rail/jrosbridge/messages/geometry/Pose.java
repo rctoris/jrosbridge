@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * composed of position and orientation.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class Pose extends Message {
 
@@ -76,11 +76,11 @@ public class Pose extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Pose.
+	 * Create a clone of this Pose.
 	 */
 	@Override
 	public Pose clone() {
-		return new Pose(this.position.clone(), this.orientation.clone());
+		return new Pose(this.position, this.orientation);
 	}
 
 	/**

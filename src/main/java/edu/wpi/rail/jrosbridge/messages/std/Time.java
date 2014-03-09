@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.messages.std;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -8,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Time message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 9, 2014
  */
 public class Time extends Message {
 
@@ -54,10 +55,54 @@ public class Time extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Time.
+	 * Create a clone of this Time.
 	 */
 	@Override
 	public Time clone() {
+		// time objects are mutable, create a clone
 		return new Time(this.data.clone());
+	}
+
+	/**
+	 * Create a new Time based on the given JSON string. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonString
+	 *            The JSON string to parse.
+	 * @return A Time message based on the given JSON string.
+	 */
+	public static Time fromJsonString(java.lang.String jsonString) {
+		// convert to a message
+		return Time.fromMessage(new Message(jsonString));
+	}
+
+	/**
+	 * Create a new Time based on the given Message. Any missing values will be
+	 * set to their defaults.
+	 * 
+	 * @param m
+	 *            The Message to parse.
+	 * @return A Time message based on the given Message.
+	 */
+	public static Time fromMessage(Message m) {
+		// get it from the JSON object
+		return Time.fromJsonObject(m.toJsonObject());
+	}
+
+	/**
+	 * Create a new Time based on the given JSON object. Any missing values will
+	 * be set to their defaults.
+	 * 
+	 * @param jsonObject
+	 *            The JSON object to parse.
+	 * @return A Time message based on the given JSON object.
+	 */
+	public static Time fromJsonObject(JsonObject jsonObject) {
+		// check the fields
+		edu.wpi.rail.jrosbridge.primitives.Time data = jsonObject
+				.containsKey(Time.FIELD_DATA) ? edu.wpi.rail.jrosbridge.primitives.Time
+				.fromJsonObject(jsonObject.getJsonObject(Time.FIELD_DATA))
+				: new edu.wpi.rail.jrosbridge.primitives.Time();
+		return new Time(data);
 	}
 }

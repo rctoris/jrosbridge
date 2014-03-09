@@ -111,8 +111,6 @@ public class TestTwistStamped {
 		assertNotSame(t1, clone);
 		assertNotSame(t1.toString(), clone.toString());
 		assertNotSame(t1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(t1.getHeader(), clone.getHeader());
-		assertNotSame(t1.getTwist(), clone.getTwist());
 	}
 
 	@Test

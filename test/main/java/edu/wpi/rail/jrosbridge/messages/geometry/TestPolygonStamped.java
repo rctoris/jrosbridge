@@ -110,8 +110,6 @@ public class TestPolygonStamped {
 		assertNotSame(p1, clone);
 		assertNotSame(p1.toString(), clone.toString());
 		assertNotSame(p1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(p1.getHeader(), clone.getHeader());
-		assertNotSame(p1.getPolygon(), clone.getPolygon());
 	}
 
 	@Test

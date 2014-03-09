@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * reference coordinate frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class PolygonStamped extends Message {
 
@@ -77,11 +77,11 @@ public class PolygonStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this PolygonStamped.
+	 * Create a clone of this PolygonStamped.
 	 */
 	@Override
 	public PolygonStamped clone() {
-		return new PolygonStamped(this.header.clone(), this.polygon.clone());
+		return new PolygonStamped(this.header, this.polygon);
 	}
 
 	/**

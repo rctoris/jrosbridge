@@ -1,4 +1,5 @@
 SNAPSHOT - **0.1.0**
+ * Non-native ROS primitives (UInts, Time, ...) added in `edu.wpi.rail.jrosbridge.primitives` package [(rctoris)](https://github.com/rctoris/)
  * Support for parameters added [(rctoris)](https://github.com/rctoris/)
  * Callbacks added to their own `edu.wpi.rail.jrosbridge.core.callback` package [(rctoris)](https://github.com/rctoris/)
  * png decompression support added [(rctoris)](https://github.com/rctoris/)

@@ -4,13 +4,14 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.primitives.Primitive;
 
 /**
  * The geometry_msgs/Header message. This contains the position of a header in
  * free space.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 9, 2014
  */
 public class Header extends Message {
 
@@ -34,7 +35,7 @@ public class Header extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/Header";
 
-	private final long seq;
+	private final int seq;
 	private final edu.wpi.rail.jrosbridge.primitives.Time stamp;
 	private final java.lang.String frameID;
 
@@ -49,16 +50,17 @@ public class Header extends Message {
 	 * Create a new Header with the given values.
 	 * 
 	 * @param seq
-	 *            The sequence number treated as an unsingned 32-bit integer.
+	 *            The sequence number treated as an unsigned 32-bit integer.
 	 * @param stamp
 	 *            The timestamp.
 	 * @param frameID
 	 *            The frame ID.
 	 */
-	public Header(long seq, edu.wpi.rail.jrosbridge.primitives.Time stamp,
+	public Header(int seq, edu.wpi.rail.jrosbridge.primitives.Time stamp,
 			java.lang.String frameID) {
 		// build the JSON object
-		super(Json.createObjectBuilder().add(Header.FIELD_SEQ, seq)
+		super(Json.createObjectBuilder()
+				.add(Header.FIELD_SEQ, Primitive.fromUInt32(seq))
 				.add(Header.FIELD_STAMP, stamp.toJsonObject())
 				.add(Header.FIELD_FRAME_ID, frameID).build(), Header.TYPE);
 		this.seq = seq;
@@ -67,11 +69,12 @@ public class Header extends Message {
 	}
 
 	/**
-	 * Get the sequence value of this header.
+	 * Get the sequence value of this header which should be treated as an
+	 * unsingned 32-bit integer.
 	 * 
 	 * @return The sequence value of this header.
 	 */
-	public long getSeq() {
+	public int getSeq() {
 		return this.seq;
 	}
 
@@ -94,11 +97,12 @@ public class Header extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Header.
+	 * Create a clone of this Header.
 	 */
 	@Override
 	public Header clone() {
-		return new Header(this.seq, this.stamp, this.frameID);
+		// time primitives are mutable, create a clone
+		return new Header(this.seq, this.stamp.clone(), this.frameID);
 	}
 
 	/**
@@ -137,7 +141,7 @@ public class Header extends Message {
 	 */
 	public static Header fromJsonObject(JsonObject jsonObject) {
 		// check the fields
-		long seq = jsonObject.containsKey(Header.FIELD_SEQ) ? jsonObject
+		long seq64 = jsonObject.containsKey(Header.FIELD_SEQ) ? jsonObject
 				.getJsonNumber(Header.FIELD_SEQ).longValue() : 0;
 		edu.wpi.rail.jrosbridge.primitives.Time stamp = jsonObject
 				.containsKey(Header.FIELD_STAMP) ? edu.wpi.rail.jrosbridge.primitives.Time
@@ -146,6 +150,9 @@ public class Header extends Message {
 		java.lang.String frameID = jsonObject
 				.containsKey(Header.FIELD_FRAME_ID) ? jsonObject
 				.getString(Header.FIELD_FRAME_ID) : "";
-		return new Header(seq, stamp, frameID);
+
+		// convert to a 32-bit number
+		int seq32 = Primitive.toUInt32(seq64);
+		return new Header(seq32, stamp, frameID);
 	}
 }

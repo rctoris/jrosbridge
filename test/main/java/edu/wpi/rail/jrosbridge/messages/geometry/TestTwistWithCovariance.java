@@ -205,7 +205,6 @@ public class TestTwistWithCovariance {
 		assertNotSame(p2, clone);
 		assertNotSame(p2.toString(), clone.toString());
 		assertNotSame(p2.toJsonObject(), clone.toJsonObject());
-		assertNotSame(p2.getTwist(), clone.getTwist());
 		assertNotSame(p2.getCovariance(), clone.getCovariance());
 		assertNotSame(p2.getCovarianceMatrix(), clone.getCovarianceMatrix());
 	}

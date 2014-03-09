@@ -124,6 +124,5 @@ public class TestMessage {
 		assertEquals(m3.getMessageType(), clone.getMessageType());
 		assertNotSame(m3, clone);
 		assertNotSame(m3.toString(), clone.toString());
-		assertNotSame(m3.toJsonObject(), clone.toJsonObject());
 	}
 }

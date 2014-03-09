@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * estimated twist with reference coordinate frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class TwistWithCovarianceStamped extends Message {
 
@@ -80,12 +80,11 @@ public class TwistWithCovarianceStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this TwistWithCovarianceStamped.
+	 * Create a clone of this TwistWithCovarianceStamped.
 	 */
 	@Override
 	public TwistWithCovarianceStamped clone() {
-		return new TwistWithCovarianceStamped(this.header.clone(),
-				this.twist.clone());
+		return new TwistWithCovarianceStamped(this.header, this.twist);
 	}
 
 	/**

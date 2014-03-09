@@ -126,7 +126,6 @@ public class TestServiceResponse {
 				clone.getServiceResponseType());
 		assertNotSame(s3, clone);
 		assertNotSame(s3.toString(), clone.toString());
-		assertNotSame(s3.toJsonObject(), clone.toJsonObject());
 	}
 
 }
