@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Int64 message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version March 9, 2014
  */
 public class Int64 extends Message {
 
@@ -29,7 +29,7 @@ public class Int64 extends Message {
 	 * Create a new Int64 with a default of 0.
 	 */
 	public Int64() {
-		this((long) 0);
+		this(0L);
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class Int64 extends Message {
 	public static Int64 fromJsonObject(JsonObject jsonObject) {
 		// check the fields
 		long data = jsonObject.containsKey(Int64.FIELD_DATA) ? jsonObject
-				.getJsonNumber(Int64.FIELD_DATA).longValue() : 0;
+				.getJsonNumber(Int64.FIELD_DATA).longValue() : 0L;
 		return new Int64(data);
 	}
 }

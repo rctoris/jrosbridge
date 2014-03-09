@@ -1,6 +1,7 @@
 package edu.wpi.rail.jrosbridge.primitives;
 
 import java.io.StringReader;
+import java.math.BigInteger;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -12,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * primitives act as wrappers around JSON objects.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 8, 2014
+ * @version March 9, 2014
  */
 public abstract class Primitive extends JsonWrapper {
 
@@ -78,9 +79,36 @@ public abstract class Primitive extends JsonWrapper {
 		return (byte) (value - tmp);
 	}
 
+	public static short fromUInt8(byte value) {
+		return (short) (value & (short) 0xFF);
+	}
+
+	public static short toUInt16(int value) {
+		// zero out the high 16-bits
+		int tmp = (int) ((value >> 16) << 16);
+		return (short) (value - tmp);
+	}
+
+	public static int fromUInt16(short value) {
+		return (int) (value & 0xFFFF);
+	}
+
 	public static int toUInt32(long value) {
 		// zero out the high 32-bits
 		long tmp = (long) ((value >> 32) << 32);
 		return (int) (value - tmp);
+	}
+
+	public static long fromUInt32(int value) {
+		return (long) (value & 0xFFFFFFFFL);
+	}
+
+	public static long toUInt64(BigInteger value) {
+		return value.longValue();
+	}
+
+	public static BigInteger fromUInt64(long value) {
+		return BigInteger.valueOf(value).and(
+				BigInteger.ONE.shiftLeft(64).subtract(BigInteger.ONE));
 	}
 }

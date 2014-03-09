@@ -37,7 +37,7 @@ public class TestChar {
 	}
 
 	@Test
-	public void testCharConstructor() {
+	public void testByteConstructor() {
 		assertEquals((byte) 123, c1.getData());
 
 		assertEquals("{\"data\":123}", c1.toString());
@@ -49,6 +49,23 @@ public class TestChar {
 						Char.FIELD_DATA)));
 
 		assertEquals(Char.TYPE, c1.getMessageType());
+	}
+
+	@Test
+	public void testByteConstructorNegative() {
+		Char c = new Char((byte) -1);
+
+		assertEquals((byte) -1, c.getData());
+
+		assertEquals("{\"data\":255}", c.toString());
+
+		assertEquals(1, c.toJsonObject().size());
+		assertEquals(
+				(byte) -1,
+				Primitive.toUInt8((short) c.toJsonObject().getInt(
+						Char.FIELD_DATA)));
+
+		assertEquals(Char.TYPE, c.getMessageType());
 	}
 
 	@Test

@@ -9,41 +9,63 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.primitives.Primitive;
 
-public class TestInt64 {
+public class TestUInt8 {
 
-	private Int64 empty, i1;
+	private UInt8 empty, i1;
 
 	@Before
 	public void setUp() {
-		empty = new Int64();
-		i1 = new Int64(127L);
+		empty = new UInt8();
+		i1 = new UInt8((byte) 123);
 	}
 
 	@Test
 	public void testConstructor() {
-		assertEquals(0L, empty.getData());
+		assertEquals((byte) 0, empty.getData());
 
 		assertEquals("{\"data\":0}", empty.toString());
 
 		assertEquals(1, empty.toJsonObject().size());
-		assertEquals(0L, empty.toJsonObject().getJsonNumber(Int64.FIELD_DATA)
-				.longValue());
+		assertEquals(
+				(byte) 0,
+				Primitive.toUInt8((short) empty.toJsonObject().getInt(
+						UInt8.FIELD_DATA)));
 
-		assertEquals(Int64.TYPE, empty.getMessageType());
+		assertEquals(UInt8.TYPE, empty.getMessageType());
 	}
 
 	@Test
-	public void testLongConstructor() {
-		assertEquals(127L, i1.getData());
+	public void testByteConstructor() {
+		assertEquals((byte) 123, i1.getData());
 
-		assertEquals("{\"data\":127}", i1.toString());
+		assertEquals("{\"data\":123}", i1.toString());
 
 		assertEquals(1, i1.toJsonObject().size());
-		assertEquals(127L, i1.toJsonObject().getJsonNumber(Int64.FIELD_DATA)
-				.longValue());
+		assertEquals(
+				(byte) 123,
+				Primitive.toUInt8((short) i1.toJsonObject().getInt(
+						UInt8.FIELD_DATA)));
 
-		assertEquals(Int64.TYPE, i1.getMessageType());
+		assertEquals(UInt8.TYPE, i1.getMessageType());
+	}
+
+	@Test
+	public void testByteConstructorNegative() {
+		UInt8 c = new UInt8((byte) -1);
+
+		assertEquals((byte) -1, c.getData());
+
+		assertEquals("{\"data\":255}", c.toString());
+
+		assertEquals(1, c.toJsonObject().size());
+		assertEquals(
+				(byte) -1,
+				Primitive.toUInt8((short) c.toJsonObject().getInt(
+						UInt8.FIELD_DATA)));
+
+		assertEquals(UInt8.TYPE, c.getMessageType());
 	}
 
 	@Test
@@ -68,7 +90,7 @@ public class TestInt64 {
 
 	@Test
 	public void testClone() {
-		Int64 clone = i1.clone();
+		UInt8 clone = i1.clone();
 		assertEquals(i1.toString(), clone.toString());
 		assertEquals(i1.toJsonObject(), clone.toJsonObject());
 		assertEquals(i1.getMessageType(), clone.getMessageType());
@@ -80,7 +102,7 @@ public class TestInt64 {
 
 	@Test
 	public void testFromJsonString() {
-		Int64 data = Int64.fromJsonString(i1.toString());
+		UInt8 data = UInt8.fromJsonString(i1.toString());
 		assertEquals(i1.toString(), data.toString());
 		assertEquals(i1.toJsonObject(), data.toJsonObject());
 		assertEquals(i1.getMessageType(), data.getMessageType());
@@ -93,7 +115,7 @@ public class TestInt64 {
 	@Test
 	public void testFromMessage() {
 		Message m = new Message(i1.toString());
-		Int64 data = Int64.fromMessage(m);
+		UInt8 data = UInt8.fromMessage(m);
 		assertEquals(i1.toString(), data.toString());
 		assertEquals(i1.toJsonObject(), data.toJsonObject());
 		assertEquals(i1.getMessageType(), data.getMessageType());
@@ -106,8 +128,8 @@ public class TestInt64 {
 	@Test
 	public void testFromJsonObject() {
 		JsonObject jsonObject = Json.createObjectBuilder()
-				.add(Int64.FIELD_DATA, i1.getData()).build();
-		Int64 data = Int64.fromJsonObject(jsonObject);
+				.add(UInt8.FIELD_DATA, i1.getData()).build();
+		UInt8 data = UInt8.fromJsonObject(jsonObject);
 		assertEquals(i1.toString(), data.toString());
 		assertEquals(i1.toJsonObject(), data.toJsonObject());
 		assertEquals(i1.getMessageType(), data.getMessageType());
@@ -120,7 +142,7 @@ public class TestInt64 {
 	@Test
 	public void testFromJsonObjectNoData() {
 		JsonObject jsonObject = Json.createObjectBuilder().build();
-		Int64 data = Int64.fromJsonObject(jsonObject);
-		assertEquals(0L, data.getData());
+		UInt8 data = UInt8.fromJsonObject(jsonObject);
+		assertEquals((byte) 0, data.getData());
 	}
 }

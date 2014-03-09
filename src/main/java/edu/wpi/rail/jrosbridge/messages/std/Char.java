@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * The std_msgs/Char message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version March 9, 2014
  */
 public class Char extends Message {
 
@@ -34,7 +34,7 @@ public class Char extends Message {
 	}
 
 	/**
-	 * Create a new Char with the given data value treated as an unisnged 8-bit
+	 * Create a new Char with the given data value treated as an unsigned 8-bit
 	 * integer.
 	 * 
 	 * @param data
@@ -42,7 +42,8 @@ public class Char extends Message {
 	 */
 	public Char(byte data) {
 		// build the JSON object
-		super(Json.createObjectBuilder().add(Char.FIELD_DATA, data).build(),
+		super(Json.createObjectBuilder()
+				.add(Char.FIELD_DATA, Primitive.fromUInt8(data)).build(),
 				Char.TYPE);
 		this.data = data;
 	}

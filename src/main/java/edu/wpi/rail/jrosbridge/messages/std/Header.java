@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * free space.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version March 9, 2014
  */
 public class Header extends Message {
 
@@ -50,7 +50,7 @@ public class Header extends Message {
 	 * Create a new Header with the given values.
 	 * 
 	 * @param seq
-	 *            The sequence number treated as an unsingned 32-bit integer.
+	 *            The sequence number treated as an unsigned 32-bit integer.
 	 * @param stamp
 	 *            The timestamp.
 	 * @param frameID
@@ -59,7 +59,8 @@ public class Header extends Message {
 	public Header(int seq, edu.wpi.rail.jrosbridge.primitives.Time stamp,
 			java.lang.String frameID) {
 		// build the JSON object
-		super(Json.createObjectBuilder().add(Header.FIELD_SEQ, seq)
+		super(Json.createObjectBuilder()
+				.add(Header.FIELD_SEQ, Primitive.fromUInt32(seq))
 				.add(Header.FIELD_STAMP, stamp.toJsonObject())
 				.add(Header.FIELD_FRAME_ID, frameID).build(), Header.TYPE);
 		this.seq = seq;
@@ -100,7 +101,8 @@ public class Header extends Message {
 	 */
 	@Override
 	public Header clone() {
-		return new Header(this.seq, this.stamp, this.frameID);
+		// time primitives are mutable, create a clone
+		return new Header(this.seq, this.stamp.clone(), this.frameID);
 	}
 
 	/**
