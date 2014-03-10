@@ -111,8 +111,6 @@ public class TestWrenchStamped {
 		assertNotSame(w1, clone);
 		assertNotSame(w1.toString(), clone.toString());
 		assertNotSame(w1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(w1.getHeader(), clone.getHeader());
-		assertNotSame(w1.getWrench(), clone.getWrench());
 	}
 
 	@Test

@@ -58,7 +58,7 @@ public class DeleteParam {
 		}
 
 		/**
-		 * Create a deep clone of this DeleteParam ServiceRequest.
+		 * Create a clone of this DeleteParam ServiceRequest.
 		 */
 		@Override
 		public Request clone() {
@@ -82,7 +82,7 @@ public class DeleteParam {
 		}
 
 		/**
-		 * Create a deep clone of this DeleteParam ServiceResponse.
+		 * Create a clone of this DeleteParam ServiceResponse.
 		 */
 		@Override
 		public Response clone() {

@@ -108,8 +108,6 @@ public class TestVector3Stamped {
 		assertNotSame(v1, clone);
 		assertNotSame(v1.toString(), clone.toString());
 		assertNotSame(v1.toJsonObject(), clone.toJsonObject());
-		assertNotSame(v1.getHeader(), clone.getHeader());
-		assertNotSame(v1.getVector3(), clone.getVector3());
 	}
 
 	@Test

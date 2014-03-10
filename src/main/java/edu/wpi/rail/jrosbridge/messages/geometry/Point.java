@@ -91,7 +91,7 @@ public class Point extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Point.
+	 * Create a clone of this Point.
 	 */
 	@Override
 	public Point clone() {

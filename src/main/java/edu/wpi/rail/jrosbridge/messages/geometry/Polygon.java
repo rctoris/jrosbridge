@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * first and last polygons are assumed to be connected.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class Polygon extends Message {
 
@@ -89,17 +89,11 @@ public class Polygon extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Polygon.
+	 * Create a clone of this Polygon.
 	 */
 	@Override
 	public Polygon clone() {
-		// clone the points
-		Point32[] newPoints = new Point32[this.points.length];
-		for (int i = 0; i < this.points.length; i++) {
-			newPoints[i] = this.points[i].clone();
-		}
-
-		return new Polygon(newPoints);
+		return new Polygon(this.points);
 	}
 
 	/**

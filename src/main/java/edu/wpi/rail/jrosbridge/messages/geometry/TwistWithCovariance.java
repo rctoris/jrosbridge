@@ -18,7 +18,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * rotation about Z axis)
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class TwistWithCovariance extends Message {
 
@@ -149,11 +149,11 @@ public class TwistWithCovariance extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this TwistWithCovariance.
+	 * Create a clone of this TwistWithCovariance.
 	 */
 	@Override
 	public TwistWithCovariance clone() {
-		return new TwistWithCovariance(this.twist.clone(), this.covariance);
+		return new TwistWithCovariance(this.twist, this.covariance);
 	}
 
 	/**

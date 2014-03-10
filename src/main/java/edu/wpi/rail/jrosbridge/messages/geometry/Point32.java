@@ -97,7 +97,7 @@ public class Point32 extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this Point32.
+	 * Create a clone of this Point32.
 	 */
 	@Override
 	public Point32 clone() {

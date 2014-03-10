@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version March 8, 2014
  */
 public class PoseStamped extends Message {
 
@@ -77,11 +77,11 @@ public class PoseStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this PoseStamped.
+	 * Create a clone of this PoseStamped.
 	 */
 	@Override
 	public PoseStamped clone() {
-		return new PoseStamped(this.header.clone(), this.pose.clone());
+		return new PoseStamped(this.header, this.pose);
 	}
 
 	/**

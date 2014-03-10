@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * estimated pose with a reference coordinate frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version March 8, 2014
  */
 public class PoseWithCovarianceStamped extends Message {
 
@@ -79,12 +79,11 @@ public class PoseWithCovarianceStamped extends Message {
 	}
 
 	/**
-	 * Create a deep clone of this PoseWithCovarianceStamped.
+	 * Create a clone of this PoseWithCovarianceStamped.
 	 */
 	@Override
 	public PoseWithCovarianceStamped clone() {
-		return new PoseWithCovarianceStamped(this.header.clone(),
-				this.pose.clone());
+		return new PoseWithCovarianceStamped(this.header, this.pose);
 	}
 
 	/**

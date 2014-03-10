@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 24, 2014
+ * @version March 8, 2014
  */
 public class Message extends JsonWrapper {
 
@@ -104,11 +104,10 @@ public class Message extends JsonWrapper {
 	}
 
 	/**
-	 * Create a deep clone of this Message.
+	 * Create a clone of this Message.
 	 */
 	@Override
 	public Message clone() {
-		// use the string to make sure we get an entirely new JSON object
-		return new Message(this.toString(), this.messageType);
+		return new Message(this.toJsonObject(), this.messageType);
 	}
 }
