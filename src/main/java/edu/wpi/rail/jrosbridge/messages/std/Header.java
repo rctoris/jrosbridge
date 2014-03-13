@@ -7,8 +7,9 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.primitives.Primitive;
 
 /**
- * The geometry_msgs/Header message. This contains the position of a header in
- * free space.
+ * The std_msgs/Header message. Standard metadata for higher-level stamped data
+ * types. This is generally used to communicate timestamped data in a particular
+ * coordinate frame.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
  * @version March 9, 2014
@@ -70,7 +71,7 @@ public class Header extends Message {
 
 	/**
 	 * Get the sequence value of this header which should be treated as an
-	 * unsingned 32-bit integer.
+	 * unsigned 32-bit integer.
 	 * 
 	 * @return The sequence value of this header.
 	 */
