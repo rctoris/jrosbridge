@@ -15,6 +15,9 @@ SNAPSHOT - **0.1.0**
  * `rosapi` services added to the `edu.wpi.rail.jrosbridge.services.rosapi` package [(rctoris)](https://github.com/rctoris/)
  * JUnit test cases added [(rctoris)](https://github.com/rctoris/)
 
+2013-02-16 - **0.0.3**
+ * Proper check made for optional success code in service responses [(rctoris)](https://github.com/rctoris/)
+
 2013-02-16 - **0.0.2**
  * Support for calling services added [(rctoris)](https://github.com/rctoris/)
 
