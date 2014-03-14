@@ -365,7 +365,8 @@ public class Ros {
 			if (cb != null) {
 				// check if a success code was given
 				boolean success = jsonObject
-						.getBoolean(JRosbridge.FIELD_RESULT);
+						.containsKey(JRosbridge.FIELD_RESULT) ? jsonObject
+						.getBoolean(JRosbridge.FIELD_RESULT) : true;
 				// get the response
 				JsonObject values = jsonObject
 						.getJsonObject(JRosbridge.FIELD_VALUES);

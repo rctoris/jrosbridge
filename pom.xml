@@ -33,7 +33,7 @@
 		<connection>scm:git:git://github.com/WPI-RAIL/jrosbridge.git</connection>
 		<developerConnection>scm:git:git@github.com:WPI-RAIL/jrosbridge.git</developerConnection>
 		<url>https://github.com/WPI-RAIL/jrosbridge</url>
-		<tag>HEAD</tag>
+		<tag>jrosbridge-0.0.3</tag>
 	</scm>
 
 	<dependencies>
