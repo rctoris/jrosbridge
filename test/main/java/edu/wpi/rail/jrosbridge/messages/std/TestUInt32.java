@@ -37,7 +37,7 @@ public class TestUInt32 {
 	}
 
 	@Test
-	public void testByteConstructor() {
+	public void testIntConstructor() {
 		assertEquals(123, i1.getData());
 
 		assertEquals("{\"data\":123}", i1.toString());
@@ -50,7 +50,7 @@ public class TestUInt32 {
 	}
 
 	@Test
-	public void testByteConstructorNegative() {
+	public void testIntConstructorNegative() {
 		UInt32 c = new UInt32(-1);
 
 		assertEquals(-1, c.getData());

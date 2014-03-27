@@ -1,6 +1,6 @@
 package edu.wpi.rail.jrosbridge.messages.std;
 
-import java.io.java.lang.StringReader;
+import java.io.StringReader;
 import java.util.Arrays;
 
 import javax.json.Json;
@@ -8,6 +8,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.primitives.Primitive;
 
 /**
  * The std_msgs/MultiArrayLayout message. The multiarray declares a generic
@@ -43,7 +44,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * multiarray(i,j,k) refers to the ith row, jth column, and kth channel.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 9, 2014
+ * @version March 27, 2014
  */
 public class MultiArrayLayout extends Message {
 
@@ -51,6 +52,7 @@ public class MultiArrayLayout extends Message {
 	 * The name of the dimensions field for the message.
 	 */
 	public static final java.lang.String FIELD_DIM = "dim";
+
 	/**
 	 * The name of the data offset field for the message.
 	 */
@@ -61,65 +63,82 @@ public class MultiArrayLayout extends Message {
 	 */
 	public static final java.lang.String TYPE = "std_msgs/MultiArrayLayout";
 
-	private final MultiArrayLayout[] dim;
+	private final MultiArrayDimension[] dim;
 	private final int dataOffset;
 
 	/**
 	 * Create a new MultiArrayLayout with empty values.
 	 */
 	public MultiArrayLayout() {
-		this(new MultiArrayLayout[] {}, 0);
+		this(new MultiArrayDimension[] {}, 0);
 	}
 
 	/**
 	 * Create a new MultiArrayLayout with the given set of layouts. The array of
-	 * layouts will be copied into this object.
+	 * layouts will be copied into this object. The data offset is treated as a
+	 * 32-bit unsigned integer. The array of properties will be copied into this
+	 * object.
 	 * 
-	 * @param layouts
-	 *            The layouts of the polygon.
+	 * @param dim
+	 *            The array of dimension properties.
+	 * @param dataOffset
+	 *            The padding bytes at front of the data.
 	 */
-	public MultiArrayLayout(MultiArrayLayout[] dim, int dataOffset) {
+	public MultiArrayLayout(MultiArrayDimension[] dim, int dataOffset) {
 		// build the JSON object
 		super(Json
 				.createObjectBuilder()
-				.add(MultiArrayLayout.FIELD_POINTS,
+				.add(MultiArrayLayout.FIELD_DIM,
 						Json.createReader(
-								new java.lang.StringReader(Arrays.deepTojava.lang.String(layouts)))
-								.readArray()).build(), MultiArrayLayout.TYPE);
+								new StringReader(Arrays.deepToString(dim)))
+								.readArray())
+				.add(MultiArrayLayout.FIELD_DATA_OFFSET,
+						Primitive.fromUInt32(dataOffset)).build(),
+				MultiArrayLayout.TYPE);
 
-		// copy the layouts
-		this.layouts = new MultiArrayLayout[layouts.length];
-		System.arraycopy(layouts, 0, this.layouts, 0, layouts.length);
+		// copy the array
+		this.dim = new MultiArrayDimension[dim.length];
+		System.arraycopy(dim, 0, this.dim, 0, dim.length);
+		this.dataOffset = dataOffset;
 	}
 
 	/**
-	 * Get the number of layouts in this polygon.
+	 * Get the number of dimension properties in this array layout.
 	 * 
-	 * @return The number of layouts in this polygon.
+	 * @return The number of dimension properties in this array layout.
 	 */
 	public int size() {
-		return this.layouts.length;
+		return this.dim.length;
 	}
 
 	/**
-	 * Get the layout in the polygon at the given index.
+	 * Get the dimension at the given index.
 	 * 
 	 * @param index
-	 *            The index to get the layout of.
-	 * @return The layout at the given index.
+	 *            The index to get the dimension property of.
+	 * @return The dimension property at the given index.
 	 */
-	public MultiArrayLayout get(int index) {
-		return this.layouts[index];
+	public MultiArrayDimension get(int index) {
+		return this.dim[index];
 	}
 
 	/**
-	 * Get the layouts of this polygon. Note that this array should never be
+	 * Get the dimension properties. Note that this array should never be
 	 * modified directly.
 	 * 
-	 * @return The layouts of this polygon.
+	 * @return The layouts of this array layout.
 	 */
-	public MultiArrayLayout[] getPoints() {
-		return this.layouts;
+	public MultiArrayDimension[] getDim() {
+		return this.dim;
+	}
+
+	/**
+	 * Get the data offset value.
+	 * 
+	 * @return The data offset value.
+	 */
+	public int getDataOffset() {
+		return this.dataOffset;
 	}
 
 	/**
@@ -127,20 +146,20 @@ public class MultiArrayLayout extends Message {
 	 */
 	@Override
 	public MultiArrayLayout clone() {
-		return new MultiArrayLayout(this.layouts);
+		return new MultiArrayLayout(this.dim, this.dataOffset);
 	}
 
 	/**
 	 * Create a new MultiArrayLayout based on the given JSON string. Any missing
 	 * values will be set to their defaults.
 	 * 
-	 * @param jsonjava.lang.String
+	 * @param jsonString
 	 *            The JSON string to parse.
 	 * @return A MultiArrayLayout message based on the given JSON string.
 	 */
-	public static MultiArrayLayout fromJsonjava.lang.String(java.lang.String jsonjava.lang.String) {
+	public static MultiArrayLayout fromJsonString(java.lang.String jsonString) {
 		// convert to a message
-		return MultiArrayLayout.fromMessage(new Message(jsonjava.lang.String));
+		return MultiArrayLayout.fromMessage(new Message(jsonString));
 	}
 
 	/**
@@ -166,18 +185,23 @@ public class MultiArrayLayout extends Message {
 	 */
 	public static MultiArrayLayout fromJsonObject(JsonObject jsonObject) {
 		// check the array
-		JsonArray jsonPoints = jsonObject
-				.getJsonArray(MultiArrayLayout.FIELD_POINTS);
-		if (jsonPoints != null) {
-			// convert each layout
-			MultiArrayLayout[] layouts = new MultiArrayLayout[jsonPoints.size()];
-			for (int i = 0; i < layouts.length; i++) {
-				layouts[i] = MultiArrayLayout.fromJsonObject(jsonPoints
+		MultiArrayDimension[] dim = new MultiArrayDimension[] {};
+		JsonArray jsonDim = jsonObject.getJsonArray(MultiArrayLayout.FIELD_DIM);
+		if (jsonDim != null) {
+			// convert each property
+			dim = new MultiArrayDimension[jsonDim.size()];
+			for (int i = 0; i < dim.length; i++) {
+				dim[i] = MultiArrayDimension.fromJsonObject(jsonDim
 						.getJsonObject(i));
 			}
-			return new MultiArrayLayout(layouts);
-		} else {
-			return new MultiArrayLayout();
 		}
+
+		// check the offset
+		int dataOffset = jsonObject
+				.containsKey(MultiArrayLayout.FIELD_DATA_OFFSET) ? Primitive
+				.toUInt32(jsonObject.getJsonNumber(
+						MultiArrayLayout.FIELD_DATA_OFFSET).longValue()) : 0;
+
+		return new MultiArrayLayout(dim, dataOffset);
 	}
 }

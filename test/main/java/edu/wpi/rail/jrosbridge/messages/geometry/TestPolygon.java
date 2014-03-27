@@ -123,7 +123,6 @@ public class TestPolygon {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		;
 		assertEquals(p1.size(), p.size());
 		assertEquals(p1.getPoints(), p.getPoints());
 		assertNotSame(p1, p);
