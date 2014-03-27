@@ -1,45 +1,23 @@
 package edu.wpi.rail.jrosbridge.primitives;
 
+import java.io.StringReader;
 import java.util.Date;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.messages.Message;
-
-public class Time extends Primitive {
-
-	/**
-	 * The name of the seconds field for the message.
-	 */
-	public static final String FIELD_SECS = "secs";
-	/**
-	 * The name of the nanoseconds field for the message.
-	 */
-	public static final String FIELD_NSECS = "nsecs";
+public class Time extends TimeBase<Time> {
 
 	/**
 	 * The primitive type.
 	 */
 	public static final String TYPE = "time";
 
-	private int secs, nsecs;
-
 	/**
 	 * Create a new Time with a default of 0.
 	 */
 	public Time() {
-		this(0, 0);
-	}
-
-	/**
-	 * Create a new Time with the given seconds value (nsecs will be set to 0).
-	 * 
-	 * @param secs
-	 *            The seconds value of this time.
-	 */
-	public Time(int secs) {
-		this(secs, 0);
+		super(Time.TYPE);
 	}
 
 	/**
@@ -51,37 +29,27 @@ public class Time extends Primitive {
 	 *            The nanoseconds value of this time.
 	 */
 	public Time(int secs, int nsecs) {
-		// build the JSON object
-		super(Json.createObjectBuilder().add(Time.FIELD_SECS, secs)
-				.add(Time.FIELD_NSECS, nsecs).build(), Time.TYPE);
-		this.secs = secs;
-		this.nsecs = nsecs;
+		super(secs, nsecs, Time.TYPE);
 	}
 
-	/**
-	 * Get the seconds value of this time.
-	 * 
-	 * @return The seconds value of this time.
-	 */
-	public int getSecs() {
-		return this.secs;
+	public Time(double sec) {
+		super(sec, Time.TYPE);
 	}
 
-	/**
-	 * Get the nanoseconds value of this time.
-	 * 
-	 * @return The nanoseconds value of this time.
-	 */
-	public int getNsecs() {
-		return this.secs;
+	public Time(long nano) {
+		super(nano, Time.TYPE);
 	}
 
-	/**
-	 * Create a clone of this Time.
-	 */
-	@Override
-	public Time clone() {
-		return new Time(this.secs, this.nsecs);
+	public Time add(Time t) {
+		return new Time(this.toSec() + t.toSec());
+	}
+
+	public Time subtract(Time t) {
+		return new Time(this.toSec() - t.toSec());
+	}
+
+	public boolean isValid() {
+		return !this.isZero();
 	}
 
 	/**
@@ -94,30 +62,55 @@ public class Time extends Primitive {
 		return null;
 	}
 
+	public static boolean sleepUntil(Time t) {
+		// use a duration to sleep with
+		return Duration.fromSec(Time.now().subtract(t).toSec()).sleep();
+	}
+
+	/**
+	 * Create a clone of this Time.
+	 */
+	@Override
+	public Time clone() {
+		return new Time(this.secs, this.nsecs);
+	}
+
 	/**
 	 * Create a new Time message based on the current system time.
 	 * 
 	 * @return The new Time message.
 	 */
 	public static Time now() {
-		return Time.fromNanoTime(System.nanoTime());
+		return Time.fromNano(System.nanoTime());
 	}
 
 	/**
-	 * Create a new Time message based on the given nanoseconds time.
+	 * Create a new Time message based on the given seconds.
 	 * 
-	 * @param nanoTime
-	 *            The time to create a message from in nanoseconds.
+	 * @param sec
+	 *            The time in seconds.
 	 * 
-	 * @return The new Time message.
+	 * @return The new Time primitive.
 	 */
-	public static Time fromNanoTime(long nanoTime) {
-		double conversion = (double) nanoTime / 1000000000.0;
+	public static Time fromSec(double sec) {
+		return new Time(sec);
+	}
 
-		// extract seconds and nanoseconds
-		int secs = (int) conversion;
-		int nsecs = (int) ((conversion - secs) * 1000000000.0);
-		return new Time(secs, nsecs);
+	/**
+	 * Create a new Time message based on the given nanoseconds.
+	 * 
+	 * @param nano
+	 *            The time in nanoseconds.
+	 * 
+	 * @return The new Time primitive.
+	 */
+	public static Time fromNano(long nano) {
+		return new Time(nano);
+	}
+
+	public static Time fromDate(Date date) {
+		// TODO
+		return null;
 	}
 
 	/**
@@ -129,21 +122,9 @@ public class Time extends Primitive {
 	 * @return A Time message based on the given JSON string.
 	 */
 	public static Time fromJsonString(String jsonString) {
-		// convert to a message
-		return Time.fromMessage(new Message(jsonString));
-	}
-
-	/**
-	 * Create a new Time based on the given Message. Any missing values will be
-	 * set to their defaults.
-	 * 
-	 * @param m
-	 *            The Message to parse.
-	 * @return A Time message based on the given Message.
-	 */
-	public static Time fromMessage(Message m) {
-		// get it from the JSON object
-		return Time.fromJsonObject(m.toJsonObject());
+		// convert to a JSON object
+		return Time.fromJsonObject(Json.createReader(
+				new StringReader(jsonString)).readObject());
 	}
 
 	/**
@@ -162,5 +143,4 @@ public class Time extends Primitive {
 				.getInt(Time.FIELD_NSECS) : 0;
 		return new Time(secs, nsecs);
 	}
-
 }
