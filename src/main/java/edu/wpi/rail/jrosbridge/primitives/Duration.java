@@ -91,9 +91,10 @@ public class Duration extends TimeBase<Duration> {
 	 */
 	public boolean sleep() {
 		try {
-			Thread.sleep((this.secs * 1000)
-					+ ((long) ((double) this.nsecs / 1000000.0)),
-					this.nsecs % 1000000);
+			Thread.sleep(
+					(this.secs * TimeBase.SECS_TO_MILLI)
+							+ ((long) ((double) this.nsecs / (double) TimeBase.MILLI_TO_NSECS)),
+					this.nsecs % (int) TimeBase.MILLI_TO_NSECS);
 			return true;
 		} catch (InterruptedException e) {
 			return false;

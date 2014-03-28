@@ -26,6 +26,36 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	 */
 	public static final String FIELD_NSECS = "nsecs";
 
+	/**
+	 * The number of milliseconds in a second.
+	 */
+	protected static final long SECS_TO_MILLI = 1000;
+
+	/**
+	 * The fraction of a second in a millisecond.
+	 */
+	protected static final double MILLI_TO_SECS = 0.001;
+
+	/**
+	 * The number of nanoseconds in a second.
+	 */
+	protected static final long SECS_TO_NSECS = 1000000000l;
+
+	/**
+	 * The fraction of a second in a nanosecond.
+	 */
+	protected static final double NSECS_TO_SECS = 1e-9;
+
+	/**
+	 * The number of milliseconds in a second.
+	 */
+	protected static final long MILLI_TO_NSECS = 1000000;
+
+	/**
+	 * The number of milliseconds in a second.
+	 */
+	protected static final double NSECS_TO_MILLI = 1e-6;
+
 	public final int secs, nsecs;
 
 	/**
@@ -48,7 +78,7 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	 *            The type of TimeBase primitive.
 	 */
 	public TimeBase(double sec, String type) {
-		this((long) (sec * 1000000000), type);
+		this((long) (sec * TimeBase.SECS_TO_NSECS), type);
 	}
 
 	/**
@@ -61,7 +91,8 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	 */
 	public TimeBase(long nano, String type) {
 		// extract seconds and nanoseconds
-		this((int) (nano / 1000000000), (int) (nano % 1000000000), type);
+		this((int) (nano / TimeBase.SECS_TO_NSECS),
+				(int) (nano % TimeBase.SECS_TO_NSECS), type);
 	}
 
 	/**
@@ -115,7 +146,7 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	 * @return This TimeBase to seconds (and partial seconds).
 	 */
 	public double toSec() {
-		return this.secs + 1e-9 * (double) this.nsecs;
+		return this.secs + (TimeBase.NSECS_TO_SECS * (double) this.nsecs);
 	}
 
 	/**
@@ -124,7 +155,8 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	 * @return This TimeBase to nanoseconds.
 	 */
 	public long toNSec() {
-		return ((long) (this.secs * 1000000000l)) + ((long) this.nsecs);
+		return ((long) (this.secs * TimeBase.SECS_TO_NSECS))
+				+ ((long) this.nsecs);
 	}
 
 	/**

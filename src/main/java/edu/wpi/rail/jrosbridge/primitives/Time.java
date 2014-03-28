@@ -100,7 +100,7 @@ public class Time extends TimeBase<Time> {
 	 */
 	public Date toDate() {
 		Calendar c = Calendar.getInstance();
-		c.setTimeInMillis((long) (this.toSec() * 1000.0));
+		c.setTimeInMillis((long) (this.toSec() * (double) TimeBase.SECS_TO_MILLI));
 		return c.getTime();
 	}
 
@@ -132,7 +132,8 @@ public class Time extends TimeBase<Time> {
 	 * @return The new Time message.
 	 */
 	public static Time now() {
-		return Time.fromSec(((double) System.currentTimeMillis()) / 1000.0);
+		return Time.fromSec(((double) System.currentTimeMillis())
+				* TimeBase.MILLI_TO_SECS);
 	}
 
 	/**
@@ -167,7 +168,7 @@ public class Time extends TimeBase<Time> {
 	 * @return The resulting Time primitive.
 	 */
 	public static Time fromDate(Date date) {
-		return Time.fromSec(((double) date.getTime()) / 1000.0);
+		return Time.fromSec(((double) date.getTime()) * TimeBase.MILLI_TO_SECS);
 	}
 
 	/**

@@ -55,8 +55,8 @@ public class TestFloat64MultiArray {
 				new MultiArrayDimension("test2", 30, 40) }, 50), a1.getLayout());
 		assertTrue(Arrays.equals(new double[] { 5.5, 10.5 }, a1.getData()));
 		assertEquals(2, a1.size());
-		assertEquals((double) 5.5, a1.get(0));
-		assertEquals((double) 10.5, a1.get(1));
+		assertEquals((double) 5.5, a1.get(0), 0);
+		assertEquals((double) 10.5, a1.get(1), 0);
 
 		assertEquals("{\"layout\":{\"dim\":["
 				+ "{\"label\":\"test\",\"size\":10,\"stride\":20},"
