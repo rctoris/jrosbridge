@@ -24,7 +24,7 @@ public class TestTimeBase {
 		assertEquals(0, t1.getSecs());
 		assertEquals(0, t1.getNsecs());
 		assertTrue(t1.isZero());
-		assertEquals(0.0, t1.toSec());
+		assertEquals(0.0, t1.toSec(), 0);
 		assertEquals(0l, t1.toNSec());
 
 		assertEquals("{\"secs\":0,\"nsecs\":0}", t1.toString());
@@ -46,7 +46,7 @@ public class TestTimeBase {
 		assertEquals(10, t2.getSecs());
 		assertEquals(200000000, t2.getNsecs());
 		assertFalse(t2.isZero());
-		assertEquals(10.2, t2.toSec());
+		assertEquals(10.2, t2.toSec(), 0);
 		assertEquals(10200000000l, t2.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", t2.toString());
@@ -68,7 +68,7 @@ public class TestTimeBase {
 		assertEquals(0, t3.getSecs());
 		assertEquals(1024, t3.getNsecs());
 		assertFalse(t3.isZero());
-		assertEquals(1.024e-6, t3.toSec());
+		assertEquals(1.024e-6, t3.toSec(), 0);
 		assertEquals(1024l, t3.toNSec());
 
 		assertEquals("{\"secs\":0,\"nsecs\":1024}", t3.toString());
@@ -90,7 +90,7 @@ public class TestTimeBase {
 		assertEquals(10, t4.getSecs());
 		assertEquals(20, t4.getNsecs());
 		assertFalse(t4.isZero());
-		assertEquals(10.00000002, t4.toSec());
+		assertEquals(10.00000002, t4.toSec(), 0);
 		assertEquals(10000000020l, t4.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":20}", t4.toString());

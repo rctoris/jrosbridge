@@ -30,7 +30,7 @@ public class TestTime {
 		assertEquals(0, empty.getSecs());
 		assertEquals(0, empty.getNsecs());
 		assertTrue(empty.isZero());
-		assertEquals(0.0, empty.toSec());
+		assertEquals(0.0, empty.toSec(), 0);
 		assertEquals(0l, empty.toNSec());
 		assertFalse(empty.isValid());
 
@@ -50,7 +50,7 @@ public class TestTime {
 		assertEquals(10, t1.getSecs());
 		assertEquals(200000000, t1.getNsecs());
 		assertFalse(t1.isZero());
-		assertEquals(10.2, t1.toSec());
+		assertEquals(10.2, t1.toSec(), 0);
 		assertEquals(10200000000l, t1.toNSec());
 		assertTrue(t1.isValid());
 
@@ -70,7 +70,7 @@ public class TestTime {
 		assertEquals(0, t2.getSecs());
 		assertEquals(1024, t2.getNsecs());
 		assertFalse(t2.isZero());
-		assertEquals(1.024e-6, t2.toSec());
+		assertEquals(1.024e-6, t2.toSec(), 0);
 		assertEquals(1024l, t2.toNSec());
 		assertTrue(t2.isValid());
 
@@ -90,7 +90,7 @@ public class TestTime {
 		assertEquals(10, t3.getSecs());
 		assertEquals(20, t3.getNsecs());
 		assertFalse(t3.isZero());
-		assertEquals(10.00000002, t3.toSec());
+		assertEquals(10.00000002, t3.toSec(), 0);
 		assertEquals(10000000020l, t3.toNSec());
 		assertTrue(t3.isValid());
 
@@ -185,7 +185,7 @@ public class TestTime {
 		assertEquals(t1.getPrimitiveType(), clone.getPrimitiveType());
 		assertEquals(t1.getSecs(), clone.getSecs());
 		assertEquals(t1.getNsecs(), clone.getNsecs());
-		assertEquals(t1.toSec(), clone.toSec());
+		assertEquals(t1.toSec(), clone.toSec(), 0);
 		assertEquals(t1.toNSec(), clone.toNSec());
 		assertNotSame(t1, clone);
 		assertNotSame(t1.toString(), clone.toString());
@@ -218,7 +218,7 @@ public class TestTime {
 		assertEquals(10, t.getSecs());
 		assertEquals(200000000, t.getNsecs());
 		assertFalse(t.isZero());
-		assertEquals(10.2, t.toSec());
+		assertEquals(10.2, t.toSec(), 0);
 		assertEquals(10200000000l, t.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", t.toString());
@@ -239,7 +239,7 @@ public class TestTime {
 		assertEquals(10, t.getSecs());
 		assertEquals(200000000, t.getNsecs());
 		assertFalse(t.isZero());
-		assertEquals(10.2, t.toSec());
+		assertEquals(10.2, t.toSec(), 0);
 		assertEquals(10200000000l, t.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", t.toString());
@@ -262,7 +262,7 @@ public class TestTime {
 		assertEquals(10, t.getSecs());
 		assertEquals(200000000, t.getNsecs());
 		assertFalse(t.isZero());
-		assertEquals(10.2, t.toSec());
+		assertEquals(10.2, t.toSec(), 0);
 		assertEquals(10200000000l, t.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", t.toString());
@@ -282,7 +282,7 @@ public class TestTime {
 		assertEquals(t1.getPrimitiveType(), t.getPrimitiveType());
 		assertEquals(t1.getSecs(), t.getSecs());
 		assertEquals(t1.getNsecs(), t.getNsecs());
-		assertEquals(t1.toSec(), t.toSec());
+		assertEquals(t1.toSec(), t.toSec(), 0);
 		assertEquals(t1.toNSec(), t.toNSec());
 		assertNotSame(t1, t);
 		assertNotSame(t1.toString(), t.toString());
@@ -300,7 +300,7 @@ public class TestTime {
 		assertEquals(t1.getPrimitiveType(), t.getPrimitiveType());
 		assertEquals(t1.getSecs(), t.getSecs());
 		assertEquals(t1.getNsecs(), t.getNsecs());
-		assertEquals(t1.toSec(), t.toSec());
+		assertEquals(t1.toSec(), t.toSec(), 0);
 		assertEquals(t1.toNSec(), t.toNSec());
 		assertNotSame(t1, t);
 		assertNotSame(t1.toString(), t.toString());
@@ -314,7 +314,7 @@ public class TestTime {
 		Time t = Time.fromJsonObject(jsonObject);
 		assertEquals(0, t.getSecs());
 		assertEquals(t1.getNsecs(), t.getNsecs());
-		assertEquals(t1.getNsecs() / 1000000000.0, t.toSec());
+		assertEquals(t1.getNsecs() / 1000000000.0, t.toSec(), 0);
 		assertEquals((long) t1.getNsecs(), t.toNSec());
 	}
 
@@ -325,7 +325,7 @@ public class TestTime {
 		Time t = Time.fromJsonObject(jsonObject);
 		assertEquals(t1.getSecs(), t.getSecs());
 		assertEquals(0, t.getNsecs());
-		assertEquals((double) t1.getSecs(), t.toSec());
+		assertEquals((double) t1.getSecs(), t.toSec(), 0);
 		assertEquals(t1.getSecs() * 1000000000l, t.toNSec());
 	}
 

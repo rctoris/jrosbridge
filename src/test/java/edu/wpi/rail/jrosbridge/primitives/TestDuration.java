@@ -27,7 +27,7 @@ public class TestDuration {
 		assertEquals(0, empty.getSecs());
 		assertEquals(0, empty.getNsecs());
 		assertTrue(empty.isZero());
-		assertEquals(0.0, empty.toSec());
+		assertEquals(0.0, empty.toSec(), 0);
 		assertEquals(0l, empty.toNSec());
 
 		assertEquals("{\"secs\":0,\"nsecs\":0}", empty.toString());
@@ -46,7 +46,7 @@ public class TestDuration {
 		assertEquals(10, d1.getSecs());
 		assertEquals(200000000, d1.getNsecs());
 		assertFalse(d1.isZero());
-		assertEquals(10.2, d1.toSec());
+		assertEquals(10.2, d1.toSec(), 0);
 		assertEquals(10200000000l, d1.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", d1.toString());
@@ -65,7 +65,7 @@ public class TestDuration {
 		assertEquals(0, d2.getSecs());
 		assertEquals(1024, d2.getNsecs());
 		assertFalse(d2.isZero());
-		assertEquals(1.024e-6, d2.toSec());
+		assertEquals(1.024e-6, d2.toSec(), 0);
 		assertEquals(1024l, d2.toNSec());
 
 		assertEquals("{\"secs\":0,\"nsecs\":1024}", d2.toString());
@@ -84,7 +84,7 @@ public class TestDuration {
 		assertEquals(10, d3.getSecs());
 		assertEquals(20, d3.getNsecs());
 		assertFalse(d3.isZero());
-		assertEquals(10.00000002, d3.toSec());
+		assertEquals(10.00000002, d3.toSec(), 0);
 		assertEquals(10000000020l, d3.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":20}", d3.toString());
@@ -188,7 +188,7 @@ public class TestDuration {
 		assertEquals(d1.getPrimitiveType(), clone.getPrimitiveType());
 		assertEquals(d1.getSecs(), clone.getSecs());
 		assertEquals(d1.getNsecs(), clone.getNsecs());
-		assertEquals(d1.toSec(), clone.toSec());
+		assertEquals(d1.toSec(), clone.toSec(), 0);
 		assertEquals(d1.toNSec(), clone.toNSec());
 		assertNotSame(d1, clone);
 		assertNotSame(d1.toString(), clone.toString());
@@ -204,7 +204,7 @@ public class TestDuration {
 		assertEquals(10, d.getSecs());
 		assertEquals(200000000, d.getNsecs());
 		assertFalse(d.isZero());
-		assertEquals(10.2, d.toSec());
+		assertEquals(10.2, d.toSec(), 0);
 		assertEquals(10200000000l, d.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", d.toString());
@@ -225,7 +225,7 @@ public class TestDuration {
 		assertEquals(10, d.getSecs());
 		assertEquals(200000000, d.getNsecs());
 		assertFalse(d.isZero());
-		assertEquals(10.2, d.toSec());
+		assertEquals(10.2, d.toSec(), 0);
 		assertEquals(10200000000l, d.toNSec());
 
 		assertEquals("{\"secs\":10,\"nsecs\":200000000}", d.toString());
@@ -245,7 +245,7 @@ public class TestDuration {
 		assertEquals(d1.getPrimitiveType(), d.getPrimitiveType());
 		assertEquals(d1.getSecs(), d.getSecs());
 		assertEquals(d1.getNsecs(), d.getNsecs());
-		assertEquals(d1.toSec(), d.toSec());
+		assertEquals(d1.toSec(), d.toSec(), 0);
 		assertEquals(d1.toNSec(), d.toNSec());
 		assertNotSame(d1, d);
 		assertNotSame(d1.toString(), d.toString());
@@ -263,7 +263,7 @@ public class TestDuration {
 		assertEquals(d1.getPrimitiveType(), d.getPrimitiveType());
 		assertEquals(d1.getSecs(), d.getSecs());
 		assertEquals(d1.getNsecs(), d.getNsecs());
-		assertEquals(d1.toSec(), d.toSec());
+		assertEquals(d1.toSec(), d.toSec(), 0);
 		assertEquals(d1.toNSec(), d.toNSec());
 		assertNotSame(d1, d);
 		assertNotSame(d1.toString(), d.toString());
@@ -277,7 +277,7 @@ public class TestDuration {
 		Duration d = Duration.fromJsonObject(jsonObject);
 		assertEquals(0, d.getSecs());
 		assertEquals(d1.getNsecs(), d.getNsecs());
-		assertEquals(d1.getNsecs() / 1000000000.0, d.toSec());
+		assertEquals(d1.getNsecs() / 1000000000.0, d.toSec(), 0);
 		assertEquals((long) d1.getNsecs(), d.toNSec());
 	}
 
@@ -288,7 +288,7 @@ public class TestDuration {
 		Duration d = Duration.fromJsonObject(jsonObject);
 		assertEquals(d1.getSecs(), d.getSecs());
 		assertEquals(0, d.getNsecs());
-		assertEquals((double) d1.getSecs(), d.toSec());
+		assertEquals((double) d1.getSecs(), d.toSec(), 0);
 		assertEquals(d1.getSecs() * 1000000000l, d.toNSec());
 	}
 
