@@ -5,6 +5,12 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+/**
+ * The ROS duration primitive.
+ * 
+ * @author Russell Toris - rctoris@wpi.edu
+ * @version March 28, 2014
+ */
 public class Duration extends TimeBase<Duration> {
 
 	/**
@@ -31,25 +37,63 @@ public class Duration extends TimeBase<Duration> {
 		super(secs, nsecs, Duration.TYPE);
 	}
 
+	/**
+	 * Create a new Duration with the given duration in seconds (and partial
+	 * seconds).
+	 * 
+	 * @param sec
+	 *            The duration in seconds.
+	 */
 	public Duration(double sec) {
 		super(sec, Duration.TYPE);
 	}
 
+	/**
+	 * Create a new Duration with the given duration in nanoseconds.
+	 * 
+	 * @param sec
+	 *            The duration in nanoseconds.
+	 */
 	public Duration(long nano) {
 		super(nano, Duration.TYPE);
 	}
 
+	/**
+	 * Add the given Duration to this Duration and return a new Duration with
+	 * that value.
+	 * 
+	 * @param d
+	 *            The Duration to add.
+	 * @return A new Duration with the new value.
+	 */
+	@Override
 	public Duration add(Duration d) {
 		return new Duration(this.toSec() + d.toSec());
 	}
 
+	/**
+	 * Subtract the given Duration from this Duration and return a new Duration
+	 * with that value.
+	 * 
+	 * @param d
+	 *            The Duration to subtract.
+	 * @return A new Duration with the new value.
+	 */
+	@Override
 	public Duration subtract(Duration d) {
 		return new Duration(this.toSec() - d.toSec());
 	}
 
+	/**
+	 * Attempt to sleep for the duration specified in this object.
+	 * 
+	 * @return If the sleep was successful.
+	 */
 	public boolean sleep() {
 		try {
-			Thread.sleep(this.secs * 1000, this.nsecs);
+			Thread.sleep((this.secs * 1000)
+					+ ((long) ((double) this.nsecs / 1000000.0)),
+					this.nsecs % 1000000);
 			return true;
 		} catch (InterruptedException e) {
 			return false;
