@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TestTimeBase {
 
-	private DummyTimeBase t1, t2, t3, t4;
+	private TimeBase<DummyTimeBase> t1, t2, t3, t4;
 
 	@Before
 	public void setUp() {

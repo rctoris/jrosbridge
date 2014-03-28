@@ -16,7 +16,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * numbers.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 27, 2014
+ * @version March 28, 2014
  */
 public abstract class Primitive extends JsonWrapper {
 
@@ -106,10 +106,27 @@ public abstract class Primitive extends JsonWrapper {
 		return tmp;
 	}
 
+	/**
+	 * Convert the given value in unsigned 8-bit representation into its actual
+	 * value. That is, all return values of this function will be positive.
+	 * 
+	 * @param value
+	 *            The unsigned 8-bit value to convert.
+	 * @return The value of the given 8-bit unsigned value.
+	 */
 	public static short fromUInt8(byte value) {
 		return (short) (value & (short) 0xFF);
 	}
 
+	/**
+	 * Convert the given values in unsigned 8-bit representation into their
+	 * actual values. That is, all return values of this function will be
+	 * positive.
+	 * 
+	 * @param values
+	 *            The unsigned 8-bit values to convert.
+	 * @return The values of the given 8-bit unsigned values.
+	 */
 	public static short[] fromUInt8(byte[] values) {
 		short[] tmp = new short[values.length];
 		for (int i = 0; i < tmp.length; i++) {
@@ -148,10 +165,27 @@ public abstract class Primitive extends JsonWrapper {
 		return tmp;
 	}
 
+	/**
+	 * Convert the given value in unsigned 16-bit representation into its actual
+	 * value. That is, all return values of this function will be positive.
+	 * 
+	 * @param value
+	 *            The unsigned 16-bit value to convert.
+	 * @return The value of the given 16-bit unsigned value.
+	 */
 	public static int fromUInt16(short value) {
 		return (int) (value & 0xFFFF);
 	}
 
+	/**
+	 * Convert the given values in unsigned 16-bit representation into their
+	 * actual values. That is, all return values of this function will be
+	 * positive.
+	 * 
+	 * @param values
+	 *            The unsigned 16-bit values to convert.
+	 * @return The values of the given 16-bit unsigned values.
+	 */
 	public static int[] fromUInt16(short[] values) {
 		int[] tmp = new int[values.length];
 		for (int i = 0; i < tmp.length; i++) {
@@ -190,10 +224,27 @@ public abstract class Primitive extends JsonWrapper {
 		return tmp;
 	}
 
+	/**
+	 * Convert the given value in unsigned 32-bit representation into its actual
+	 * value. That is, all return values of this function will be positive.
+	 * 
+	 * @param value
+	 *            The unsigned 32-bit value to convert.
+	 * @return The value of the given 32-bit unsigned value.
+	 */
 	public static long fromUInt32(int value) {
 		return (long) (value & 0xFFFFFFFFL);
 	}
 
+	/**
+	 * Convert the given values in unsigned 32-bit representation into their
+	 * actual values. That is, all return values of this function will be
+	 * positive.
+	 * 
+	 * @param values
+	 *            The unsigned 32-bit values to convert.
+	 * @return The values of the given 64-bit unsigned values.
+	 */
 	public static long[] fromUInt32(int[] values) {
 		long[] tmp = new long[values.length];
 		for (int i = 0; i < tmp.length; i++) {
@@ -230,11 +281,28 @@ public abstract class Primitive extends JsonWrapper {
 		return tmp;
 	}
 
+	/**
+	 * Convert the given value in unsigned 64-bit representation into its actual
+	 * value. That is, all return values of this function will be positive.
+	 * 
+	 * @param value
+	 *            The unsigned 64-bit value to convert.
+	 * @return The value of the given 64-bit unsigned value.
+	 */
 	public static BigInteger fromUInt64(long value) {
 		return BigInteger.valueOf(value).and(
 				BigInteger.ONE.shiftLeft(64).subtract(BigInteger.ONE));
 	}
 
+	/**
+	 * Convert the given values in unsigned 64-bit representation into their
+	 * actual values. That is, all return values of this function will be
+	 * positive.
+	 * 
+	 * @param values
+	 *            The unsigned 64-bit values to convert.
+	 * @return The values of the given 64-bit unsigned values.
+	 */
 	public static BigInteger[] fromUInt64(long[] values) {
 		BigInteger[] tmp = new BigInteger[values.length];
 		for (int i = 0; i < tmp.length; i++) {
