@@ -15,7 +15,7 @@ public class TestDuration {
 	@Before
 	public void setUp() {
 		empty = new Duration();
-		d1 = new Duration(10.21);
+		d1 = new Duration(10.2);
 		d2 = new Duration(1024);
 		d3 = new Duration(10, 20);
 	}

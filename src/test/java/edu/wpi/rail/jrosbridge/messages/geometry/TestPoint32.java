@@ -22,38 +22,38 @@ public class TestPoint32 {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(0.0f, empty.getX());
-		assertEquals(0.0f, empty.getY());
-		assertEquals(0.0f, empty.getZ());
+		assertEquals(0.0f, empty.getX(), 0);
+		assertEquals(0.0f, empty.getY(), 0);
+		assertEquals(0.0f, empty.getZ(), 0);
 
 		assertEquals("{\"x\":0.0,\"y\":0.0,\"z\":0.0}", empty.toString());
 
 		assertEquals(3, empty.toJsonObject().size());
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(Point32.FIELD_X)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(Point32.FIELD_Y)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(Point32.FIELD_Z)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(Point32.TYPE, empty.getMessageType());
 	}
 
 	@Test
 	public void testFloatFloatAndFloatConstructor() {
-		assertEquals(0.5f, p1.getX());
-		assertEquals(1.5f, p1.getY());
-		assertEquals(3.0f, p1.getZ());
+		assertEquals(0.5f, p1.getX(), 0);
+		assertEquals(1.5f, p1.getY(), 0);
+		assertEquals(3.0f, p1.getZ(), 0);
 
 		assertEquals("{\"x\":0.5,\"y\":1.5,\"z\":3.0}", p1.toString());
 
 		assertEquals(3, p1.toJsonObject().size());
 		assertEquals(0.5, p1.toJsonObject().getJsonNumber(Point32.FIELD_X)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(1.5, p1.toJsonObject().getJsonNumber(Point32.FIELD_Y)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(3.0, p1.toJsonObject().getJsonNumber(Point32.FIELD_Z)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(Point32.TYPE, empty.getMessageType());
 	}
@@ -90,9 +90,9 @@ public class TestPoint32 {
 		assertEquals(p1.toString(), clone.toString());
 		assertEquals(p1.toJsonObject(), clone.toJsonObject());
 		assertEquals(p1.getMessageType(), clone.getMessageType());
-		assertEquals(p1.getX(), clone.getX());
-		assertEquals(p1.getY(), clone.getY());
-		assertEquals(p1.getZ(), clone.getZ());
+		assertEquals(p1.getX(), clone.getX(), 0);
+		assertEquals(p1.getY(), clone.getY(), 0);
+		assertEquals(p1.getZ(), clone.getZ(), 0);
 		assertNotSame(p1, clone);
 		assertNotSame(p1.toString(), clone.toString());
 		assertNotSame(p1.toJsonObject(), clone.toJsonObject());
@@ -104,9 +104,9 @@ public class TestPoint32 {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		assertEquals(p1.getX(), p.getX());
-		assertEquals(p1.getY(), p.getY());
-		assertEquals(p1.getZ(), p.getZ());
+		assertEquals(p1.getX(), p.getX(), 0);
+		assertEquals(p1.getY(), p.getY(), 0);
+		assertEquals(p1.getZ(), p.getZ(), 0);
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -119,9 +119,9 @@ public class TestPoint32 {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		assertEquals(p1.getX(), p.getX());
-		assertEquals(p1.getY(), p.getY());
-		assertEquals(p1.getZ(), p.getZ());
+		assertEquals(p1.getX(), p.getX(), 0);
+		assertEquals(p1.getY(), p.getY(), 0);
+		assertEquals(p1.getZ(), p.getZ(), 0);
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -137,9 +137,9 @@ public class TestPoint32 {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		assertEquals(p1.getX(), p.getX());
-		assertEquals(p1.getY(), p.getY());
-		assertEquals(p1.getZ(), p.getZ());
+		assertEquals(p1.getX(), p.getX(), 0);
+		assertEquals(p1.getY(), p.getY(), 0);
+		assertEquals(p1.getZ(), p.getZ(), 0);
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -151,9 +151,9 @@ public class TestPoint32 {
 				.add(Point32.FIELD_Y, p1.getY())
 				.add(Point32.FIELD_Z, p1.getZ()).build();
 		Point32 p = Point32.fromJsonObject(jsonObject);
-		assertEquals(0.0f, p.getX());
-		assertEquals(p1.getY(), p.getY());
-		assertEquals(p1.getZ(), p.getZ());
+		assertEquals(0.0f, p.getX(), 0);
+		assertEquals(p1.getY(), p.getY(), 0);
+		assertEquals(p1.getZ(), p.getZ(), 0);
 	}
 
 	@Test
@@ -162,9 +162,9 @@ public class TestPoint32 {
 				.add(Point32.FIELD_X, p1.getX())
 				.add(Point32.FIELD_Z, p1.getZ()).build();
 		Point32 p = Point32.fromJsonObject(jsonObject);
-		assertEquals(p1.getX(), p.getX());
-		assertEquals(0.0f, p.getY());
-		assertEquals(p1.getZ(), p.getZ());
+		assertEquals(p1.getX(), p.getX(), 0);
+		assertEquals(0.0f, p.getY(), 0);
+		assertEquals(p1.getZ(), p.getZ(), 0);
 	}
 
 	@Test
@@ -173,8 +173,8 @@ public class TestPoint32 {
 				.add(Point32.FIELD_X, p1.getX())
 				.add(Point32.FIELD_Y, p1.getY()).build();
 		Point32 p = Point32.fromJsonObject(jsonObject);
-		assertEquals(p1.getX(), p.getX());
-		assertEquals(p1.getY(), p.getY());
-		assertEquals(0.0f, p.getZ());
+		assertEquals(p1.getX(), p.getX(), 0);
+		assertEquals(p1.getY(), p.getY(), 0);
+		assertEquals(0.0f, p.getZ(), 0);
 	}
 }

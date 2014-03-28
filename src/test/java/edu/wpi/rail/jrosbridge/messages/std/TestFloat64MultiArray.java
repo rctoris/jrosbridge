@@ -76,12 +76,12 @@ public class TestFloat64MultiArray {
 				5.5,
 				(double) a1.toJsonObject()
 						.getJsonArray(Float64MultiArray.FIELD_DATA)
-						.getJsonNumber(0).doubleValue());
+						.getJsonNumber(0).doubleValue(), 0);
 		assertEquals(
 				10.5,
 				(double) a1.toJsonObject()
 						.getJsonArray(Float64MultiArray.FIELD_DATA)
-						.getJsonNumber(1).doubleValue());
+						.getJsonNumber(1).doubleValue(), 0);
 
 		assertEquals(Float64MultiArray.TYPE, a1.getMessageType());
 	}

@@ -35,14 +35,14 @@ public class TestPoseWithCovariance {
 		assertEquals(PoseWithCovariance.COVARIANCE_SIZE,
 				empty.getCovariance().length);
 		for (double d : empty.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(PoseWithCovariance.COVARIANCE_ROWS,
 				empty.getCovarianceMatrix().length);
 		for (double[] row : empty.getCovarianceMatrix()) {
 			assertEquals(PoseWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 
@@ -65,7 +65,7 @@ public class TestPoseWithCovariance {
 					0.0,
 					empty.toJsonObject()
 							.getJsonArray(PoseWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(PoseWithCovariance.TYPE, empty.getMessageType());
@@ -78,14 +78,14 @@ public class TestPoseWithCovariance {
 		assertEquals(PoseWithCovariance.COVARIANCE_SIZE,
 				p1.getCovariance().length);
 		for (double d : p1.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(PoseWithCovariance.COVARIANCE_ROWS,
 				p1.getCovarianceMatrix().length);
 		for (double[] row : p1.getCovarianceMatrix()) {
 			assertEquals(PoseWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 
@@ -110,7 +110,7 @@ public class TestPoseWithCovariance {
 					0.0,
 					p1.toJsonObject()
 							.getJsonArray(PoseWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(PoseWithCovariance.TYPE, p1.getMessageType());
@@ -123,7 +123,7 @@ public class TestPoseWithCovariance {
 		assertEquals(PoseWithCovariance.COVARIANCE_SIZE,
 				p2.getCovariance().length);
 		for (int i = 0; i < PoseWithCovariance.COVARIANCE_SIZE; i++) {
-			assertEquals((double) i + 1, p2.getCovariance()[i]);
+			assertEquals((double) i + 1, p2.getCovariance()[i], 0);
 		}
 		assertEquals(PoseWithCovariance.COVARIANCE_ROWS,
 				p2.getCovarianceMatrix().length);
@@ -132,7 +132,7 @@ public class TestPoseWithCovariance {
 					p2.getCovarianceMatrix()[i].length);
 			for (int j = 0; j < PoseWithCovariance.COVARIANCE_COLUMNS; j++) {
 				assertEquals((double) i * PoseWithCovariance.COVARIANCE_COLUMNS
-						+ j + 1, p2.getCovarianceMatrix()[i][j]);
+						+ j + 1, p2.getCovarianceMatrix()[i][j], 0);
 			}
 		}
 
@@ -157,7 +157,7 @@ public class TestPoseWithCovariance {
 					(double) i + 1,
 					p2.toJsonObject()
 							.getJsonArray(PoseWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(PoseWithCovariance.TYPE, p2.getMessageType());
@@ -311,14 +311,14 @@ public class TestPoseWithCovariance {
 		assertEquals(PoseWithCovariance.COVARIANCE_SIZE,
 				p.getCovariance().length);
 		for (double d : p.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(PoseWithCovariance.COVARIANCE_ROWS,
 				p.getCovarianceMatrix().length);
 		for (double[] row : p.getCovarianceMatrix()) {
 			assertEquals(PoseWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 		assertNotSame(p2, p);

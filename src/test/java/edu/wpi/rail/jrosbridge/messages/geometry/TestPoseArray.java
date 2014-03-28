@@ -2,6 +2,8 @@ package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -31,7 +33,7 @@ public class TestPoseArray {
 	@Test
 	public void testConstructor() {
 		assertEquals(new Header(), empty.getHeader());
-		assertEquals(new Pose[] {}, empty.getPoses());
+		assertTrue(Arrays.deepEquals(new Pose[] {}, empty.getPoses()));
 		assertEquals(0, empty.size());
 
 		assertEquals(
@@ -53,11 +55,11 @@ public class TestPoseArray {
 	@Test
 	public void testHeaderAndPointConstructor() {
 		assertEquals(new Header(123, new Time(10, 20), "test"), p1.getHeader());
-		assertEquals(new Pose[] {
+		assertTrue(Arrays.deepEquals(new Pose[] {
 				new Pose(new Point(0.5, 1.5, 3.0), new Quaternion(-0.5, -1.5,
 						-3.0, -4.5)),
 				new Pose(new Point(-0.5, -1.5, -3.0), new Quaternion(0.5, 1.5,
-						3.0, 4.5)) }, p1.getPoses());
+						3.0, 4.5)) }, p1.getPoses()));
 
 		assertEquals(
 				"{\"header\":"
@@ -118,7 +120,7 @@ public class TestPoseArray {
 		assertEquals(p1.toJsonObject(), clone.toJsonObject());
 		assertEquals(p1.getMessageType(), clone.getMessageType());
 		assertEquals(p1.getHeader(), clone.getHeader());
-		assertEquals(p1.getPoses(), clone.getPoses());
+		assertTrue(Arrays.deepEquals(p1.getPoses(), clone.getPoses()));
 		assertEquals(p1.size(), clone.size());
 		assertNotSame(p1, clone);
 		assertNotSame(p1.toString(), clone.toString());
@@ -133,7 +135,7 @@ public class TestPoseArray {
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
 		assertEquals(p1.getHeader(), p.getHeader());
-		assertEquals(p1.getPoses(), p.getPoses());
+		assertTrue(Arrays.deepEquals(p1.getPoses(), p.getPoses()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -148,7 +150,7 @@ public class TestPoseArray {
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
 		assertEquals(p1.getHeader(), p.getHeader());
-		assertEquals(p1.getPoses(), p.getPoses());
+		assertTrue(Arrays.deepEquals(p1.getPoses(), p.getPoses()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -172,7 +174,7 @@ public class TestPoseArray {
 		assertEquals(p1.getMessageType(), p.getMessageType());
 		assertEquals(p1.size(), p.size());
 		assertEquals(p1.getHeader(), p.getHeader());
-		assertEquals(p1.getPoses(), p.getPoses());
+		assertTrue(Arrays.deepEquals(p1.getPoses(), p.getPoses()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -190,7 +192,7 @@ public class TestPoseArray {
 		assertEquals(p1.getMessageType(), p.getMessageType());
 		assertEquals(p1.size(), p.size());
 		assertEquals(new Header(), p.getHeader());
-		assertEquals(p1.getPoses(), p.getPoses());
+		assertTrue(Arrays.deepEquals(p1.getPoses(), p.getPoses()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -203,7 +205,7 @@ public class TestPoseArray {
 				.build();
 		PoseArray p = PoseArray.fromJsonObject(jsonObject);
 		assertEquals(p1.getHeader(), p.getHeader());
-		assertEquals(new Pose[] {}, p.getPoses());
+		assertTrue(Arrays.deepEquals(new Pose[] {}, p.getPoses()));
 		assertEquals(0, p.size());
 	}
 }

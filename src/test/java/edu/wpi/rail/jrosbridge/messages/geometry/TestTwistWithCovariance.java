@@ -34,14 +34,14 @@ public class TestTwistWithCovariance {
 		assertEquals(TwistWithCovariance.COVARIANCE_SIZE,
 				empty.getCovariance().length);
 		for (double d : empty.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(TwistWithCovariance.COVARIANCE_ROWS,
 				empty.getCovarianceMatrix().length);
 		for (double[] row : empty.getCovarianceMatrix()) {
 			assertEquals(TwistWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 
@@ -64,7 +64,7 @@ public class TestTwistWithCovariance {
 					0.0,
 					empty.toJsonObject()
 							.getJsonArray(TwistWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(TwistWithCovariance.TYPE, empty.getMessageType());
@@ -77,14 +77,14 @@ public class TestTwistWithCovariance {
 		assertEquals(TwistWithCovariance.COVARIANCE_SIZE,
 				p1.getCovariance().length);
 		for (double d : p1.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(TwistWithCovariance.COVARIANCE_ROWS,
 				p1.getCovarianceMatrix().length);
 		for (double[] row : p1.getCovarianceMatrix()) {
 			assertEquals(TwistWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 
@@ -106,7 +106,7 @@ public class TestTwistWithCovariance {
 					0.0,
 					p1.toJsonObject()
 							.getJsonArray(TwistWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(TwistWithCovariance.TYPE, p1.getMessageType());
@@ -119,7 +119,7 @@ public class TestTwistWithCovariance {
 		assertEquals(TwistWithCovariance.COVARIANCE_SIZE,
 				p2.getCovariance().length);
 		for (int i = 0; i < TwistWithCovariance.COVARIANCE_SIZE; i++) {
-			assertEquals((double) i + 1, p2.getCovariance()[i]);
+			assertEquals((double) i + 1, p2.getCovariance()[i], 0);
 		}
 		assertEquals(TwistWithCovariance.COVARIANCE_ROWS,
 				p2.getCovarianceMatrix().length);
@@ -129,7 +129,7 @@ public class TestTwistWithCovariance {
 			for (int j = 0; j < TwistWithCovariance.COVARIANCE_COLUMNS; j++) {
 				assertEquals((double) i
 						* TwistWithCovariance.COVARIANCE_COLUMNS + j + 1,
-						p2.getCovarianceMatrix()[i][j]);
+						p2.getCovarianceMatrix()[i][j], 0);
 			}
 		}
 
@@ -153,7 +153,7 @@ public class TestTwistWithCovariance {
 					(double) i + 1,
 					p2.toJsonObject()
 							.getJsonArray(TwistWithCovariance.FIELD_COVARIANCE)
-							.getJsonNumber(i).doubleValue());
+							.getJsonNumber(i).doubleValue(), 0);
 		}
 
 		assertEquals(TwistWithCovariance.TYPE, p2.getMessageType());
@@ -309,14 +309,14 @@ public class TestTwistWithCovariance {
 		assertEquals(TwistWithCovariance.COVARIANCE_SIZE,
 				p.getCovariance().length);
 		for (double d : p.getCovariance()) {
-			assertEquals(0.0, d);
+			assertEquals(0.0, d, 0);
 		}
 		assertEquals(TwistWithCovariance.COVARIANCE_ROWS,
 				p.getCovarianceMatrix().length);
 		for (double[] row : p.getCovarianceMatrix()) {
 			assertEquals(TwistWithCovariance.COVARIANCE_COLUMNS, row.length);
 			for (double d : row) {
-				assertEquals(0.0, d);
+				assertEquals(0.0, d, 0);
 			}
 		}
 		assertNotSame(p2, p);

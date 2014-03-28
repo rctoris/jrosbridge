@@ -22,26 +22,26 @@ public class TestFloat32 {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(0f, empty.getData());
+		assertEquals(0f, empty.getData(), 0);
 
 		assertEquals("{\"data\":0.0}", empty.toString());
 
 		assertEquals(1, empty.toJsonObject().size());
 		assertEquals(0.0, empty.toJsonObject()
-				.getJsonNumber(Float32.FIELD_DATA).doubleValue());
+				.getJsonNumber(Float32.FIELD_DATA).doubleValue(), 0);
 
 		assertEquals(Float32.TYPE, empty.getMessageType());
 	}
 
 	@Test
 	public void testFloatConstructor() {
-		assertEquals(1.5f, f1.getData());
+		assertEquals(1.5f, f1.getData(), 0);
 
 		assertEquals("{\"data\":1.5}", f1.toString());
 
 		assertEquals(1, f1.toJsonObject().size());
 		assertEquals(1.5, f1.toJsonObject().getJsonNumber(Float32.FIELD_DATA)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(Float32.TYPE, f1.getMessageType());
 	}
@@ -72,7 +72,7 @@ public class TestFloat32 {
 		assertEquals(f1.toString(), clone.toString());
 		assertEquals(f1.toJsonObject(), clone.toJsonObject());
 		assertEquals(f1.getMessageType(), clone.getMessageType());
-		assertEquals(f1.getData(), clone.getData());
+		assertEquals(f1.getData(), clone.getData(), 0);
 		assertNotSame(f1, clone);
 		assertNotSame(f1.toString(), clone.toString());
 		assertNotSame(f1.toJsonObject(), clone.toJsonObject());
@@ -84,7 +84,7 @@ public class TestFloat32 {
 		assertEquals(f1.toString(), data.toString());
 		assertEquals(f1.toJsonObject(), data.toJsonObject());
 		assertEquals(f1.getMessageType(), data.getMessageType());
-		assertEquals(f1.getData(), data.getData());
+		assertEquals(f1.getData(), data.getData(), 0);
 		assertNotSame(f1, data);
 		assertNotSame(f1.toString(), data.toString());
 		assertNotSame(f1.toJsonObject(), data.toJsonObject());
@@ -97,7 +97,7 @@ public class TestFloat32 {
 		assertEquals(f1.toString(), data.toString());
 		assertEquals(f1.toJsonObject(), data.toJsonObject());
 		assertEquals(f1.getMessageType(), data.getMessageType());
-		assertEquals(f1.getData(), data.getData());
+		assertEquals(f1.getData(), data.getData(), 0);
 		assertNotSame(f1, data);
 		assertNotSame(f1.toString(), data.toString());
 		assertNotSame(f1.toJsonObject(), data.toJsonObject());
@@ -111,7 +111,7 @@ public class TestFloat32 {
 		assertEquals(f1.toString(), data.toString());
 		assertEquals(f1.toJsonObject(), data.toJsonObject());
 		assertEquals(f1.getMessageType(), data.getMessageType());
-		assertEquals(f1.getData(), data.getData());
+		assertEquals(f1.getData(), data.getData(), 0);
 		assertNotSame(f1, data);
 		assertNotSame(f1.toString(), data.toString());
 		assertNotSame(f1.toJsonObject(), data.toJsonObject());
@@ -121,6 +121,6 @@ public class TestFloat32 {
 	public void testFromJsonObjectNoData() {
 		JsonObject jsonObject = Json.createObjectBuilder().build();
 		Float32 data = Float32.fromJsonObject(jsonObject);
-		assertEquals(0f, data.getData());
+		assertEquals(0f, data.getData(), 0);
 	}
 }

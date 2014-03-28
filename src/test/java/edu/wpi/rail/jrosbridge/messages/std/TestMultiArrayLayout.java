@@ -2,6 +2,8 @@ package edu.wpi.rail.jrosbridge.messages.std;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -26,7 +28,8 @@ public class TestMultiArrayLayout {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(new MultiArrayDimension[0], empty.getDim());
+		assertTrue(Arrays
+				.deepEquals(new MultiArrayDimension[0], empty.getDim()));
 		assertEquals(0, empty.size());
 		assertEquals(0, empty.getDataOffset());
 
@@ -46,14 +49,14 @@ public class TestMultiArrayLayout {
 
 	@Test
 	public void testMultiArrayDimensionArrayAndIntConstructor() {
-		assertEquals(new MultiArrayDimension[] {
+		assertTrue(Arrays.deepEquals(new MultiArrayDimension[] {
 				new MultiArrayDimension("test", 10, 20),
-				new MultiArrayDimension("test2", 30, 40) }, m1.getDim());
+				new MultiArrayDimension("test2", 30, 40) }, m1.getDim()));
 		assertEquals(2, m1.size());
 		assertEquals(new MultiArrayDimension("test", 10, 20), m1.get(0));
 		assertEquals(new MultiArrayDimension("test2", 30, 40), m1.get(1));
 		assertEquals(50, m1.getDataOffset());
-		
+
 		assertEquals("{\"dim\":["
 				+ "{\"label\":\"test\",\"size\":10,\"stride\":20},"
 				+ "{\"label\":\"test2\",\"size\":30,\"stride\":40}"
@@ -86,7 +89,7 @@ public class TestMultiArrayLayout {
 		MultiArrayLayout m = new MultiArrayLayout(new MultiArrayDimension[0],
 				-1);
 
-		assertEquals(new MultiArrayDimension[0], m.getDim());
+		assertTrue(Arrays.deepEquals(new MultiArrayDimension[0], m.getDim()));
 		assertEquals(0, m.size());
 		assertEquals(-1, m.getDataOffset());
 
@@ -136,7 +139,7 @@ public class TestMultiArrayLayout {
 		assertEquals(m1.toString(), clone.toString());
 		assertEquals(m1.toJsonObject(), clone.toJsonObject());
 		assertEquals(m1.getMessageType(), clone.getMessageType());
-		assertEquals(m1.getDim(), clone.getDim());
+		assertTrue(Arrays.deepEquals(m1.getDim(), clone.getDim()));
 		assertEquals(m1.getDataOffset(), clone.getDataOffset());
 		assertEquals(m1.size(), clone.size());
 		assertNotSame(m1, clone);
@@ -151,7 +154,7 @@ public class TestMultiArrayLayout {
 		assertEquals(m1.toString(), p.toString());
 		assertEquals(m1.toJsonObject(), p.toJsonObject());
 		assertEquals(m1.getMessageType(), p.getMessageType());
-		assertEquals(m1.getDim(), p.getDim());
+		assertTrue(Arrays.deepEquals(m1.getDim(), p.getDim()));
 		assertEquals(m1.getDataOffset(), p.getDataOffset());
 		assertNotSame(m1, p);
 		assertNotSame(m1.toString(), p.toString());
@@ -167,7 +170,7 @@ public class TestMultiArrayLayout {
 		assertEquals(m1.toJsonObject(), p.toJsonObject());
 		assertEquals(m1.getMessageType(), p.getMessageType());
 		assertEquals(m1.size(), p.size());
-		assertEquals(m1.getDim(), p.getDim());
+		assertTrue(Arrays.deepEquals(m1.getDim(), p.getDim()));
 		assertEquals(m1.getDataOffset(), p.getDataOffset());
 		assertNotSame(m1, p);
 		assertNotSame(m1.toString(), p.toString());
@@ -188,7 +191,7 @@ public class TestMultiArrayLayout {
 		assertEquals(m1.toString(), p.toString());
 		assertEquals(m1.toJsonObject(), p.toJsonObject());
 		assertEquals(m1.getMessageType(), p.getMessageType());
-		assertEquals(m1.getDim(), p.getDim());
+		assertTrue(Arrays.deepEquals(m1.getDim(), p.getDim()));
 		assertEquals(m1.getDataOffset(), p.getDataOffset());
 		assertNotSame(m1, p);
 		assertNotSame(m1.toString(), p.toString());
@@ -202,7 +205,7 @@ public class TestMultiArrayLayout {
 				.add(MultiArrayLayout.FIELD_DATA_OFFSET, m1.getDataOffset())
 				.build();
 		MultiArrayLayout p = MultiArrayLayout.fromJsonObject(jsonObject);
-		assertEquals(new MultiArrayDimension[] {}, p.getDim());
+		assertTrue(Arrays.deepEquals(new MultiArrayDimension[] {}, p.getDim()));
 		assertEquals(0, p.size());
 		assertEquals(m1.getDataOffset(), p.getDataOffset());
 	}
@@ -216,7 +219,7 @@ public class TestMultiArrayLayout {
 		JsonObject jsonObject = Json.createObjectBuilder()
 				.add(MultiArrayLayout.FIELD_DIM, array.build()).build();
 		MultiArrayLayout p = MultiArrayLayout.fromJsonObject(jsonObject);
-		assertEquals(m1.getDim(), p.getDim());
+		assertTrue(Arrays.deepEquals(m1.getDim(), p.getDim()));
 		assertEquals(m1.size(), p.size());
 		assertEquals(0, p.getDataOffset());
 	}
