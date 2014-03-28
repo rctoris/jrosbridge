@@ -55,8 +55,8 @@ public class TestFloat32MultiArray {
 				new MultiArrayDimension("test2", 30, 40) }, 50), a1.getLayout());
 		assertTrue(Arrays.equals(new float[] { 5.5f, 10.5f }, a1.getData()));
 		assertEquals(2, a1.size());
-		assertEquals((float) 5.5f, a1.get(0));
-		assertEquals((float) 10.5f, a1.get(1));
+		assertEquals((float) 5.5f, a1.get(0), 0);
+		assertEquals((float) 10.5f, a1.get(1), 0);
 
 		assertEquals("{\"layout\":{\"dim\":["
 				+ "{\"label\":\"test\",\"size\":10,\"stride\":20},"
@@ -76,12 +76,12 @@ public class TestFloat32MultiArray {
 				5.5f,
 				(float) a1.toJsonObject()
 						.getJsonArray(Float32MultiArray.FIELD_DATA)
-						.getJsonNumber(0).doubleValue());
+						.getJsonNumber(0).doubleValue(), 0);
 		assertEquals(
 				10.5f,
 				(float) a1.toJsonObject()
 						.getJsonArray(Float32MultiArray.FIELD_DATA)
-						.getJsonNumber(1).doubleValue());
+						.getJsonNumber(1).doubleValue(), 0);
 
 		assertEquals(Float32MultiArray.TYPE, a1.getMessageType());
 	}

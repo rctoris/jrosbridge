@@ -25,23 +25,23 @@ public class TestColorRGBA {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(0.0f, empty.getR());
-		assertEquals(0.0f, empty.getG());
-		assertEquals(0.0f, empty.getB());
-		assertEquals(1.0f, empty.getA());
+		assertEquals(0.0f, empty.getR(), 0);
+		assertEquals(0.0f, empty.getG(), 0);
+		assertEquals(0.0f, empty.getB(), 0);
+		assertEquals(1.0f, empty.getA(), 0);
 
 		assertEquals("{\"r\":0.0,\"g\":0.0,\"b\":0.0,\"a\":1.0}",
 				empty.toString());
 
 		assertEquals(4, empty.toJsonObject().size());
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(ColorRGBA.FIELD_R)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(ColorRGBA.FIELD_G)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject().getJsonNumber(ColorRGBA.FIELD_B)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(1.0, empty.toJsonObject().getJsonNumber(ColorRGBA.FIELD_A)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(ColorRGBA.TYPE, empty.getMessageType());
 
@@ -53,23 +53,23 @@ public class TestColorRGBA {
 
 	@Test
 	public void testFloatFloatAndFloatConstructor() {
-		assertEquals(0.25f, c1.getR());
-		assertEquals(0.5f, c1.getG());
-		assertEquals(0.75f, c1.getB());
-		assertEquals(1.0f, c1.getA());
+		assertEquals(0.25f, c1.getR(), 0);
+		assertEquals(0.5f, c1.getG(), 0);
+		assertEquals(0.75f, c1.getB(), 0);
+		assertEquals(1.0f, c1.getA(), 0);
 
 		assertEquals("{\"r\":0.25,\"g\":0.5,\"b\":0.75,\"a\":1.0}",
 				c1.toString());
 
 		assertEquals(4, c1.toJsonObject().size());
 		assertEquals(0.25, c1.toJsonObject().getJsonNumber(ColorRGBA.FIELD_R)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.5, c1.toJsonObject().getJsonNumber(ColorRGBA.FIELD_G)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.75, c1.toJsonObject().getJsonNumber(ColorRGBA.FIELD_B)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(1.0, c1.toJsonObject().getJsonNumber(ColorRGBA.FIELD_A)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(ColorRGBA.TYPE, empty.getMessageType());
 
@@ -81,23 +81,23 @@ public class TestColorRGBA {
 
 	@Test
 	public void testFloatFloatFloatAndFloatConstructor() {
-		assertEquals(0.25f, c2.getR());
-		assertEquals(0.5f, c2.getG());
-		assertEquals(0.75f, c2.getB());
-		assertEquals(0.25f, c2.getA());
+		assertEquals(0.25f, c2.getR(), 0);
+		assertEquals(0.5f, c2.getG(), 0);
+		assertEquals(0.75f, c2.getB(), 0);
+		assertEquals(0.25f, c2.getA(), 0);
 
 		assertEquals("{\"r\":0.25,\"g\":0.5,\"b\":0.75,\"a\":0.25}",
 				c2.toString());
 
 		assertEquals(4, c2.toJsonObject().size());
 		assertEquals(0.25, c2.toJsonObject().getJsonNumber(ColorRGBA.FIELD_R)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.5, c2.toJsonObject().getJsonNumber(ColorRGBA.FIELD_G)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.75, c2.toJsonObject().getJsonNumber(ColorRGBA.FIELD_B)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(0.25, c2.toJsonObject().getJsonNumber(ColorRGBA.FIELD_A)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(ColorRGBA.TYPE, empty.getMessageType());
 
@@ -146,9 +146,10 @@ public class TestColorRGBA {
 		assertEquals(c2.toString(), clone.toString());
 		assertEquals(c2.toJsonObject(), clone.toJsonObject());
 		assertEquals(c2.getMessageType(), clone.getMessageType());
-		assertEquals(c2.getR(), clone.getR());
-		assertEquals(c2.getG(), clone.getG());
-		assertEquals(c2.getB(), clone.getB());
+		assertEquals(c2.getR(), clone.getR(), 0);
+		assertEquals(c2.getG(), clone.getG(), 0);
+		assertEquals(c2.getB(), clone.getB(), 0);
+		assertEquals(c2.getA(), clone.getA(), 0);
 		assertEquals(c2.toColor(), clone.toColor());
 		assertNotSame(c2, clone);
 		assertNotSame(c2.toString(), clone.toString());
@@ -159,10 +160,10 @@ public class TestColorRGBA {
 	public void testFromColor() {
 		Color color = new Color(10, 20, 30, 40);
 		ColorRGBA c = ColorRGBA.fromColor(color);
-		assertEquals((float) 10 / 255.0f, c.getR());
-		assertEquals((float) 20 / 255.0f, c.getG());
-		assertEquals((float) 30 / 255.0f, c.getB());
-		assertEquals((float) 40 / 255.0f, c.getA());
+		assertEquals((float) 10 / 255.0f, c.getR(), 0);
+		assertEquals((float) 20 / 255.0f, c.getG(), 0);
+		assertEquals((float) 30 / 255.0f, c.getB(), 0);
+		assertEquals((float) 40 / 255.0f, c.getA(), 0);
 	}
 
 	@Test
@@ -171,9 +172,9 @@ public class TestColorRGBA {
 		assertEquals(c2.toString(), p.toString());
 		assertEquals(c2.toJsonObject(), p.toJsonObject());
 		assertEquals(c2.getMessageType(), p.getMessageType());
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(c2.getB(), p.getB());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
 		assertNotSame(c2, p);
 		assertNotSame(c2.toString(), p.toString());
 		assertNotSame(c2.toJsonObject(), p.toJsonObject());
@@ -186,10 +187,10 @@ public class TestColorRGBA {
 		assertEquals(c2.toString(), p.toString());
 		assertEquals(c2.toJsonObject(), p.toJsonObject());
 		assertEquals(c2.getMessageType(), p.getMessageType());
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(c2.getB(), p.getB());
-		assertEquals(c2.getA(), p.getA());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
+		assertEquals(c2.getA(), p.getA(), 0);
 		assertNotSame(c2, p);
 		assertNotSame(c2.toString(), p.toString());
 		assertNotSame(c2.toJsonObject(), p.toJsonObject());
@@ -206,10 +207,10 @@ public class TestColorRGBA {
 		assertEquals(c2.toString(), p.toString());
 		assertEquals(c2.toJsonObject(), p.toJsonObject());
 		assertEquals(c2.getMessageType(), p.getMessageType());
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(c2.getB(), p.getB());
-		assertEquals(c2.getA(), p.getA());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
+		assertEquals(c2.getA(), p.getA(), 0);
 		assertNotSame(c2, p);
 		assertNotSame(c2.toString(), p.toString());
 		assertNotSame(c2.toJsonObject(), p.toJsonObject());
@@ -222,10 +223,10 @@ public class TestColorRGBA {
 				.add(ColorRGBA.FIELD_B, c2.getB())
 				.add(ColorRGBA.FIELD_A, c2.getA()).build();
 		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
-		assertEquals(0.0f, p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(c2.getB(), p.getB());
-		assertEquals(c2.getA(), p.getA());
+		assertEquals(0.0f, p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
+		assertEquals(c2.getA(), p.getA(), 0);
 	}
 
 	@Test
@@ -235,10 +236,10 @@ public class TestColorRGBA {
 				.add(ColorRGBA.FIELD_B, c2.getB())
 				.add(ColorRGBA.FIELD_A, c2.getA()).build();
 		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(0.0f, p.getG());
-		assertEquals(c2.getB(), p.getB());
-		assertEquals(c2.getA(), p.getA());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(0.0f, p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
+		assertEquals(c2.getA(), p.getA(), 0);
 	}
 
 	@Test
@@ -248,10 +249,10 @@ public class TestColorRGBA {
 				.add(ColorRGBA.FIELD_G, c2.getG())
 				.add(ColorRGBA.FIELD_A, c2.getA()).build();
 		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(0.0f, p.getB());
-		assertEquals(c2.getA(), p.getA());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(0.0f, p.getB(), 0);
+		assertEquals(c2.getA(), p.getA(), 0);
 	}
 
 	@Test
@@ -261,9 +262,9 @@ public class TestColorRGBA {
 				.add(ColorRGBA.FIELD_G, c2.getG())
 				.add(ColorRGBA.FIELD_B, c2.getB()).build();
 		ColorRGBA p = ColorRGBA.fromJsonObject(jsonObject);
-		assertEquals(c2.getR(), p.getR());
-		assertEquals(c2.getG(), p.getG());
-		assertEquals(c2.getB(), p.getB());
-		assertEquals(0.0f, p.getA());
+		assertEquals(c2.getR(), p.getR(), 0);
+		assertEquals(c2.getG(), p.getG(), 0);
+		assertEquals(c2.getB(), p.getB(), 0);
+		assertEquals(0.0f, p.getA(), 0);
 	}
 }

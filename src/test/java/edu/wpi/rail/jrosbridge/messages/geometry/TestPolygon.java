@@ -2,6 +2,8 @@ package edu.wpi.rail.jrosbridge.messages.geometry;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -24,7 +26,7 @@ public class TestPolygon {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(new Point32[0], empty.getPoints());
+		assertTrue(Arrays.deepEquals(new Point32[0], empty.getPoints()));
 		assertEquals(0, empty.size());
 
 		assertEquals("{\"points\":[]}", empty.toString());
@@ -38,8 +40,9 @@ public class TestPolygon {
 
 	@Test
 	public void testPoint32ArrayConstructor() {
-		assertEquals(new Point32[] { new Point32(0.5f, 1.5f, 3.0f),
-				new Point32(-0.5f, -1.5f, -3.0f) }, p1.getPoints());
+		assertTrue(Arrays.deepEquals(
+				new Point32[] { new Point32(0.5f, 1.5f, 3.0f),
+						new Point32(-0.5f, -1.5f, -3.0f) }, p1.getPoints()));
 		assertEquals(2, p1.size());
 		assertEquals(new Point32(0.5f, 1.5f, 3.0f), p1.get(0));
 		assertEquals(new Point32(-0.5f, -1.5f, -3.0f), p1.get(1));
@@ -95,7 +98,7 @@ public class TestPolygon {
 		assertEquals(p1.toString(), clone.toString());
 		assertEquals(p1.toJsonObject(), clone.toJsonObject());
 		assertEquals(p1.getMessageType(), clone.getMessageType());
-		assertEquals(p1.getPoints(), clone.getPoints());
+		assertTrue(Arrays.deepEquals(p1.getPoints(), clone.getPoints()));
 		assertEquals(p1.size(), clone.size());
 		assertNotSame(p1, clone);
 		assertNotSame(p1.toString(), clone.toString());
@@ -109,7 +112,7 @@ public class TestPolygon {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		assertEquals(p1.getPoints(), p.getPoints());
+		assertTrue(Arrays.deepEquals(p1.getPoints(), p.getPoints()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -124,7 +127,7 @@ public class TestPolygon {
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
 		assertEquals(p1.size(), p.size());
-		assertEquals(p1.getPoints(), p.getPoints());
+		assertTrue(Arrays.deepEquals(p1.getPoints(), p.getPoints()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -142,7 +145,7 @@ public class TestPolygon {
 		assertEquals(p1.toString(), p.toString());
 		assertEquals(p1.toJsonObject(), p.toJsonObject());
 		assertEquals(p1.getMessageType(), p.getMessageType());
-		assertEquals(p1.getPoints(), p.getPoints());
+		assertTrue(Arrays.deepEquals(p1.getPoints(), p.getPoints()));
 		assertNotSame(p1, p);
 		assertNotSame(p1.toString(), p.toString());
 		assertNotSame(p1.toJsonObject(), p.toJsonObject());
@@ -153,7 +156,7 @@ public class TestPolygon {
 	public void testFromJsonObjectNoPoints() {
 		JsonObject jsonObject = Json.createObjectBuilder().build();
 		Polygon p = Polygon.fromJsonObject(jsonObject);
-		assertEquals(new Point32[] {}, p.getPoints());
+		assertTrue(Arrays.deepEquals(new Point32[] {}, p.getPoints()));
 		assertEquals(0, p.size());
 	}
 }

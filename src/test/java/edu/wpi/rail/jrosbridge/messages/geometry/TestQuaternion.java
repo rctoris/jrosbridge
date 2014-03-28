@@ -22,45 +22,45 @@ public class TestQuaternion {
 
 	@Test
 	public void testConstructor() {
-		assertEquals(0.0, empty.getX());
-		assertEquals(0.0, empty.getY());
-		assertEquals(0.0, empty.getZ());
-		assertEquals(0.0, empty.getW());
+		assertEquals(0.0, empty.getX(), 0);
+		assertEquals(0.0, empty.getY(), 0);
+		assertEquals(0.0, empty.getZ(), 0);
+		assertEquals(0.0, empty.getW(), 0);
 
 		assertEquals("{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0}",
 				empty.toString());
 
 		assertEquals(4, empty.toJsonObject().size());
 		assertEquals(0.0, empty.toJsonObject()
-				.getJsonNumber(Quaternion.FIELD_X).doubleValue());
+				.getJsonNumber(Quaternion.FIELD_X).doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject()
-				.getJsonNumber(Quaternion.FIELD_Y).doubleValue());
+				.getJsonNumber(Quaternion.FIELD_Y).doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject()
-				.getJsonNumber(Quaternion.FIELD_Z).doubleValue());
+				.getJsonNumber(Quaternion.FIELD_Z).doubleValue(), 0);
 		assertEquals(0.0, empty.toJsonObject()
-				.getJsonNumber(Quaternion.FIELD_W).doubleValue());
+				.getJsonNumber(Quaternion.FIELD_W).doubleValue(), 0);
 
 		assertEquals(Quaternion.TYPE, empty.getMessageType());
 	}
 
 	@Test
 	public void testDoubleDoubleDoubleAndDoubleConstructor() {
-		assertEquals(0.5, q1.getX());
-		assertEquals(1.5, q1.getY());
-		assertEquals(3.0, q1.getZ());
-		assertEquals(4.5, q1.getW());
+		assertEquals(0.5, q1.getX(), 0);
+		assertEquals(1.5, q1.getY(), 0);
+		assertEquals(3.0, q1.getZ(), 0);
+		assertEquals(4.5, q1.getW(), 0);
 
 		assertEquals("{\"x\":0.5,\"y\":1.5,\"z\":3.0,\"w\":4.5}", q1.toString());
 
 		assertEquals(4, q1.toJsonObject().size());
 		assertEquals(0.5, q1.toJsonObject().getJsonNumber(Quaternion.FIELD_X)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(1.5, q1.toJsonObject().getJsonNumber(Quaternion.FIELD_Y)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(3.0, q1.toJsonObject().getJsonNumber(Quaternion.FIELD_Z)
-				.doubleValue());
+				.doubleValue(), 0);
 		assertEquals(4.5, q1.toJsonObject().getJsonNumber(Quaternion.FIELD_W)
-				.doubleValue());
+				.doubleValue(), 0);
 
 		assertEquals(Quaternion.TYPE, empty.getMessageType());
 	}
@@ -97,10 +97,10 @@ public class TestQuaternion {
 		assertEquals(q1.toString(), clone.toString());
 		assertEquals(q1.toJsonObject(), clone.toJsonObject());
 		assertEquals(q1.getMessageType(), clone.getMessageType());
-		assertEquals(q1.getX(), clone.getX());
-		assertEquals(q1.getY(), clone.getY());
-		assertEquals(q1.getZ(), clone.getZ());
-		assertEquals(q1.getW(), clone.getW());
+		assertEquals(q1.getX(), clone.getX(), 0);
+		assertEquals(q1.getY(), clone.getY(), 0);
+		assertEquals(q1.getZ(), clone.getZ(), 0);
+		assertEquals(q1.getW(), clone.getW(), 0);
 		assertNotSame(q1, clone);
 		assertNotSame(q1.toString(), clone.toString());
 		assertNotSame(q1.toJsonObject(), clone.toJsonObject());
@@ -112,9 +112,9 @@ public class TestQuaternion {
 		assertEquals(q1.toString(), p.toString());
 		assertEquals(q1.toJsonObject(), p.toJsonObject());
 		assertEquals(q1.getMessageType(), p.getMessageType());
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(q1.getZ(), p.getZ());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
 		assertNotSame(q1, p);
 		assertNotSame(q1.toString(), p.toString());
 		assertNotSame(q1.toJsonObject(), p.toJsonObject());
@@ -127,10 +127,10 @@ public class TestQuaternion {
 		assertEquals(q1.toString(), p.toString());
 		assertEquals(q1.toJsonObject(), p.toJsonObject());
 		assertEquals(q1.getMessageType(), p.getMessageType());
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(q1.getZ(), p.getZ());
-		assertEquals(q1.getW(), p.getW());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
+		assertEquals(q1.getW(), p.getW(), 0);
 		assertNotSame(q1, p);
 		assertNotSame(q1.toString(), p.toString());
 		assertNotSame(q1.toJsonObject(), p.toJsonObject());
@@ -147,10 +147,10 @@ public class TestQuaternion {
 		assertEquals(q1.toString(), p.toString());
 		assertEquals(q1.toJsonObject(), p.toJsonObject());
 		assertEquals(q1.getMessageType(), p.getMessageType());
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(q1.getZ(), p.getZ());
-		assertEquals(q1.getW(), p.getW());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
+		assertEquals(q1.getW(), p.getW(), 0);
 		assertNotSame(q1, p);
 		assertNotSame(q1.toString(), p.toString());
 		assertNotSame(q1.toJsonObject(), p.toJsonObject());
@@ -163,10 +163,10 @@ public class TestQuaternion {
 				.add(Quaternion.FIELD_Z, q1.getZ())
 				.add(Quaternion.FIELD_W, q1.getW()).build();
 		Quaternion p = Quaternion.fromJsonObject(jsonObject);
-		assertEquals(0.0, p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(q1.getZ(), p.getZ());
-		assertEquals(q1.getW(), p.getW());
+		assertEquals(0.0, p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
+		assertEquals(q1.getW(), p.getW(), 0);
 	}
 
 	@Test
@@ -176,10 +176,10 @@ public class TestQuaternion {
 				.add(Quaternion.FIELD_Z, q1.getZ())
 				.add(Quaternion.FIELD_W, q1.getW()).build();
 		Quaternion p = Quaternion.fromJsonObject(jsonObject);
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(0.0, p.getY());
-		assertEquals(q1.getZ(), p.getZ());
-		assertEquals(q1.getW(), p.getW());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(0.0, p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
+		assertEquals(q1.getW(), p.getW(), 0);
 	}
 
 	@Test
@@ -189,10 +189,10 @@ public class TestQuaternion {
 				.add(Quaternion.FIELD_Y, q1.getY())
 				.add(Quaternion.FIELD_W, q1.getW()).build();
 		Quaternion p = Quaternion.fromJsonObject(jsonObject);
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(0.0, p.getZ());
-		assertEquals(q1.getW(), p.getW());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(0.0, p.getZ(), 0);
+		assertEquals(q1.getW(), p.getW(), 0);
 	}
 
 	@Test
@@ -202,9 +202,9 @@ public class TestQuaternion {
 				.add(Quaternion.FIELD_Y, q1.getY())
 				.add(Quaternion.FIELD_Z, q1.getZ()).build();
 		Quaternion p = Quaternion.fromJsonObject(jsonObject);
-		assertEquals(q1.getX(), p.getX());
-		assertEquals(q1.getY(), p.getY());
-		assertEquals(q1.getZ(), p.getZ());
-		assertEquals(0.0, p.getW());
+		assertEquals(q1.getX(), p.getX(), 0);
+		assertEquals(q1.getY(), p.getY(), 0);
+		assertEquals(q1.getZ(), p.getZ(), 0);
+		assertEquals(0.0, p.getW(), 0);
 	}
 }
