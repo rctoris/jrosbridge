@@ -2,6 +2,17 @@ package edu.wpi.rail.jrosbridge.primitives;
 
 import javax.json.Json;
 
+/**
+ * The TimeBase class is an abstract implementation of common time/duration
+ * primitive functions for ROS time and duration primitives. Since these
+ * primitives are serialized like messages, they are immutable.
+ * 
+ * @author Russell Toris - rctoris@wpi.edu
+ * @version March 27, 2014
+ * 
+ * @param <T>
+ *            The type of TimeBase used in add and subtract.
+ */
 public abstract class TimeBase<T extends Primitive> extends Primitive implements
 		Comparable<TimeBase<T>> {
 
@@ -17,19 +28,52 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 
 	public final int secs, nsecs;
 
+	/**
+	 * Create an empty TimeBase with the given type field.
+	 * 
+	 * @param type
+	 *            The type of primitive.
+	 */
 	public TimeBase(String type) {
 		this(0, 0, type);
 	}
 
+	/**
+	 * Create a new TimeBase with the given time in seconds (and partial
+	 * seconds).
+	 * 
+	 * @param sec
+	 *            The time in seconds.
+	 * @param type
+	 *            The type of TimeBase primitive.
+	 */
 	public TimeBase(double sec, String type) {
 		this((long) (sec * 1000000000), type);
 	}
 
+	/**
+	 * Create a new TimeBase with the given time in nanoseconds.
+	 * 
+	 * @param nano
+	 *            The time in nanoseconds.
+	 * @param type
+	 *            The type of TimeBase primitive.
+	 */
 	public TimeBase(long nano, String type) {
 		// extract seconds and nanoseconds
 		this((int) (nano / 1000000000), (int) (nano % 1000000000), type);
 	}
 
+	/**
+	 * Create a new TimeBase with the given time in seconds and nanoseconds.
+	 * 
+	 * @param secs
+	 *            The amount of seconds.
+	 * @param nsecs
+	 *            The amount of additional nanoseconds.
+	 * @param type
+	 *            The type of TimeBase primitive.
+	 */
 	public TimeBase(int secs, int nsecs, String type) {
 		// build the JSON object
 		super(Json.createObjectBuilder().add(Duration.FIELD_SECS, secs)
@@ -39,42 +83,81 @@ public abstract class TimeBase<T extends Primitive> extends Primitive implements
 	}
 
 	/**
-	 * Get the seconds value of this duration.
+	 * Get the seconds value of this TimeBase.
 	 * 
-	 * @return The seconds value of this duration.
+	 * @return The seconds value of this TimeBase.
 	 */
 	public int getSecs() {
 		return this.secs;
 	}
 
 	/**
-	 * Get the nanoseconds value of this duration.
+	 * Get the nanoseconds value of this TimeBase.
 	 * 
-	 * @return The nanoseconds value of this duration.
+	 * @return The nanoseconds value of this TimeBase.
 	 */
 	public int getNsecs() {
-		return this.secs;
+		return this.nsecs;
 	}
 
+	/**
+	 * Check if the value of this TimeBase is zero.
+	 * 
+	 * @return If the value of this TimeBase is zero.
+	 */
 	public boolean isZero() {
 		return (this.secs + this.nsecs) == 0;
 	}
 
+	/**
+	 * Convert this TimeBase to seconds (and partial seconds).
+	 * 
+	 * @return This TimeBase to seconds (and partial seconds).
+	 */
 	public double toSec() {
 		return this.secs + 1e-9 * (double) this.nsecs;
 	}
 
+	/**
+	 * Convert this TimeBase to nanoseconds.
+	 * 
+	 * @return This TimeBase to nanoseconds.
+	 */
 	public long toNSec() {
-		return (this.secs * 1000000000) + this.nsecs;
+		return ((long) (this.secs * 1000000000l)) + ((long) this.nsecs);
 	}
 
+	/**
+	 * Compare the given TimeBase object to this one.
+	 * 
+	 * @param t
+	 *            The TimeBase to compare to.
+	 * @return 0 if the values are equal, less than 0 if t is less that this
+	 *         TimeBase, and greater than 0 otherwise.
+	 */
 	@Override
 	public int compareTo(TimeBase<T> t) {
 		return Double.compare(this.toSec(), t.toSec());
 	}
 
+	/**
+	 * Add the given type to this TimeBase and return a new object with that
+	 * value.
+	 * 
+	 * @param t
+	 *            Add the given type to this TimeBase.
+	 * @return A new object with the new value.
+	 */
 	public abstract T add(T t);
 
+	/**
+	 * Subtract the given type to this TimeBase and return a new object with
+	 * that value.
+	 * 
+	 * @param t
+	 *            Subtract the given type to this TimeBase.
+	 * @return A new object with the new value.
+	 */
 	public abstract T subtract(T t);
 
 	/**
