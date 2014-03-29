@@ -7,6 +7,7 @@ SNAPSHOT - **0.1.0**
  * `rosauth` authentication added [(rctoris)](https://github.com/rctoris/)
  * Handlers moved to their own package [(rctoris)](https://github.com/rctoris/)
  * Messages added to their own `edu.wpi.rail.jrosbridge.messages` package [(rctoris)](https://github.com/rctoris/)
+ * `actionlib_msgs` messages added to the `edu.wpi.rail.jrosbridge.messages.actionlib` package [(rctoris)](https://github.com/rctoris/)
  * `geometry_msgs` messages added to the `edu.wpi.rail.jrosbridge.messages.geometry` package [(rctoris)](https://github.com/rctoris/)
  * `std_msgs` messages added to the `edu.wpi.rail.jrosbridge.messages.std` package [(rctoris)](https://github.com/rctoris/)
  * `rosapi` messages added to the `edu.wpi.rail.jrosbridge.messages.rosapi` package [(rctoris)](https://github.com/rctoris/)

@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The rosapi/TypeDef message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 4, 2014
+ * @version March 29, 2014
  */
 public class TypeDef extends Message {
 
@@ -46,8 +46,8 @@ public class TypeDef extends Message {
 	public static final String TYPE = "rosapi/TypeDef";
 
 	private String type;
-	private String[] fieldnames, fieldtypes, examples;
-	private int[] fieldarraylen;
+	private String[] fieldNames, fieldTypes, examples;
+	private int[] fieldArrayLen;
 
 	/**
 	 * Create a new TypeDef with all empty values.
@@ -63,17 +63,17 @@ public class TypeDef extends Message {
 	 * 
 	 * @param type
 	 *            The type field of the message.
-	 * @param fieldnames
+	 * @param fieldNames
 	 *            The field names field of the message.
-	 * @param fieldtypes
+	 * @param fieldTypes
 	 *            The field types field of the message.
-	 * @param fieldarraylen
+	 * @param fieldArrayLen
 	 *            The field array length field of the message.
 	 * @param examples
 	 *            The examples names field of the message.
 	 */
-	public TypeDef(String type, String[] fieldnames, String[] fieldtypes,
-			int[] fieldarraylen, String examples[]) {
+	public TypeDef(String type, String[] fieldNames, String[] fieldTypes,
+			int[] fieldArrayLen, String examples[]) {
 		// build the JSON object
 		super(
 				Json.createObjectBuilder()
@@ -81,17 +81,17 @@ public class TypeDef extends Message {
 						.add(TypeDef.FIELD_FIELD_NAMES,
 								Json.createReader(
 										new StringReader(Arrays
-												.deepToString(fieldnames)))
+												.deepToString(fieldNames)))
 										.readArray())
 						.add(TypeDef.FIELD_FIELD_TYPES,
 								Json.createReader(
 										new StringReader(Arrays
-												.deepToString(fieldtypes)))
+												.deepToString(fieldTypes)))
 										.readArray())
 						.add(TypeDef.FIELD_FIELD_ARRAY_LEN,
 								Json.createReader(
 										new StringReader(Arrays
-												.toString(fieldarraylen)))
+												.toString(fieldArrayLen)))
 										.readArray())
 						.add(TypeDef.FIELD_EXAMPLES,
 								Json.createReader(
@@ -101,13 +101,13 @@ public class TypeDef extends Message {
 
 		this.type = type;
 		// create the arrays
-		this.fieldnames = new String[fieldnames.length];
-		System.arraycopy(fieldnames, 0, this.fieldnames, 0, fieldnames.length);
-		this.fieldtypes = new String[fieldtypes.length];
-		System.arraycopy(fieldtypes, 0, this.fieldtypes, 0, fieldtypes.length);
-		this.fieldarraylen = new int[fieldarraylen.length];
-		System.arraycopy(fieldarraylen, 0, this.fieldarraylen, 0,
-				fieldarraylen.length);
+		this.fieldNames = new String[fieldNames.length];
+		System.arraycopy(fieldNames, 0, this.fieldNames, 0, fieldNames.length);
+		this.fieldTypes = new String[fieldTypes.length];
+		System.arraycopy(fieldTypes, 0, this.fieldTypes, 0, fieldTypes.length);
+		this.fieldArrayLen = new int[fieldArrayLen.length];
+		System.arraycopy(fieldArrayLen, 0, this.fieldArrayLen, 0,
+				fieldArrayLen.length);
 		this.examples = new String[examples.length];
 		System.arraycopy(examples, 0, this.examples, 0, examples.length);
 	}
@@ -127,7 +127,7 @@ public class TypeDef extends Message {
 	 * @return The field names value of this typedef.
 	 */
 	public String[] getFieldNames() {
-		return this.fieldnames;
+		return this.fieldNames;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class TypeDef extends Message {
 	 * @return The field types value of this typedef.
 	 */
 	public String[] getFieldTypes() {
-		return this.fieldtypes;
+		return this.fieldTypes;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class TypeDef extends Message {
 	 * @return The field array length value of this typedef.
 	 */
 	public int[] getFieldArrayLen() {
-		return this.fieldarraylen;
+		return this.fieldArrayLen;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class TypeDef extends Message {
 	 */
 	@Override
 	public TypeDef clone() {
-		return new TypeDef(this.type, this.fieldnames, this.fieldtypes,
-				this.fieldarraylen, this.examples);
+		return new TypeDef(this.type, this.fieldNames, this.fieldTypes,
+				this.fieldArrayLen, this.examples);
 	}
 }
