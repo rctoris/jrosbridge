@@ -6,18 +6,19 @@ import javax.json.JsonObject;
 import edu.wpi.rail.jrosbridge.JRosbridge;
 import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
+import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 /**
  * The Service object is responsible for calling a service in ROS.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 16, 2014
+ * @version March 31, 2014
  */
 public class Service {
 
-	private Ros ros;
-	private String name;
-	private String type;
+	private final Ros ros;
+	private final String name;
+	private final String type;
 
 	/**
 	 * Create a ROS service with the given information.
@@ -87,5 +88,35 @@ public class Service {
 				.add(JRosbridge.FIELD_SERVICE, this.name)
 				.add(JRosbridge.FIELD_ARGS, request.toJsonObject()).build();
 		this.ros.send(call);
+	}
+
+	public ServiceResponse callServiceAndWait(ServiceRequest request) {
+		BlockingCallback cb = new BlockingCallback();
+		this.callService(request, cb);
+
+		// wait for a response
+		while (cb.getResponse() == null) {
+			Thread.yield();
+		}
+
+		return cb.getResponse();
+	}
+
+	private class BlockingCallback implements ServiceCallback {
+
+		private ServiceResponse response;
+
+		public BlockingCallback() {
+			this.response = null;
+		}
+
+		@Override
+		public void handleServiceResponse(ServiceResponse response) {
+			this.response = response;
+		}
+
+		public ServiceResponse getResponse() {
+			return this.response;
+		}
 	}
 }

@@ -78,7 +78,18 @@ public class DeleteParam {
 		 * Create a new DeleteParam ServiceResponse.
 		 */
 		public Response() {
-			super(ServiceResponse.EMPTY_MESSAGE, DeleteParam.TYPE);
+			this(true);
+		}
+
+		/**
+		 * Create a new DeleteParam ServiceResponse.
+		 * 
+		 * @param result
+		 *            The result flag for the response (i.e., if the service
+		 *            server returned a success).
+		 */
+		public Response(boolean result) {
+			super(ServiceResponse.EMPTY_MESSAGE, DeleteParam.TYPE, result);
 		}
 
 		/**

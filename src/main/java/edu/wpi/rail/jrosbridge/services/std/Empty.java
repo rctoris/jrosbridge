@@ -93,7 +93,18 @@ public class Empty {
 		 * Create a new Empty ServiceResponse.
 		 */
 		public Response() {
-			super(ServiceResponse.EMPTY_MESSAGE, Empty.TYPE);
+			this(true);
+		}
+
+		/**
+		 * Create a new Empty ServiceResponse.
+		 * 
+		 * @param result
+		 *            The result flag for the response (i.e., if the service
+		 *            server returned a success).
+		 */
+		public Response(boolean result) {
+			super(ServiceResponse.EMPTY_MESSAGE, Empty.TYPE, result);
 		}
 
 		/**
@@ -115,7 +126,7 @@ public class Empty {
 		public static Response fromJsonString(String jsonString) {
 			// convert to a ServiceResponse
 			return Empty.Response.fromServiceResponse(new ServiceResponse(
-					jsonString));
+					jsonString, true));
 		}
 
 		/**

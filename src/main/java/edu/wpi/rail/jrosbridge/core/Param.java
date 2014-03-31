@@ -107,21 +107,18 @@ public class Param {
 			 * 
 			 * @param response
 			 *            The response from rosapi.
-			 * @param sucecss
-			 *            If the call to rosapi was successful.
 			 */
 			@Override
-			public void handleServiceResponse(ServiceResponse response,
-					boolean success) {
-				if (success) {
-					// extract the value
-					String value = response.toJsonObject().getString(
-							FIELD_VALUE);
-					cb.handleParameter(value);
-				} else {
-					// failed call
-					cb.handleParameter("");
-				}
+			public void handleServiceResponse(ServiceResponse response) {
+				// if (success) {
+				// // extract the value
+				// String value = response.toJsonObject().getString(
+				// FIELD_VALUE);
+				// cb.handleParameter(value);
+				// } else {
+				// // failed call
+				// cb.handleParameter("");
+				// }
 			}
 		});
 	}
@@ -151,12 +148,9 @@ public class Param {
 			 * 
 			 * @param response
 			 *            The response from rosapi which is empty and ignored.
-			 * @param sucecss
-			 *            An unused success flag from rosapi.
 			 */
 			@Override
-			public void handleServiceResponse(ServiceResponse response,
-					boolean success) {
+			public void handleServiceResponse(ServiceResponse response) {
 				// do nothing
 			}
 		});
@@ -183,12 +177,9 @@ public class Param {
 			 * 
 			 * @param response
 			 *            The response from rosapi which is empty and ignored.
-			 * @param sucecss
-			 *            An unused success flag from rosapi.
 			 */
 			@Override
-			public void handleServiceResponse(ServiceResponse response,
-					boolean success) {
+			public void handleServiceResponse(ServiceResponse response) {
 				// do nothing
 			}
 		});
