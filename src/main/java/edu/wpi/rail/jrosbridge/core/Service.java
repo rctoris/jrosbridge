@@ -12,7 +12,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * The Service object is responsible for calling a service in ROS.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 31, 2014
+ * @version April 1, 2014
  */
 public class Service {
 
@@ -90,31 +90,85 @@ public class Service {
 		this.ros.send(call);
 	}
 
-	public ServiceResponse callServiceAndWait(ServiceRequest request) {
-		BlockingCallback cb = new BlockingCallback();
+	/**
+	 * Call the service and wait for a response. This is a blocking call and
+	 * will only return once rosbridge returns the service response. For an
+	 * asynchronous version of this call, see the
+	 * {@link #callService(ServiceRequest request, ServiceCallback cb)
+	 * callService} method.
+	 * 
+	 * @param request
+	 *            The service request to send.
+	 * @return The corresponding service response from ROS.
+	 */
+	public synchronized ServiceResponse callServiceAndWait(
+			ServiceRequest request) {
+
+		// private inner class to use as a callback
+		BlockingCallback cb = new BlockingCallback(this);
+		// use the asynchronous version and block on the result
 		this.callService(request, cb);
 
 		// wait for a response
 		while (cb.getResponse() == null) {
-			Thread.yield();
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// continue on
+			}
 		}
 
 		return cb.getResponse();
 	}
 
+	/**
+	 * A private {@link edu.wpi.rail.jrosbridge.core.callback.ServiceCallback
+	 * ServiceCallback} used to block and wait for a response from rosbridge.
+	 * 
+	 * @author Russell Toris - rctoris@wpi.edu
+	 * @version April 1, 2014
+	 */
 	private class BlockingCallback implements ServiceCallback {
 
 		private ServiceResponse response;
+		private Service service;
 
-		public BlockingCallback() {
+		/**
+		 * Create a new callback function which will notify the given
+		 * {@link edu.wpi.rail.jrosbridge.core.Service Service} once a response
+		 * has been received.
+		 * 
+		 * @param service
+		 *            The {@link edu.wpi.rail.jrosbridge.core.Service Service}
+		 *            to notify once a response has been received.
+		 */
+		public BlockingCallback(Service service) {
 			this.response = null;
+			this.service = service;
 		}
 
+		/**
+		 * Store the response internally and notify the corresponding
+		 * {@link edu.wpi.rail.jrosbridge.core.Service Service}.
+		 * 
+		 * @param respose
+		 *            The incoming service response from ROS.
+		 */
 		@Override
 		public void handleServiceResponse(ServiceResponse response) {
 			this.response = response;
+			synchronized (this.service) {
+				this.service.notifyAll();
+			}
 		}
 
+		/**
+		 * Get the response stored in this callback, if one exists. Otherwise,
+		 * null is returned.
+		 * 
+		 * @return The resulting service response from ROS, or null if one does
+		 *         not exist yet.
+		 */
 		public ServiceResponse getResponse() {
 			return this.response;
 		}

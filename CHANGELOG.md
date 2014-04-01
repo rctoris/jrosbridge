@@ -1,4 +1,6 @@
 SNAPSHOT - **0.1.0**
+ * Removed `success` from `handleServiceResponse` [(rctoris)](https://github.com/rctoris/)
+ * Added `success` flag to `ServiceResponse` [(rctoris)](https://github.com/rctoris/)
  * Non-native ROS primitives (UInts, Time, ...) added in `edu.wpi.rail.jrosbridge.primitives` package [(rctoris)](https://github.com/rctoris/)
  * Support for parameters added [(rctoris)](https://github.com/rctoris/)
  * Callbacks added to their own `edu.wpi.rail.jrosbridge.core.callback` package [(rctoris)](https://github.com/rctoris/)
