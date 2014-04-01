@@ -10,7 +10,7 @@ import javax.json.JsonObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 public class TestPrimitive {
 

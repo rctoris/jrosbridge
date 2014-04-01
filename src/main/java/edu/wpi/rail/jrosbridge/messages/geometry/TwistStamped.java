@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * frame and timestamp.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version April 1, 2014
  */
 public class TwistStamped extends Message {
 

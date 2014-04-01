@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.stream.JsonParsingException;
 import javax.websocket.ClientEndpoint;
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
@@ -23,10 +24,9 @@ import javax.websocket.Session;
 
 import org.glassfish.grizzly.http.util.Base64Utils;
 
-import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
-import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
-import edu.wpi.rail.jrosbridge.core.handler.RosHandler;
+import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.handler.RosHandler;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
@@ -34,10 +34,10 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * The Ros object is the main connection point to the rosbridge server. This
  * object manages all communication to-and-from ROS. Typically, this object is
  * not used on its own. Instead, helper classes, such as
- * edu.wpi.rail.jrosbridge.JRosbridge.Topic, are used.
+ * {@link edu.wpi.rail.jrosbridge.JRosbridge.Topic Topic}, are used.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 18, 2014
+ * @version April 1, 2014
  */
 @ClientEndpoint
 public class Ros {
@@ -52,9 +52,9 @@ public class Ros {
 	 */
 	public static final int DEFAULT_PORT = 9090;
 
-	private String hostname;
-	private int port;
-	private JRosbridge.WebSocketType protocol;
+	private final String hostname;
+	private final int port;
+	private final JRosbridge.WebSocketType protocol;
 
 	// active session (stored upon connection)
 	private Session session;
@@ -63,13 +63,13 @@ public class Ros {
 	private long idCounter;
 
 	// keeps track of callback functions for a given topic
-	private HashMap<String, ArrayList<TopicCallback>> topicCallbacks;
+	private final HashMap<String, ArrayList<TopicCallback>> topicCallbacks;
 
 	// keeps track of callback functions for a given service request
-	private HashMap<String, ServiceCallback> serviceCallbacks;
+	private final HashMap<String, ServiceCallback> serviceCallbacks;
 
 	// keeps track of handlers for this connection
-	private ArrayList<RosHandler> handlers;
+	private final ArrayList<RosHandler> handlers;
 
 	/**
 	 * Create a connection to ROS with the default hostname and port. A call to
@@ -326,7 +326,7 @@ public class Ros {
 			} else {
 				handleMessage(jsonObject);
 			}
-		} catch (NullPointerException | IOException e) {
+		} catch (NullPointerException | IOException | JsonParsingException e) {
 			// only occurs if there was an error with the JSON
 			System.err.println("[WARN]: Invalid incoming rosbridge protocol: "
 					+ message);
@@ -370,8 +370,8 @@ public class Ros {
 				// get the response
 				JsonObject values = jsonObject
 						.getJsonObject(JRosbridge.FIELD_VALUES);
-				ServiceResponse response = new ServiceResponse(values);
-				cb.handleServiceResponse(response, success);
+				ServiceResponse response = new ServiceResponse(values, success);
+				cb.handleServiceResponse(response);
 			}
 		} else {
 			System.err.println("[WARN]: Unrecognized op code: "
@@ -425,7 +425,7 @@ public class Ros {
 			String rand, int t, String level, int end) {
 		// build and send the rosbridge call
 		JsonObject call = Json.createObjectBuilder()
-				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_AUTHENTICATE)
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_AUTH)
 				.add(JRosbridge.FIELD_MAC, mac)
 				.add(JRosbridge.FIELD_CLIENT, client)
 				.add(JRosbridge.FIELD_DESTINATION, dest)
@@ -490,28 +490,5 @@ public class Ros {
 	public void registerServiceCallback(String serviceCallId, ServiceCallback cb) {
 		// add the callback
 		this.serviceCallbacks.put(serviceCallId, cb);
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-
-		Ros ros = new Ros("rct-desktop.cs.wpi.edu");
-		System.out.println(ros.getURL());
-		ros.connect();
-
-		Topic echo = new Topic(ros, "/echo", "std_msgs/String");
-		Message toSend = new Message("{\"data\": \"hello, world!\"}");
-		echo.publish(toSend);
-
-		Topic echoBack = new Topic(ros, "/echo_back", "std_msgs/String",
-				JRosbridge.CompressionType.png);
-		echoBack.subscribe(new TopicCallback() {
-			@Override
-			public void handleMessage(Message message) {
-				System.out.println("From ROS: " + message.toString());
-			}
-		});
-
-		Thread.sleep(1000);
-		ros.disconnect();
 	}
 }

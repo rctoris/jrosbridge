@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * The std_srvs/Empty service.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version April 1, 2014
  */
 public class Empty {
 
@@ -22,7 +22,7 @@ public class Empty {
 	 * The service request for the Empty service.
 	 * 
 	 * @author Russell Toris -- rctoris@wpi.edu
-	 * @version March 6, 2014
+	 * @version April 1, 2014
 	 */
 	public static class Request extends ServiceRequest {
 
@@ -85,7 +85,7 @@ public class Empty {
 	 * The service response for the Empty service.
 	 * 
 	 * @author Russell Toris -- rctoris@wpi.edu
-	 * @version March 6, 2014
+	 * @version April 1, 2014
 	 */
 	public static class Response extends ServiceResponse {
 
@@ -93,7 +93,18 @@ public class Empty {
 		 * Create a new Empty ServiceResponse.
 		 */
 		public Response() {
-			super(ServiceResponse.EMPTY_MESSAGE, Empty.TYPE);
+			this(true);
+		}
+
+		/**
+		 * Create a new Empty ServiceResponse.
+		 * 
+		 * @param result
+		 *            The result flag for the response (i.e., if the service
+		 *            server returned a success).
+		 */
+		public Response(boolean result) {
+			super(ServiceResponse.EMPTY_MESSAGE, Empty.TYPE, result);
 		}
 
 		/**
@@ -115,7 +126,7 @@ public class Empty {
 		public static Response fromJsonString(String jsonString) {
 			// convert to a ServiceResponse
 			return Empty.Response.fromServiceResponse(new ServiceResponse(
-					jsonString));
+					jsonString, true));
 		}
 
 		/**

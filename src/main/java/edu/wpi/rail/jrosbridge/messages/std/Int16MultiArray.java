@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * message definition for documentation on all multiarrays.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 27, 2014
+ * @version April 1, 2014
  */
 public class Int16MultiArray extends Message {
 

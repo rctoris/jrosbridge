@@ -166,7 +166,7 @@ public class TestEmpty {
 
 	@Test
 	public void testResponseFromServiceResponse() {
-		ServiceResponse sr = new ServiceResponse(emptyResp.toString());
+		ServiceResponse sr = new ServiceResponse(emptyResp.toString(), false);
 		Empty.Response resp = Empty.Response.fromServiceResponse(sr);
 		assertEquals(emptyResp.toString(), resp.toString());
 		assertEquals(emptyResp.toJsonObject(), resp.toJsonObject());

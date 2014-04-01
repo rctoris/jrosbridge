@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import java.io.StringReader;
 
@@ -11,7 +11,7 @@ import javax.json.JsonObject;
  * and declared abstract as they should not be used directly.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 24, 2014
+ * @version April 1, 2014
  */
 public abstract class JsonWrapper {
 
@@ -93,8 +93,8 @@ public abstract class JsonWrapper {
 	 * Test if the given Object is equal to this JsonWrapper. Two JsonWrappers
 	 * are equal if and only if their JSON strings match.
 	 * 
-	 * @param Object
-	 *            o The Object to test equality with.
+	 * @param o
+	 *            The Object to test equality with.
 	 * @return If the given Object is equal to this JsonWrapper.
 	 */
 	@Override

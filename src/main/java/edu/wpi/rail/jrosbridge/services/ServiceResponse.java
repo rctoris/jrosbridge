@@ -5,7 +5,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 /**
  * ServiceResponse objects are used for making a response to a service. These
@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * is immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 26, 2014
+ * @version April 1, 2014
  */
 public class ServiceResponse extends JsonWrapper {
 
@@ -23,13 +23,14 @@ public class ServiceResponse extends JsonWrapper {
 	public static final String EMPTY_MESSAGE = JsonWrapper.EMPTY_JSON;
 
 	private String serviceResponseType;
+	private final boolean result;
 
 	/**
 	 * Create a new, empty service response. The type will be set to the empty
 	 * string.
 	 */
 	public ServiceResponse() {
-		this(ServiceResponse.EMPTY_MESSAGE, "");
+		this(ServiceResponse.EMPTY_MESSAGE, "", true);
 	}
 
 	/**
@@ -38,9 +39,12 @@ public class ServiceResponse extends JsonWrapper {
 	 * 
 	 * @param jsonString
 	 *            The JSON String to parse.
+	 * @param result
+	 *            The result flag for the response (i.e., if the service server
+	 *            returned a success).
 	 */
-	public ServiceResponse(String jsonString) {
-		this(jsonString, "");
+	public ServiceResponse(String jsonString, boolean result) {
+		this(jsonString, "", result);
 	}
 
 	/**
@@ -51,11 +55,15 @@ public class ServiceResponse extends JsonWrapper {
 	 *            The JSON String to parse.
 	 * @param serviceResponseType
 	 *            The type of the service response (e.g., "std_srvs/Empty").
+	 * @param result
+	 *            The result flag for the response (i.e., if the service server
+	 *            returned a success).
 	 */
-	public ServiceResponse(String jsonString, String serviceResponseType) {
+	public ServiceResponse(String jsonString, String serviceResponseType,
+			boolean result) {
 		// parse and pass it to the JSON constructor
 		this(Json.createReader(new StringReader(jsonString)).readObject(),
-				serviceResponseType);
+				serviceResponseType, result);
 	}
 
 	/**
@@ -64,10 +72,13 @@ public class ServiceResponse extends JsonWrapper {
 	 * 
 	 * @param jsonObject
 	 *            The JSON object containing the service response data.
+	 * @param result
+	 *            The result flag for the response (i.e., if the service server
+	 *            returned a success).
 	 */
-	public ServiceResponse(JsonObject jsonObject) {
+	public ServiceResponse(JsonObject jsonObject, boolean result) {
 		// setup the JSON information
-		this(jsonObject, "");
+		this(jsonObject, "", result);
 	}
 
 	/**
@@ -77,12 +88,17 @@ public class ServiceResponse extends JsonWrapper {
 	 *            The JSON object containing the service response data.
 	 * @param serviceResponseType
 	 *            The type of the service response (e.g., "std_srvs/Empty").
+	 * @param result
+	 *            The result flag for the response (i.e., if the service server
+	 *            returned a success).
 	 */
-	public ServiceResponse(JsonObject jsonObject, String serviceResponseType) {
+	public ServiceResponse(JsonObject jsonObject, String serviceResponseType,
+			boolean result) {
 		// setup the JSON information
 		super(jsonObject);
 		// set the type
 		this.serviceResponseType = serviceResponseType;
+		this.result = result;
 	}
 
 	/**
@@ -92,6 +108,16 @@ public class ServiceResponse extends JsonWrapper {
 	 */
 	public String getServiceResponseType() {
 		return this.serviceResponseType;
+	}
+
+	/**
+	 * Get the result flag of this response (i.e., if the service server
+	 * returned a success).
+	 * 
+	 * @return The result flag for the response.
+	 */
+	public boolean getResult() {
+		return this.result;
 	}
 
 	/**
@@ -110,6 +136,6 @@ public class ServiceResponse extends JsonWrapper {
 	@Override
 	public ServiceResponse clone() {
 		return new ServiceResponse(this.toJsonObject(),
-				this.serviceResponseType);
+				this.serviceResponseType, this.result);
 	}
 }

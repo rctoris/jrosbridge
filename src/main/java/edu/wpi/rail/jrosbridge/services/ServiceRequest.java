@@ -5,7 +5,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 /**
  * ServiceRequest objects are used for making a request to a service. These
@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 26, 2014
+ * @version April 1, 2014
  */
 public class ServiceRequest extends JsonWrapper {
 

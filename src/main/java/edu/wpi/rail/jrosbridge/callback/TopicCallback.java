@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core.callback;
+package edu.wpi.rail.jrosbridge.callback;
 
 import edu.wpi.rail.jrosbridge.messages.Message;
 
@@ -7,7 +7,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * an incoming message is received for an associated topic.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 18, 2014
+ * @version April 1, 2014
  */
 public interface TopicCallback {
 

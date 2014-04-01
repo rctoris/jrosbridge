@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * first and last polygons are assumed to be connected.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version April 1, 2014
  */
 public class Polygon extends Message {
 

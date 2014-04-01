@@ -14,13 +14,13 @@ public class TestServiceResponse {
 	@Before
 	public void setUp() {
 		empty = new ServiceResponse();
-		s1 = new ServiceResponse("{\"test\" : 123, \"test2\" : \"abc\"}");
+		s1 = new ServiceResponse("{\"test\" : 123, \"test2\" : \"abc\"}", false);
 		s2 = new ServiceResponse(Json.createObjectBuilder().add("test", 123)
-				.add("test2", "abc").build());
+				.add("test2", "abc").build(), false);
 		s3 = new ServiceResponse("{\"test\" : 123, \"test2\" : \"abc\"}",
-				"type");
+				"type", false);
 		s4 = new ServiceResponse(Json.createObjectBuilder().add("test", 123)
-				.add("test2", "abc").build(), "type");
+				.add("test2", "abc").build(), "type", false);
 	}
 
 	@Test
@@ -28,6 +28,7 @@ public class TestServiceResponse {
 		assertEquals(ServiceResponse.EMPTY_MESSAGE, empty.toString());
 		assertEquals(0, empty.toJsonObject().size());
 		assertEquals("", empty.getServiceResponseType());
+		assertTrue(empty.getResult());
 	}
 
 	@Test
@@ -37,6 +38,7 @@ public class TestServiceResponse {
 		assertEquals(123, s1.toJsonObject().getInt("test"));
 		assertEquals("abc", s1.toJsonObject().getString("test2"));
 		assertEquals("", s1.getServiceResponseType());
+		assertFalse(s1.getResult());
 	}
 
 	@Test
@@ -46,6 +48,7 @@ public class TestServiceResponse {
 		assertEquals(123, s3.toJsonObject().getInt("test"));
 		assertEquals("abc", s3.toJsonObject().getString("test2"));
 		assertEquals("type", s3.getServiceResponseType());
+		assertFalse(s3.getResult());
 	}
 
 	@Test
@@ -55,6 +58,7 @@ public class TestServiceResponse {
 		assertEquals(123, s2.toJsonObject().getInt("test"));
 		assertEquals("abc", s2.toJsonObject().getString("test2"));
 		assertEquals("", s2.getServiceResponseType());
+		assertFalse(s2.getResult());
 	}
 
 	@Test
@@ -64,6 +68,7 @@ public class TestServiceResponse {
 		assertEquals(123, s4.toJsonObject().getInt("test"));
 		assertEquals("abc", s4.toJsonObject().getString("test2"));
 		assertEquals("type", s4.getServiceResponseType());
+		assertFalse(s4.getResult());
 	}
 
 	@Test
@@ -124,6 +129,7 @@ public class TestServiceResponse {
 		assertEquals(s3.toJsonObject(), clone.toJsonObject());
 		assertEquals(s3.getServiceResponseType(),
 				clone.getServiceResponseType());
+		assertEquals(s3.getResult(), clone.getResult());
 		assertNotSame(s3, clone);
 		assertNotSame(s3.toString(), clone.toString());
 	}

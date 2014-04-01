@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core.callback;
+package edu.wpi.rail.jrosbridge.callback;
 
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * request.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 18, 2014
+ * @version April 1, 2014
  */
 public interface ServiceCallback {
 
@@ -19,8 +19,6 @@ public interface ServiceCallback {
 	 * 
 	 * @param response
 	 *            The service response that was received.
-	 * @param success
-	 *            If the service indicating the request completed successfully.
 	 */
-	public void handleServiceResponse(ServiceResponse response, boolean success);
+	public void handleServiceResponse(ServiceResponse response);
 }

@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/String message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version April 1, 2014
  */
 public class String extends Message {
 

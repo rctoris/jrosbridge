@@ -1,12 +1,11 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import java.util.ArrayList;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 
 /**
@@ -14,20 +13,23 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * in ROS.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 18 2014
+ * @version April 1, 2014
  */
 public class Topic {
 
-	private Ros ros;
-	private String name;
-	private String type;
+	private final Ros ros;
+	private final String name;
+	private final String type;
 	private boolean isAdvertised;
 	private boolean isSubscribed;
-	private JRosbridge.CompressionType compression;
-	private int throttleRate;
+	private final JRosbridge.CompressionType compression;
+	private final int throttleRate;
 
 	// used to keep track of this object's callbacks
-	private ArrayList<TopicCallback> callbacks;
+	private final ArrayList<TopicCallback> callbacks;
+
+	// used to keep track of the subscription IDs
+	private final ArrayList<String> ids;
 
 	/**
 	 * Create a ROS topic with the given information. No compression or
@@ -101,6 +103,7 @@ public class Topic {
 		this.compression = compression;
 		this.throttleRate = throttleRate;
 		this.callbacks = new ArrayList<TopicCallback>();
+		this.ids = new ArrayList<String>();
 	}
 
 	/**
@@ -180,8 +183,10 @@ public class Topic {
 		// internal reference used during unsubscribe
 		this.callbacks.add(cb);
 
-		// build and send the rosbridge call
 		String subscribeId = "subscribe:" + this.name + ":" + this.ros.nextId();
+		this.ids.add(subscribeId);
+
+		// build and send the rosbridge call
 		JsonObject call = Json.createObjectBuilder()
 				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_SUBSCRIBE)
 				.add(JRosbridge.FIELD_ID, subscribeId)
@@ -206,17 +211,17 @@ public class Topic {
 		}
 		this.callbacks.clear();
 
-		// build and send the rosbridge call
-		String unsubscribeId = "unsubscribe:" + this.name + ":"
-				+ this.ros.nextId();
-		JsonObject call = Json.createObjectBuilder()
-				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_UNSUBSCRIBE)
-				.add(JRosbridge.FIELD_ID, unsubscribeId)
-				.add(JRosbridge.FIELD_TOPIC, this.name).build();
-		this.ros.send(call);
+		// build and send the rosbridge calls
+		for (String id : this.ids) {
+			JsonObject call = Json.createObjectBuilder()
+					.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_UNSUBSCRIBE)
+					.add(JRosbridge.FIELD_ID, id)
+					.add(JRosbridge.FIELD_TOPIC, this.name).build();
+			this.ros.send(call);
+		}
 
 		// set the flag indicating we are not longer subscribed
-		this.isSubscribed = true;
+		this.isSubscribed = false;
 	}
 
 	/**

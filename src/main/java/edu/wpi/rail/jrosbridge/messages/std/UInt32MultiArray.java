@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * message definition for documentation on all multiarrays.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 27, 2014
+ * @version April 1, 2014
  */
 public class UInt32MultiArray extends Message {
 
