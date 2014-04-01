@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * that are currently being tracked by an action server.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 29, 2014
+ * @version April 1, 2014
  */
 public class GoalStatusArray extends Message {
 

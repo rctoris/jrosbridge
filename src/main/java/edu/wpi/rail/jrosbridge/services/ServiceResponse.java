@@ -5,7 +5,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 /**
  * ServiceResponse objects are used for making a response to a service. These
@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * is immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 31, 2014
+ * @version April 1, 2014
  */
 public class ServiceResponse extends JsonWrapper {
 

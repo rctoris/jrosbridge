@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * space in quaternion form.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 5, 2014
+ * @version April 1, 2014
  */
 public class Quaternion extends Message {
 

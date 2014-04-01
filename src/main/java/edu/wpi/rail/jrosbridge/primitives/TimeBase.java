@@ -8,7 +8,7 @@ import javax.json.Json;
  * primitives are serialized like messages, they are immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 27, 2014
+ * @version April 1, 2014
  * 
  * @param <T>
  *            The type of TimeBase used in add and subtract.

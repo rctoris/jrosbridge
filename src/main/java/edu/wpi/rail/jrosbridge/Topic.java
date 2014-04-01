@@ -1,12 +1,11 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import java.util.ArrayList;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 
 /**
@@ -14,7 +13,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * in ROS.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 31, 2014
+ * @version April 1, 2014
  */
 public class Topic {
 

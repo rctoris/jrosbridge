@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
@@ -24,10 +24,9 @@ import javax.websocket.Session;
 
 import org.glassfish.grizzly.http.util.Base64Utils;
 
-import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
-import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
-import edu.wpi.rail.jrosbridge.core.handler.RosHandler;
+import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.handler.RosHandler;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
@@ -35,10 +34,10 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * The Ros object is the main connection point to the rosbridge server. This
  * object manages all communication to-and-from ROS. Typically, this object is
  * not used on its own. Instead, helper classes, such as
- * edu.wpi.rail.jrosbridge.JRosbridge.Topic, are used.
+ * {@link edu.wpi.rail.jrosbridge.JRosbridge.Topic Topic}, are used.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 31, 2014
+ * @version April 1, 2014
  */
 @ClientEndpoint
 public class Ros {
@@ -426,7 +425,7 @@ public class Ros {
 			String rand, int t, String level, int end) {
 		// build and send the rosbridge call
 		JsonObject call = Json.createObjectBuilder()
-				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_AUTHENTICATE)
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_AUTH)
 				.add(JRosbridge.FIELD_MAC, mac)
 				.add(JRosbridge.FIELD_CLIENT, client)
 				.add(JRosbridge.FIELD_DESTINATION, dest)

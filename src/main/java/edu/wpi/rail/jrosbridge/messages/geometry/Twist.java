@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * into its linear and angular parts.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 8, 2014
+ * @version April 1, 2014
  */
 public class Twist extends Message {
 

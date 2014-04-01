@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core.callback;
+package edu.wpi.rail.jrosbridge.callback;
 
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * request.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 31, 2014
+ * @version April 1, 2014
  */
 public interface ServiceCallback {
 

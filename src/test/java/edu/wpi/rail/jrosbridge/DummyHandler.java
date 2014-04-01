@@ -10,7 +10,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/")
 public class DummyHandler {
 
-	public static JsonObject lastMessage = null;
+	public static JsonObject latest = null;
 
 	@OnMessage
 	public String onMessage(String message) {
@@ -19,7 +19,7 @@ public class DummyHandler {
 		if (json.containsKey("echo")) {
 			return json.getString("echo");
 		} else {
-			DummyHandler.lastMessage = json;
+			DummyHandler.latest = json;
 			return "";
 		}
 	}

@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Int16 message.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version April 1, 2014
  */
 public class Int16 extends Message {
 

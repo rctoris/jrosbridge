@@ -5,7 +5,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 /**
  * Message objects are used for publishing and subscribing to and from topics.
@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * immutable.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 8, 2014
+ * @version April 1, 2014
  */
 public class Message extends JsonWrapper {
 

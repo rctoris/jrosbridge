@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * The std_srvs/Empty service.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 6, 2014
+ * @version April 1, 2014
  */
 public class Empty {
 
@@ -22,7 +22,7 @@ public class Empty {
 	 * The service request for the Empty service.
 	 * 
 	 * @author Russell Toris -- rctoris@wpi.edu
-	 * @version March 6, 2014
+	 * @version April 1, 2014
 	 */
 	public static class Request extends ServiceRequest {
 
@@ -85,7 +85,7 @@ public class Empty {
 	 * The service response for the Empty service.
 	 * 
 	 * @author Russell Toris -- rctoris@wpi.edu
-	 * @version March 6, 2014
+	 * @version April 1, 2014
 	 */
 	public static class Response extends ServiceResponse {
 

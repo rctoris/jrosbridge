@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import static org.junit.Assert.*;
 
@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.wpi.rail.jrosbridge.DummyHandler;
-import edu.wpi.rail.jrosbridge.DummyServer;
 import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.TopicCallback;
+import edu.wpi.rail.jrosbridge.Ros;
+import edu.wpi.rail.jrosbridge.Topic;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class TestTopic {
@@ -39,7 +39,7 @@ public class TestTopic {
 	public void tearDown() {
 		ros.disconnect();
 		server.stop();
-		DummyHandler.lastMessage = null;
+		DummyHandler.latest = null;
 	}
 
 	@Test
@@ -105,11 +105,11 @@ public class TestTopic {
 			Thread.yield();
 		}
 
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"subscribe\",\"id\":\"subscribe:myTopic1:0\",\"type\":\"myType1\","
 						+ "\"topic\":\"myTopic1\",\"compression\":\"none\",\"throttle_rate\":0}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 
 		assertNotNull(cb.latest);
 		assertEquals("{\"test1\":\"test2\"}", cb.latest.toString());
@@ -134,16 +134,13 @@ public class TestTopic {
 								+ JRosbridge.FIELD_TOPIC + "\":\"myTopic1\",\""
 								+ JRosbridge.FIELD_MESSAGE
 								+ "\":{\"test1\":\"test2\"}}").build());
+		Thread.yield();
 
-		while (DummyHandler.lastMessage == null) {
-			Thread.yield();
-		}
-
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"subscribe\",\"id\":\"subscribe:myTopic1:0\",\"type\":\"myType1\","
 						+ "\"topic\":\"myTopic1\",\"compression\":\"none\",\"throttle_rate\":0}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 
 		assertNull(cb.latest);
 		assertFalse(t1.isAdvertised());
@@ -156,7 +153,7 @@ public class TestTopic {
 		assertNull(cb.latest);
 		t1.unsubscribe();
 
-		assertNull(DummyHandler.lastMessage);
+		assertNull(DummyHandler.latest);
 		assertNull(cb.latest);
 		assertFalse(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
@@ -166,15 +163,15 @@ public class TestTopic {
 	public void testAdvertise() {
 		t1.advertise();
 
-		while (DummyHandler.lastMessage == null) {
+		while (DummyHandler.latest == null) {
 			Thread.yield();
 		}
 
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"advertise\",\"id\":\"advertise:myTopic1:0\",\"type\":\"myType1\","
 						+ "\"topic\":\"myTopic1\"}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 		assertTrue(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
 	}
@@ -183,14 +180,14 @@ public class TestTopic {
 	public void testUnadvertise() {
 		t1.unadvertise();
 
-		while (DummyHandler.lastMessage == null) {
+		while (DummyHandler.latest == null) {
 			Thread.yield();
 		}
 
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"unadvertise\",\"id\":\"unadvertise:myTopic1:0\",\"topic\":\"myTopic1\"}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 		assertFalse(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
 	}
@@ -199,22 +196,22 @@ public class TestTopic {
 	public void testPublish() {
 		t1.advertise();
 
-		while (DummyHandler.lastMessage == null) {
+		while (DummyHandler.latest == null) {
 			Thread.yield();
 		}
-		DummyHandler.lastMessage = null;
+		DummyHandler.latest = null;
 
 		t1.publish(new Message("{\"test1\":\"test2\"}"));
 
-		while (DummyHandler.lastMessage == null) {
+		while (DummyHandler.latest == null) {
 			Thread.yield();
 		}
 
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"publish\",\"id\":\"publish:myTopic1:1\",\"topic\":\"myTopic1\""
 						+ ",\"msg\":{\"test1\":\"test2\"}}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 		assertTrue(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
 	}
@@ -223,17 +220,18 @@ public class TestTopic {
 	public void testPublishNoAdvertise() {
 		t1.publish(new Message("{\"test1\":\"test2\"}"));
 
-		while (DummyHandler.lastMessage == null);
-		DummyHandler.lastMessage = null;
-		while (DummyHandler.lastMessage == null) {
+		while (DummyHandler.latest == null)
+			;
+		DummyHandler.latest = null;
+		while (DummyHandler.latest == null) {
 			Thread.yield();
 		}
 
-		assertNotNull(DummyHandler.lastMessage);
+		assertNotNull(DummyHandler.latest);
 		assertEquals(
 				"{\"op\":\"publish\",\"id\":\"publish:myTopic1:1\",\"topic\":\"myTopic1\""
 						+ ",\"msg\":{\"test1\":\"test2\"}}",
-				DummyHandler.lastMessage.toString());
+				DummyHandler.latest.toString());
 		assertTrue(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
 	}
@@ -243,7 +241,7 @@ public class TestTopic {
 		public Message latest = null;
 
 		public void handleMessage(Message message) {
-			latest = message;
+			this.latest = message;
 		}
 	}
 }

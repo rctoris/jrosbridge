@@ -1,10 +1,9 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.JRosbridge;
-import edu.wpi.rail.jrosbridge.core.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
@@ -122,7 +121,7 @@ public class Service {
 	}
 
 	/**
-	 * A private {@link edu.wpi.rail.jrosbridge.core.callback.ServiceCallback
+	 * A private {@link edu.wpi.rail.jrosbridge.callback.ServiceCallback
 	 * ServiceCallback} used to block and wait for a response from rosbridge.
 	 * 
 	 * @author Russell Toris - rctoris@wpi.edu
@@ -135,11 +134,11 @@ public class Service {
 
 		/**
 		 * Create a new callback function which will notify the given
-		 * {@link edu.wpi.rail.jrosbridge.core.Service Service} once a response
+		 * {@link edu.wpi.rail.jrosbridge.Service Service} once a response
 		 * has been received.
 		 * 
 		 * @param service
-		 *            The {@link edu.wpi.rail.jrosbridge.core.Service Service}
+		 *            The {@link edu.wpi.rail.jrosbridge.Service Service}
 		 *            to notify once a response has been received.
 		 */
 		public BlockingCallback(Service service) {
@@ -149,7 +148,7 @@ public class Service {
 
 		/**
 		 * Store the response internally and notify the corresponding
-		 * {@link edu.wpi.rail.jrosbridge.core.Service Service}.
+		 * {@link edu.wpi.rail.jrosbridge.Service Service}.
 		 * 
 		 * @param respose
 		 *            The incoming service response from ROS.

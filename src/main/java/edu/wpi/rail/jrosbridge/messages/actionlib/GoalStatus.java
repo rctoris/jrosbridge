@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * goal requests. The id specified must be unique.
  * 
  * @author Russell Toris -- rctoris@wpi.edu
- * @version March 29, 2014
+ * @version April 1, 2014
  */
 public class GoalStatus extends Message {
 

@@ -11,7 +11,7 @@ import javax.json.JsonObject;
  * The ROS time primitive.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 28, 2014
+ * @version April 1, 2014
  */
 public class Time extends TimeBase<Time> {
 
@@ -126,8 +126,7 @@ public class Time extends TimeBase<Time> {
 
 	/**
 	 * Create a new Time message based on the current system time. Note that
-	 * this might not match the current ROS time. To get the ROS time, use the
-	 * Ros object instead.
+	 * this might not match the current ROS time.
 	 * 
 	 * @return The new Time message.
 	 */

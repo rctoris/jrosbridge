@@ -1,4 +1,4 @@
-package edu.wpi.rail.jrosbridge.core;
+package edu.wpi.rail.jrosbridge;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,8 @@ import javax.json.JsonObject;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 public class TestJsonWrapper {
 

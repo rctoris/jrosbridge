@@ -10,11 +10,13 @@ public class TestDummyServer {
 	public void testConnect() {
 		DummyServer server = new DummyServer(9091);
 		assertTrue(server.start());
+		server.stop();
 	}
 
 	@Test
 	public void testConnectInvalid() {
 		DummyServer server = new DummyServer(-9091);
 		assertFalse(server.start());
+		server.stop();
 	}
 }

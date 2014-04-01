@@ -5,7 +5,7 @@ package edu.wpi.rail.jrosbridge;
  * protocol itself (e.g., op code types).
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version Feb. 18, 2014
+ * @version April 1, 2014
  */
 public class JRosbridge {
 
@@ -112,7 +112,7 @@ public class JRosbridge {
 	/**
 	 * The authenticate op code for the rosbridge protocol.
 	 */
-	public static final String OP_CODE_AUTHENTICATE = "auth";
+	public static final String OP_CODE_AUTH = "auth";
 
 	/**
 	 * The call service op code for the rosbridge protocol.
@@ -153,7 +153,7 @@ public class JRosbridge {
 	 * The types of websocket protocols supported by jrosbridge and rosbridge.
 	 * 
 	 * @author Russell Toris - rctoris@wpi.edu
-	 * @version Feb. 16, 2014
+	 * @version April 1, 2014
 	 */
 	public enum WebSocketType {
 		ws, wss
@@ -163,7 +163,7 @@ public class JRosbridge {
 	 * The types of compression supported by jrosbridge and rosbridge.
 	 * 
 	 * @author Russell Toris - rctoris@wpi.edu
-	 * @version Feb. 16, 2014
+	 * @version April 1, 2014
 	 */
 	public enum CompressionType {
 		png, none

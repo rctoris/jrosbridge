@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import edu.wpi.rail.jrosbridge.core.JsonWrapper;
+import edu.wpi.rail.jrosbridge.JsonWrapper;
 
 /**
  * Primitive objects are used as a wrapper for non-native ROS primitives. These
@@ -16,7 +16,7 @@ import edu.wpi.rail.jrosbridge.core.JsonWrapper;
  * numbers.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version March 28, 2014
+ * @version April 1, 2014
  */
 public abstract class Primitive extends JsonWrapper {
 
