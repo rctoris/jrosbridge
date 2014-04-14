@@ -62,6 +62,7 @@
 			<groupId>org.glassfish.tyrus</groupId>
 			<artifactId>tyrus-server</artifactId>
 			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
