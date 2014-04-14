@@ -8,12 +8,13 @@ This project is released as part of the [Robot Web Tools](http://robotwebtools.o
 
 To include this library, use the following in your Maven configuration:
 
+```
 <dependency>
     <groupId>edu.wpi.rail</groupId>
     <artifactId>jrosbridge</artifactId>
     <version>0.1.0</version>
 </dependency>
-
+```
 
 
 ```java
