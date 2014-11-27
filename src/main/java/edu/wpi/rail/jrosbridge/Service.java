@@ -4,20 +4,22 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
+import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 /**
- * The Service object is responsible for calling a service in ROS.
+ * The Service object is responsible for calling or advertising a service in ROS.
  * 
  * @author Russell Toris - rctoris@wpi.edu
- * @version April 1, 2014
+ * @version November 26, 2014
  */
 public class Service {
 
 	private final Ros ros;
 	private final String name;
 	private final String type;
+	private boolean isAdvertised;
 
 	/**
 	 * Create a ROS service with the given information.
@@ -33,6 +35,7 @@ public class Service {
 		this.ros = ros;
 		this.name = name;
 		this.type = type;
+		this.isAdvertised = false;
 	}
 
 	/**
@@ -63,6 +66,15 @@ public class Service {
 	}
 
 	/**
+	 * Check if the current service is advertising to ROS.
+	 *
+	 * @return If the current service is advertising to ROS.
+	 */
+	public boolean isAdvertised() {
+		return this.isAdvertised;
+	}
+
+	/**
 	 * Call this service. The callback function will be called with the
 	 * associated service response.
 	 * 
@@ -87,6 +99,38 @@ public class Service {
 				.add(JRosbridge.FIELD_SERVICE, this.name)
 				.add(JRosbridge.FIELD_ARGS, request.toJsonObject()).build();
 		this.ros.send(call);
+	}
+
+	/**
+	 * Registers as service advertiser.
+	 */
+	public void advertiseService(CallServiceCallback cb) {
+		// register the callback
+		this.ros.registerServiceRequestCallback(this.name, cb);
+
+		// build and send the rosbridge call
+		JsonObject call = Json.createObjectBuilder()
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_ADVERTISE_SERVICE)
+				.add(JRosbridge.FIELD_TYPE, this.type)
+				.add(JRosbridge.FIELD_SERVICE, this.name).build();
+		this.ros.send(call);
+
+		// set the flag indicating we are registered
+		this.isAdvertised = true;
+	}
+
+	/**
+	 * Unregisters as service advertiser.
+	 */
+	public void unadvertiseService() {
+		// build and send the rosbridge call
+		JsonObject call = Json.createObjectBuilder()
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_UNADVERTISE_SERVICE)
+				.add(JRosbridge.FIELD_SERVICE, this.name).build();
+		this.ros.send(call);
+
+		// set the flag indicating we are registered
+		this.isAdvertised = false;
 	}
 
 	/**
@@ -150,7 +194,7 @@ public class Service {
 		 * Store the response internally and notify the corresponding
 		 * {@link edu.wpi.rail.jrosbridge.Service Service}.
 		 * 
-		 * @param respose
+		 * @param response
 		 *            The incoming service response from ROS.
 		 */
 		@Override

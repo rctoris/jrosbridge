@@ -8,11 +8,11 @@ import java.util.TimerTask;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
 import edu.wpi.rail.jrosbridge.services.ServiceResponse;
@@ -45,6 +45,7 @@ public class TestService {
 		assertEquals(ros, s1.getRos());
 		assertEquals("myService", s1.getName());
 		assertEquals("myType", s1.getType());
+		assertFalse(s1.isAdvertised());
 	}
 
 	@Test
@@ -106,6 +107,56 @@ public class TestService {
 		assertEquals("{\"test3\":\"test4\"}", resp.toString());
 	}
 
+	@Test
+	public void testAdvertiseService() {
+		DummyCallServiceCallback cb = new DummyCallServiceCallback();
+		s1.advertiseService(cb);
+		assertNull(cb.latest);
+
+		while (DummyHandler.latest == null) {
+			Thread.yield();
+		}
+
+		assertNotNull(DummyHandler.latest);
+		assertEquals(
+				"{\"op\":\"advertise_service\",\"type\":\"myType\"," + "\"service\":\"myService\"}",
+				DummyHandler.latest.toString());
+		assertTrue(s1.isAdvertised());
+
+		ros.send(Json
+				.createObjectBuilder()
+				.add("echo",
+						"{\"" + JRosbridge.FIELD_OP + "\":\""
+								+ JRosbridge.OP_CODE_CALL_SERVICE + "\",\""
+								+ JRosbridge.FIELD_ID + "\":\"myServiceId\",\""
+								+ JRosbridge.FIELD_SERVICE + "\":\"myService\",\""
+								+ JRosbridge.FIELD_ARGS
+								+ "\":{\"test1\":\"test2\"}}").build());
+
+		while (cb.latest == null) {
+			Thread.yield();
+		}
+
+		assertNotNull(cb.latest);
+		assertEquals("{\"test1\":\"test2\"}", cb.latest.toString());
+		assertEquals("myServiceId", cb.latest.getId());
+	}
+
+	@Test
+	public void testUnadvertiseService() {
+		s1.unadvertiseService();
+
+		while (DummyHandler.latest == null) {
+			Thread.yield();
+		}
+
+		assertNotNull(DummyHandler.latest);
+		assertEquals(
+				"{\"op\":\"unadvertise_service\",\"service\":\"myService\"}",
+				DummyHandler.latest.toString());
+		assertFalse(s1.isAdvertised());
+	}
+
 	private class DummyServiceCallback implements ServiceCallback {
 
 		public ServiceResponse latest = null;
@@ -139,6 +190,15 @@ public class TestService {
 													.build()).build()
 									.toString()).build();
 			ros.send(toSend);
+		}
+	}
+
+	private class DummyCallServiceCallback implements CallServiceCallback {
+
+		public ServiceRequest latest = null;
+
+		public void handleServiceCall(ServiceRequest request) {
+			this.latest = request;
 		}
 	}
 }

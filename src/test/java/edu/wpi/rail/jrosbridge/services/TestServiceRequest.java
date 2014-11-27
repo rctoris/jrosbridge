@@ -27,6 +27,7 @@ public class TestServiceRequest {
 		assertEquals(ServiceRequest.EMPTY_MESSAGE, empty.toString());
 		assertEquals(0, empty.toJsonObject().size());
 		assertEquals("", empty.getServiceRequestType());
+		assertEquals("", empty.getId());
 	}
 
 	@Test
@@ -36,6 +37,7 @@ public class TestServiceRequest {
 		assertEquals(123, s1.toJsonObject().getInt("test"));
 		assertEquals("abc", s1.toJsonObject().getString("test2"));
 		assertEquals("", s1.getServiceRequestType());
+		assertEquals("", s1.getId());
 	}
 
 	@Test
@@ -45,6 +47,7 @@ public class TestServiceRequest {
 		assertEquals(123, s3.toJsonObject().getInt("test"));
 		assertEquals("abc", s3.toJsonObject().getString("test2"));
 		assertEquals("type", s3.getServiceRequestType());
+		assertEquals("", s3.getId());
 	}
 
 	@Test
@@ -54,6 +57,7 @@ public class TestServiceRequest {
 		assertEquals(123, s2.toJsonObject().getInt("test"));
 		assertEquals("abc", s2.toJsonObject().getString("test2"));
 		assertEquals("", s2.getServiceRequestType());
+		assertEquals("", s2.getId());
 	}
 
 	@Test
@@ -63,6 +67,13 @@ public class TestServiceRequest {
 		assertEquals(123, s4.toJsonObject().getInt("test"));
 		assertEquals("abc", s4.toJsonObject().getString("test2"));
 		assertEquals("type", s4.getServiceRequestType());
+		assertEquals("", s4.getId());
+	}
+
+	@Test
+	public void testSetId() {
+		empty.setId("test");
+		assertEquals("test", empty.getId());
 	}
 
 	@Test
