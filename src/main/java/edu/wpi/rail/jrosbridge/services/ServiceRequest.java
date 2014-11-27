@@ -23,6 +23,7 @@ public class ServiceRequest extends JsonWrapper {
 	public static final String EMPTY_MESSAGE = JsonWrapper.EMPTY_JSON;
 
 	private String serviceRequestType;
+	private String id;
 
 	/**
 	 * Create a new, empty service request. The type will be set to the empty
@@ -46,7 +47,7 @@ public class ServiceRequest extends JsonWrapper {
 	/**
 	 * Create a ServiceRequest based on the given String representation of a
 	 * JSON object.
-	 * 
+	 *
 	 * @param jsonString
 	 *            The JSON String to parse.
 	 * @param serviceRequestType
@@ -72,7 +73,7 @@ public class ServiceRequest extends JsonWrapper {
 
 	/**
 	 * Create a ServiceRequest based on the given JSON object.
-	 * 
+	 *
 	 * @param jsonObject
 	 *            The JSON object containing the service request data.
 	 * @param serviceRequestType
@@ -83,6 +84,7 @@ public class ServiceRequest extends JsonWrapper {
 		super(jsonObject);
 		// set the type
 		this.serviceRequestType = serviceRequestType;
+		this.id = "";
 	}
 
 	/**
@@ -96,12 +98,31 @@ public class ServiceRequest extends JsonWrapper {
 
 	/**
 	 * Set the type of the service request.
-	 * 
+	 *
 	 * @param serviceRequestType
 	 *            The type of the service request (e.g., "std_srvs/Empty").
 	 */
 	public void setServiceRequestType(String serviceRequestType) {
 		this.serviceRequestType = serviceRequestType;
+	}
+
+	/**
+	 * Set the ID of the service request.
+	 *
+	 * @param id
+	 *            The new ID.
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * Get the ID of the service request.
+	 *
+	 * @return The ID.
+	 */
+	public String getId() {
+		return this.id;
 	}
 
 	/**

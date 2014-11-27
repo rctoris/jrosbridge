@@ -213,15 +213,6 @@ public class TestRos {
 	}
 
 	@Test
-	public void testOnMessageInvalid() {
-//		assertTrue(r1.connect());
-//		r1.onMessage("invalid");
-//		r1.onMessage(Message.EMPTY_MESSAGE);
-//		Thread.yield();
-//		assertNull(DummyHandler.lastMessage);
-	}
-
-	@Test
 	public void testOnMessageInvalidOpCode() {
 		assertTrue(r1.connect());
 		r1.onMessage("{\"" + JRosbridge.FIELD_OP + "\":\"invalid\"}");

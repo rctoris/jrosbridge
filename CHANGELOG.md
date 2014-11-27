@@ -1,3 +1,6 @@
+2014-1-27 - **0.2.0**
+ * Added advertise service capabilities [(rctoris)](https://github.com/rctoris/)
+
 2014-04-01 - **0.1.0**
  * Removed `success` from `handleServiceResponse` [(rctoris)](https://github.com/rctoris/)
  * Added `success` flag to `ServiceResponse` [(rctoris)](https://github.com/rctoris/)

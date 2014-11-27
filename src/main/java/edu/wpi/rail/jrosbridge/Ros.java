@@ -22,6 +22,8 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
+import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
+import edu.wpi.rail.jrosbridge.services.ServiceRequest;
 import org.glassfish.grizzly.http.util.Base64Utils;
 
 import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
@@ -67,6 +69,9 @@ public class Ros {
 
 	// keeps track of callback functions for a given service request
 	private final HashMap<String, ServiceCallback> serviceCallbacks;
+
+	// keeps track of callback functions for a given advertised service
+	private final HashMap<String, CallServiceCallback> callServiceCallbacks;
 
 	// keeps track of handlers for this connection
 	private final ArrayList<RosHandler> handlers;
@@ -124,6 +129,7 @@ public class Ros {
 		this.idCounter = 0;
 		this.topicCallbacks = new HashMap<String, ArrayList<TopicCallback>>();
 		this.serviceCallbacks = new HashMap<String, ServiceCallback>();
+		this.callServiceCallbacks = new HashMap<String, CallServiceCallback>();
 		this.handlers = new ArrayList<RosHandler>();
 	}
 
@@ -373,6 +379,21 @@ public class Ros {
 				ServiceResponse response = new ServiceResponse(values, success);
 				cb.handleServiceResponse(response);
 			}
+		} else if (op.equals(JRosbridge.OP_CODE_CALL_SERVICE)) {
+			// check for the request ID
+			String id = jsonObject.getString("id");
+			String service = jsonObject.getString("service");
+
+			// call the callback for the request
+			CallServiceCallback cb = callServiceCallbacks.get(service);
+			if (cb != null) {
+				// get the response
+				JsonObject args = jsonObject
+						.getJsonObject(JRosbridge.FIELD_ARGS);
+				ServiceRequest request = new ServiceRequest(args);
+				request.setId(id);
+				cb.handleServiceCall(request);
+			}
 		} else {
 			System.err.println("[WARN]: Unrecognized op code: "
 					+ jsonObject.toString());
@@ -479,16 +500,41 @@ public class Ros {
 	}
 
 	/**
-	 * Register a callback for a given service request.
-	 * 
+	 * Register a callback for a given outgoing service call.
+	 *
 	 * @param serviceCallId
 	 *            The unique ID of the service call.
 	 * @param cb
-	 *            The callback that will be called when a service request comes
+	 *            The callback that will be called when a service response comes
 	 *            back for the associated request.
 	 */
 	public void registerServiceCallback(String serviceCallId, ServiceCallback cb) {
 		// add the callback
 		this.serviceCallbacks.put(serviceCallId, cb);
+	}
+
+	/**
+	 * Register a callback for a given incoming service request.
+	 *
+	 * @param serviceName
+	 *            The unique name of the service call.
+	 * @param cb
+	 *            The callback that will be called when a service request comes
+	 *            in for the associated request.
+	 */
+	public void registerCallServiceCallback(String serviceName, CallServiceCallback cb) {
+		// add the callback
+		this.callServiceCallbacks.put(serviceName, cb);
+	}
+
+	/**
+	 * Deregister a callback for a given incoming service request.
+	 *
+	 * @param serviceName
+	 *            The unique name of the service call.
+	 */
+	public void deregisterCallServiceCallback(String serviceName) {
+		// remove the callback
+		callServiceCallbacks.remove(serviceName);
 	}
 }

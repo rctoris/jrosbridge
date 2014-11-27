@@ -4,7 +4,7 @@
 
 	<groupId>edu.wpi.rail</groupId>
 	<artifactId>jrosbridge</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>jrosbridge</name>
@@ -62,6 +62,7 @@
 			<groupId>org.glassfish.tyrus</groupId>
 			<artifactId>tyrus-server</artifactId>
 			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

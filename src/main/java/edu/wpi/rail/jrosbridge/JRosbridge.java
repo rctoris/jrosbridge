@@ -110,6 +110,16 @@ public class JRosbridge {
 	public static final String OP_CODE_ADVERTISE = "advertise";
 
 	/**
+	 * The advertise service op code for the rosbridge protocol.
+	 */
+	public static final String OP_CODE_ADVERTISE_SERVICE = "advertise_service";
+
+	/**
+	 * The unadvertise service op code for the rosbridge protocol.
+	 */
+	public static final String OP_CODE_UNADVERTISE_SERVICE = "unadvertise_service";
+
+	/**
 	 * The authenticate op code for the rosbridge protocol.
 	 */
 	public static final String OP_CODE_AUTH = "auth";
