@@ -522,8 +522,19 @@ public class Ros {
 	 *            The callback that will be called when a service request comes
 	 *            in for the associated request.
 	 */
-	public void registerServiceRequestCallback(String serviceName, CallServiceCallback cb) {
+	public void registerCallServiceCallback(String serviceName, CallServiceCallback cb) {
 		// add the callback
 		this.callServiceCallbacks.put(serviceName, cb);
+	}
+
+	/**
+	 * Deregister a callback for a given incoming service request.
+	 *
+	 * @param serviceName
+	 *            The unique name of the service call.
+	 */
+	public void deregisterCallServiceCallback(String serviceName) {
+		// remove the callback
+		callServiceCallbacks.remove(serviceName);
 	}
 }

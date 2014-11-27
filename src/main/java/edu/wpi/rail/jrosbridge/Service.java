@@ -106,7 +106,7 @@ public class Service {
 	 */
 	public void advertiseService(CallServiceCallback cb) {
 		// register the callback
-		this.ros.registerServiceRequestCallback(this.name, cb);
+		this.ros.registerCallServiceCallback(this.name, cb);
 
 		// build and send the rosbridge call
 		JsonObject call = Json.createObjectBuilder()
@@ -123,6 +123,8 @@ public class Service {
 	 * Unregisters as service advertiser.
 	 */
 	public void unadvertiseService() {
+		this.ros.deregisterCallServiceCallback(this.name);
+
 		// build and send the rosbridge call
 		JsonObject call = Json.createObjectBuilder()
 				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_UNADVERTISE_SERVICE)
