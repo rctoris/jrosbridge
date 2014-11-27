@@ -102,6 +102,25 @@ public class Service {
 	}
 
 	/**
+	 * Send a service response.
+	 *
+	 * @param response
+	 *            The service response to send.
+	 * @param id
+	 *            The ID of the response (matching that of the service call).
+	 */
+	public void sendResponse(ServiceResponse response, String id) {
+		// build and send the rosbridge call
+		JsonObject call = Json.createObjectBuilder()
+				.add(JRosbridge.FIELD_OP, JRosbridge.OP_CODE_SERVICE_RESPONSE)
+				.add(JRosbridge.FIELD_ID, id)
+				.add(JRosbridge.FIELD_SERVICE, this.name)
+				.add(JRosbridge.FIELD_VALUES, response.toJsonObject())
+				.add(JRosbridge.FIELD_RESULT, response.getResult()).build();
+		this.ros.send(call);
+	}
+
+	/**
 	 * Registers as service advertiser.
 	 */
 	public void advertiseService(CallServiceCallback cb) {

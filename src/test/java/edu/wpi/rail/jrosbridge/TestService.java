@@ -157,6 +157,22 @@ public class TestService {
 		assertFalse(s1.isAdvertised());
 	}
 
+	@Test
+	public void testSendResponse() {
+		ServiceResponse resp = new ServiceResponse("{\"test1\":\"test2\"}", true);
+		s1.sendResponse(resp, "myServiceId");
+
+		while (DummyHandler.latest == null) {
+			Thread.yield();
+		}
+
+		assertNotNull(DummyHandler.latest);
+		assertEquals(
+				"{\"op\":\"service_response\",\"id\":\"myServiceId\"," +
+						"\"service\":\"myService\",\"values\":{\"test1\":\"test2\"},\"result\":true}",
+				DummyHandler.latest.toString());
+	}
+
 	private class DummyServiceCallback implements ServiceCallback {
 
 		public ServiceResponse latest = null;
