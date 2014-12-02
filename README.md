@@ -12,7 +12,7 @@ To include this library, use the following in your Maven configuration:
 <dependency>
     <groupId>edu.wpi.rail</groupId>
     <artifactId>jrosbridge</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
