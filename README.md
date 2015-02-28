@@ -2,7 +2,6 @@ jrosbridge [![Build Status](https://api.travis-ci.org/WPI-RAIL/jrosbridge.png)](
 ==========
 
 #### A Native Java EE rosbridge Client
-This project is released as part of the [Robot Web Tools](http://robotwebtools.org/) effort.
 
 ### Example Usage
 
