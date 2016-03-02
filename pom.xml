@@ -8,11 +8,11 @@
 	<packaging>jar</packaging>
 
 	<name>jrosbridge</name>
-	<url>https://github.com/WPI-RAIL/jrosbridge</url>
+	<url>https://github.com/rctoris/jrosbridge</url>
 	<licenses>
 		<license>
 			<name>BSD License</name>
-			<url>https://raw.github.com/WPI-RAIL/jrosbridge/develop/LICENSE</url>
+			<url>https://raw.github.com/rctoris/jrosbridge/develop/LICENSE</url>
 			<distribution>repo</distribution>
 			<comments>The BSD 3-Clause License</comments>
 		</license>
@@ -21,7 +21,7 @@
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/WPI-RAIL/jrosbridge/issues</url>
+		<url>https://github.com/rctoris/jrosbridge/issues</url>
 	</issueManagement>
 
 	<properties>
@@ -30,10 +30,10 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:git://github.com/WPI-RAIL/jrosbridge.git</connection>
-		<developerConnection>scm:git:git@github.com:WPI-RAIL/jrosbridge.git</developerConnection>
-		<url>https://github.com/WPI-RAIL/jrosbridge</url>
-		<tag>jrosbridge-0.0.3</tag>
+		<connection>scm:git:git://github.com/rctoris/jrosbridge.git</connection>
+		<developerConnection>scm:git:git@github.com:rctoris/jrosbridge.git</developerConnection>
+		<url>https://github.com/rctoris/jrosbridge</url>
+		<tag>jrosbridge-0.2.0</tag>
 	</scm>
 
 	<dependencies>
@@ -168,8 +168,8 @@
 			<name>Russell Toris</name>
 			<email>rctoris@wpi.edu</email>
 			<url>http://users.wpi.edu/~rctoris</url>
-			<organization>WPI RAIL</organization>
-			<organizationUrl>http://web.cs.wpi.edu/~rail/</organizationUrl>
+			<organization>WPI</organization>
+			<organizationUrl>http://wpi.edu/</organizationUrl>
 			<roles>
 				<role>developer</role>
 			</roles>
@@ -179,6 +179,6 @@
 
 	<ciManagement>
 		<system>Travis CI</system>
-		<url>https://travis-ci.org/WPI-RAIL/jrosbridge</url>
+		<url>https://travis-ci.org/rctoris/jrosbridge</url>
 	</ciManagement>
 </project>

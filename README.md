@@ -1,4 +1,4 @@
-jrosbridge [![Build Status](https://api.travis-ci.org/WPI-RAIL/jrosbridge.png)](https://travis-ci.org/WPI-RAIL/jrosbridge)
+jrosbridge [![Build Status](https://api.travis-ci.org/rctoris/jrosbridge.png)](https://travis-ci.org/rctoris/jrosbridge)
 ==========
 
 #### A Native Java EE rosbridge Client
@@ -12,7 +12,7 @@ To include this library, use the following in your Maven configuration:
 <dependency>
     <groupId>edu.wpi.rail</groupId>
     <artifactId>jrosbridge</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
