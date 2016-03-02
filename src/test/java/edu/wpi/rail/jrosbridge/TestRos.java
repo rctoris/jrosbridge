@@ -101,6 +101,7 @@ public class TestRos {
 		assertTrue(r1.connect());
 		assertTrue(r1.isConnected());
 		server.stop();
+		Thread.yield();
 		assertFalse(r1.isConnected());
 	}
 
