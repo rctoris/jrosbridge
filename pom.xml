@@ -33,7 +33,7 @@
 		<connection>scm:git:git://github.com/rctoris/jrosbridge.git</connection>
 		<developerConnection>scm:git:git@github.com:rctoris/jrosbridge.git</developerConnection>
 		<url>https://github.com/rctoris/jrosbridge</url>
-		<tag>jrosbridge-0.0.3</tag>
+		<tag>jrosbridge-0.2.0</tag>
 	</scm>
 
 	<dependencies>

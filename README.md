@@ -1,4 +1,4 @@
-jrosbridge [![Build Status](https://api.travis-ci.org/GT-RAIL/jrosbridge.png)](https://travis-ci.org/GT-RAIL/jrosbridge)
+jrosbridge [![Build Status](https://api.travis-ci.org/rctoris/jrosbridge.png)](https://travis-ci.org/rctoris/jrosbridge)
 ==========
 
 #### A Native Java EE rosbridge Client
