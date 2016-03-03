@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * This message is designed to take up less space when sending lots of points at
  * once, as in the case of a PointCloud.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Point32 extends Message {

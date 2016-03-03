@@ -7,7 +7,7 @@ import javax.json.Json;
  * primitive functions for ROS time and duration primitives. Since these
  * primitives are serialized like messages, they are immutable.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  * 
  * @param <T>

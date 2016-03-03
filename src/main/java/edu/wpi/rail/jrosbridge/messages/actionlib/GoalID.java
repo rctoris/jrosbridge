@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.primitives.Time;
  * The id provides a way to associate feedback and result message with specific
  * goal requests. The id specified must be unique.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class GoalID extends Message {

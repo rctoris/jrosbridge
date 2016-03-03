@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * This message is mostly used by the tf package. See its documentation for more
  * information.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class TransformStamped extends Message {

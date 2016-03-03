@@ -12,7 +12,7 @@ import edu.wpi.rail.jrosbridge.JsonWrapper;
  * These messages act as wrappers around JSON objects. Message data is
  * immutable.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Message extends JsonWrapper {

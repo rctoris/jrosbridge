@@ -8,7 +8,7 @@ import javax.json.JsonObject;
 /**
  * The ROS duration primitive.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Duration extends TimeBase<Duration> {

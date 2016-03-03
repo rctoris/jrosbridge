@@ -15,7 +15,7 @@ import edu.wpi.rail.jrosbridge.JsonWrapper;
  * This class also contains static functions for dealing with ROS' unsigned
  * numbers.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public abstract class Primitive extends JsonWrapper {

@@ -12,7 +12,7 @@ import edu.wpi.rail.jrosbridge.JsonWrapper;
  * service requests act as wrappers around JSON objects. Service request data is
  * immutable.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class ServiceRequest extends JsonWrapper {

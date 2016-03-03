@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The geometry_msgs/Polygon message. A specification of a polygon where the
  * first and last polygons are assumed to be connected.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Polygon extends Message {

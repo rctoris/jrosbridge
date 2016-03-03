@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * types. This is generally used to communicate timestamped data in a particular
  * coordinate frame.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Header extends Message {

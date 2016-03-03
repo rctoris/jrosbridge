@@ -12,7 +12,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The Topic object is responsible for publishing and/or subscribing to a topic
  * in ROS.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Topic {
