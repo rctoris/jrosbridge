@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * The geometry_msgs/PoseWithCovarianceStamped message. This expresses an
  * estimated pose with a reference coordinate frame and timestamp.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class PoseWithCovarianceStamped extends Message {

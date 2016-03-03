@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
 /**
  * The std_msgs/UInt16 message.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class UInt16 extends Message {

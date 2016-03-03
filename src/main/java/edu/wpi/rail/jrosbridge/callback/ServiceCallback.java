@@ -7,7 +7,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * when an incoming service response is received for an associated service
  * request.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public interface ServiceCallback {

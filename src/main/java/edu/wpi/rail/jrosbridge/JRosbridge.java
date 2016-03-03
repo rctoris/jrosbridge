@@ -4,7 +4,7 @@ package edu.wpi.rail.jrosbridge;
  * The JRosbridge class contains constant definitions used in the rosbridge
  * protocol itself (e.g., op code types).
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class JRosbridge {
@@ -162,7 +162,7 @@ public class JRosbridge {
 	/**
 	 * The types of websocket protocols supported by jrosbridge and rosbridge.
 	 * 
-	 * @author Russell Toris - rctoris@wpi.edu
+	 * @author Russell Toris - russell.toris@gmail.com
 	 * @version April 1, 2014
 	 */
 	public enum WebSocketType {
@@ -172,7 +172,7 @@ public class JRosbridge {
 	/**
 	 * The types of compression supported by jrosbridge and rosbridge.
 	 * 
-	 * @author Russell Toris - rctoris@wpi.edu
+	 * @author Russell Toris - russell.toris@gmail.com
 	 * @version April 1, 2014
 	 */
 	public enum CompressionType {

@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The geometry_msgs/Pose2D message. This expresses a position and orientation
  * on a 2D manifold.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Pose2D extends Message {

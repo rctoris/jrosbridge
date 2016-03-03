@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * The actionlib_msgs/GoalStatusArray message. Stores the statuses for goals
  * that are currently being tracked by an action server.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class GoalStatusArray extends Message {

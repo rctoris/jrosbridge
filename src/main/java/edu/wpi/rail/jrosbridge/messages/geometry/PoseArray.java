@@ -14,7 +14,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * The geometry_msgs/PoseArray message. An array of poses with a header for
  * global reference.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class PoseArray extends Message {

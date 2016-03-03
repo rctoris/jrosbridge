@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
  * The geometry_msgs/WrenchStamped message. A wrench with reference coordinate
  * frame and timestamp.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class WrenchStamped extends Message {
