@@ -10,7 +10,7 @@ import javax.json.JsonObject;
 /**
  * The ROS time primitive.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Time extends TimeBase<Time> {

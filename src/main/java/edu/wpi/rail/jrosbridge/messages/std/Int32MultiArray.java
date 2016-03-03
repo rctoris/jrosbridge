@@ -13,7 +13,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The std_msgs/Int32MultiArray message. Please look at the MultiArrayLayout
  * message definition for documentation on all multiarrays.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Int32MultiArray extends Message {

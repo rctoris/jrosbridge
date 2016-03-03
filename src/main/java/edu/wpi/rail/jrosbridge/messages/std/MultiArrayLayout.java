@@ -43,7 +43,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
  * 
  * multiarray(i,j,k) refers to the ith row, jth column, and kth channel.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class MultiArrayLayout extends Message {

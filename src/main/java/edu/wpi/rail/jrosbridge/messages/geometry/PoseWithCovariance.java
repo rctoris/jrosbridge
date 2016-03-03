@@ -17,7 +17,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * parameters are: (x, y, z, rotation about X axis, rotation about Y axis,
  * rotation about Z axis).
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class PoseWithCovariance extends Message {

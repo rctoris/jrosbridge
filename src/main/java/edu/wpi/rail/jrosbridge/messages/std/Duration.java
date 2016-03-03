@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 /**
  * The std_msgs/Duration message.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Duration extends Message {

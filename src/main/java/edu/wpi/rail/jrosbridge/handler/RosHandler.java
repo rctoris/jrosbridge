@@ -6,7 +6,7 @@ import javax.websocket.Session;
  * The RosHandler interface defines the methods that will be called during
  * certain events in the Ros connection object.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public interface RosHandler {

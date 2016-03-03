@@ -9,7 +9,7 @@ import edu.wpi.rail.jrosbridge.primitives.Primitive;
 /**
  * The std_msgs/Char message.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Char extends Message {

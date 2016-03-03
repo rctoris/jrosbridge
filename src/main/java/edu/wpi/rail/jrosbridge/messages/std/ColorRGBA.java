@@ -10,7 +10,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 /**
  * The std_msgs/ColorRGBA message.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class ColorRGBA extends Message {

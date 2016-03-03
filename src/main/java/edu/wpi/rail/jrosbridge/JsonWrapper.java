@@ -10,7 +10,7 @@ import javax.json.JsonObject;
  * are a reusable convince for messages and services. This objects are immutable
  * and declared abstract as they should not be used directly.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public abstract class JsonWrapper {

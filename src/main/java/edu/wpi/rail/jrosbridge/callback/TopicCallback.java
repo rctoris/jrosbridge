@@ -6,7 +6,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
  * The TopicCallback interface defines a single method which will be called when
  * an incoming message is received for an associated topic.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 public interface TopicCallback {

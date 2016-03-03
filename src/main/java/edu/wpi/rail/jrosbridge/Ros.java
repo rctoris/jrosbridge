@@ -38,7 +38,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * not used on its own. Instead, helper classes, such as
  * {@link edu.wpi.rail.jrosbridge.JRosbridge.Topic Topic}, are used.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
 @ClientEndpoint

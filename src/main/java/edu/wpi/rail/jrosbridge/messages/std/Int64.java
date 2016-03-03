@@ -8,7 +8,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 /**
  * The std_msgs/Int64 message.
  * 
- * @author Russell Toris -- rctoris@wpi.edu
+ * @author Russell Toris -- russell.toris@gmail.com
  * @version April 1, 2014
  */
 public class Int64 extends Message {

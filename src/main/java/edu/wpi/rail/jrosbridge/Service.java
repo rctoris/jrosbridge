@@ -11,7 +11,7 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 /**
  * The Service object is responsible for calling or advertising a service in ROS.
  * 
- * @author Russell Toris - rctoris@wpi.edu
+ * @author Russell Toris - russell.toris@gmail.com
  * @version November 26, 2014
  */
 public class Service {
@@ -189,7 +189,7 @@ public class Service {
 	 * A private {@link edu.wpi.rail.jrosbridge.callback.ServiceCallback
 	 * ServiceCallback} used to block and wait for a response from rosbridge.
 	 * 
-	 * @author Russell Toris - rctoris@wpi.edu
+	 * @author Russell Toris - russell.toris@gmail.com
 	 * @version April 1, 2014
 	 */
 	private class BlockingCallback implements ServiceCallback {
