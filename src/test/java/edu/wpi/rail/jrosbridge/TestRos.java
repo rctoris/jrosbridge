@@ -95,16 +95,6 @@ public class TestRos {
 	}
 
 	@Test
-	public void testServerDisconnect() {
-		assertTrue(r1.connect());
-		assertTrue(r1.isConnected());
-		server.stop();
-		Thread.yield();
-		assertTrue(r1.disconnect());
-		assertFalse(r1.isConnected());
-	}
-
-	@Test
 	public void testDisconnect() {
 		assertTrue(r1.connect());
 		assertTrue(r1.disconnect());
