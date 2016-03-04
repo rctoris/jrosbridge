@@ -44,6 +44,7 @@ public class TestTopic {
 
 	@Test
 	public void testRosStringAndStringConstructor() {
+		System.out.println("testRosStringAndStringConstructor");
 		assertEquals(ros, t1.getRos());
 		assertEquals("myTopic1", t1.getName());
 		assertEquals("myType1", t1.getType());
@@ -55,6 +56,7 @@ public class TestTopic {
 
 	@Test
 	public void testRosStringStringAndCompressionTypeConstructor() {
+		System.out.println("testRosStringStringAndCompressionTypeConstructor");
 		assertEquals(ros, t2.getRos());
 		assertEquals("myTopic2", t2.getName());
 		assertEquals("myType2", t2.getType());
@@ -66,6 +68,7 @@ public class TestTopic {
 
 	@Test
 	public void testRosStringStringAndIntConstructor() {
+		System.out.println("testRosStringStringAndIntConstructor");
 		assertEquals(ros, t3.getRos());
 		assertEquals("myTopic3", t3.getName());
 		assertEquals("myType3", t3.getType());
@@ -77,6 +80,7 @@ public class TestTopic {
 
 	@Test
 	public void testRosStringStringCompressionTypeAndIntConstructor() {
+		System.out.println("testRosStringStringCompressionTypeAndIntConstructor");
 		assertEquals(ros, t4.getRos());
 		assertEquals("myTopic4", t4.getName());
 		assertEquals("myType4", t4.getType());
@@ -88,6 +92,7 @@ public class TestTopic {
 
 	@Test
 	public void testSubscribe() {
+		System.out.println("testSubscribe");
 		DummyTopicCallback cb = new DummyTopicCallback();
 		t1.subscribe(cb);
 		assertNull(cb.latest);
@@ -119,6 +124,7 @@ public class TestTopic {
 
 	@Test
 	public void testUnsubscribe() {
+		System.out.println("testUnsubscribe");
 		DummyTopicCallback cb = new DummyTopicCallback();
 		t1.subscribe(cb);
 		assertFalse(t1.isAdvertised());
@@ -149,6 +155,7 @@ public class TestTopic {
 
 	@Test
 	public void testUnsubscribeNoSubscribe() {
+		System.out.println("testUnsubscribeNoSubscribe");
 		DummyTopicCallback cb = new DummyTopicCallback();
 		assertNull(cb.latest);
 		t1.unsubscribe();
@@ -161,6 +168,7 @@ public class TestTopic {
 
 	@Test
 	public void testAdvertise() {
+		System.out.println("testAdvertise");
 		t1.advertise();
 
 		while (DummyHandler.latest == null) {
@@ -178,6 +186,7 @@ public class TestTopic {
 
 	@Test
 	public void testUnadvertise() {
+		System.out.println("testUnadvertise");
 		t1.unadvertise();
 
 		while (DummyHandler.latest == null) {
@@ -194,6 +203,7 @@ public class TestTopic {
 
 	@Test
 	public void testPublish() {
+		System.out.println("testPublish");
 		t1.advertise();
 
 		while (DummyHandler.latest == null) {
@@ -218,6 +228,7 @@ public class TestTopic {
 
 	@Test
 	public void testPublishNoAdvertise() {
+		System.out.println("testPublishNoAdvertise");
 		t1.publish(new Message("{\"test1\":\"test2\"}"));
 
 		while (DummyHandler.latest == null)
