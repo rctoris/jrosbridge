@@ -7,7 +7,7 @@ public class DummyServer {
 	private Server s;
 
 	public DummyServer(int port) {
-		this.s = new Server("localhost", port, "", DummyHandler.class);
+		this.s = new Server("localhost", port, "", null,DummyHandler.class);
 	}
 
 	public boolean start() {
