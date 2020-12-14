@@ -203,18 +203,8 @@ public class Ros {
 		try {
 			// create a WebSocket connection here
 			URI uri = new URI(this.getURL());
-//			ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
-//			configBuilder.configurator(new ClientEndpointConfig.Configurator() {
-//			  @Override
-//			  public void beforeRequest(Map<String, List<String>> headers) {
-//			    String origin = headers.get("Origin").get(0);
-//			    headers.put("Origin", Arrays.asList("ws://"+origin));
-//			  }
-//			});
-//			ClientEndpointConfig clientConfig = configBuilder.build();
-			WebSocketContainer wsc = ContainerProvider.getWebSocketContainer();
-			
-			
+
+			WebSocketContainer wsc = ContainerProvider.getWebSocketContainer();		
 			wsc.connectToServer(this, uri);
 			
 			return true;
