@@ -8,7 +8,7 @@
 
 	<groupId>edu.wpi.rail</groupId>
 	<artifactId>jrosbridge</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.3</version>
 	
 	<properties>
 		<java.version>1.8</java.version>
