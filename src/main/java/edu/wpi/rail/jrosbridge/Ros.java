@@ -21,6 +21,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.WebSocketContainer;
 
 import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
@@ -41,7 +42,8 @@ import edu.wpi.rail.jrosbridge.services.ServiceResponse;
  * @author Russell Toris - russell.toris@gmail.com
  * @version April 1, 2014
  */
-@ClientEndpoint
+@ClientEndpoint(
+    configurator = ClientConfigurator.class)
 public class Ros {
 
 	/**
@@ -201,8 +203,20 @@ public class Ros {
 		try {
 			// create a WebSocket connection here
 			URI uri = new URI(this.getURL());
-			ContainerProvider.getWebSocketContainer()
-					.connectToServer(this, uri);
+//			ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
+//			configBuilder.configurator(new ClientEndpointConfig.Configurator() {
+//			  @Override
+//			  public void beforeRequest(Map<String, List<String>> headers) {
+//			    String origin = headers.get("Origin").get(0);
+//			    headers.put("Origin", Arrays.asList("ws://"+origin));
+//			  }
+//			});
+//			ClientEndpointConfig clientConfig = configBuilder.build();
+			WebSocketContainer wsc = ContainerProvider.getWebSocketContainer();
+			
+			
+			wsc.connectToServer(this, uri);
+			
 			return true;
 		} catch (DeploymentException | URISyntaxException | IOException e) {
 			// failed connection, return false
@@ -537,4 +551,5 @@ public class Ros {
 		// remove the callback
 		callServiceCallbacks.remove(serviceName);
 	}
+
 }
